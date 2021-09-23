@@ -41,13 +41,11 @@ class FirebaseModel: ObservableObject {
     }
     
     func addPost(image: UIImage, caption: String, collections: [String]) {
-        DispatchQueue.main.async {
             let db = Firestore.firestore().collection("posts").addDocument(data: ["caption" : caption, "subjects": collections, "uid": self.auth.currentUser!.uid])
             let postId = db.documentID
             let imageData = image.jpegData(compressionQuality: 1)
             let storage = Storage.storage().reference()
             storage.child("images").child(postId).putData(imageData!)
-        }
 
     }
     
