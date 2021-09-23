@@ -11,6 +11,11 @@
 		52AB403926FC05C300E343C9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AB403826FC05C300E343C9 /* ContentView.swift */; };
 		52AB403B26FC05C600E343C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52AB403A26FC05C600E343C9 /* Assets.xcassets */; };
 		52AB403E26FC05C600E343C9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52AB403D26FC05C600E343C9 /* Preview Assets.xcassets */; };
+		52AB404926FC066100E343C9 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AB404826FC066100E343C9 /* LoginView.swift */; };
+		52AB404B26FC066900E343C9 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AB404A26FC066900E343C9 /* SignUpView.swift */; };
+		52AB404D26FC066F00E343C9 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AB404C26FC066F00E343C9 /* HomeView.swift */; };
+		52AB404F26FC06DB00E343C9 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AB404E26FC06DB00E343C9 /* ImagePicker.swift */; };
+		52AB405126FC06E200E343C9 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AB405026FC06E200E343C9 /* Color.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +25,11 @@
 		52AB403A26FC05C600E343C9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		52AB403D26FC05C600E343C9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		52AB403F26FC05C600E343C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		52AB404826FC066100E343C9 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		52AB404A26FC066900E343C9 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		52AB404C26FC066F00E343C9 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		52AB404E26FC06DB00E343C9 /* ImagePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		52AB405026FC06E200E343C9 /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +63,9 @@
 			isa = PBXGroup;
 			children = (
 				52AB403626FC05C300E343C9 /* freshAppApp.swift */,
+				52AB404726FC065500E343C9 /* Extras */,
+				52AB404626FC064200E343C9 /* View Models */,
+				52AB404526FC063D00E343C9 /* Views */,
 				52AB403826FC05C300E343C9 /* ContentView.swift */,
 				52AB403A26FC05C600E343C9 /* Assets.xcassets */,
 				52AB403F26FC05C600E343C9 /* Info.plist */,
@@ -67,6 +80,32 @@
 				52AB403D26FC05C600E343C9 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		52AB404526FC063D00E343C9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				52AB404826FC066100E343C9 /* LoginView.swift */,
+				52AB404A26FC066900E343C9 /* SignUpView.swift */,
+				52AB404C26FC066F00E343C9 /* HomeView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		52AB404626FC064200E343C9 /* View Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "View Models";
+			sourceTree = "<group>";
+		};
+		52AB404726FC065500E343C9 /* Extras */ = {
+			isa = PBXGroup;
+			children = (
+				52AB405026FC06E200E343C9 /* Color.swift */,
+				52AB404E26FC06DB00E343C9 /* ImagePicker.swift */,
+			);
+			path = Extras;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,7 +177,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52AB404B26FC066900E343C9 /* SignUpView.swift in Sources */,
+				52AB404926FC066100E343C9 /* LoginView.swift in Sources */,
+				52AB405126FC06E200E343C9 /* Color.swift in Sources */,
 				52AB403926FC05C300E343C9 /* ContentView.swift in Sources */,
+				52AB404F26FC06DB00E343C9 /* ImagePicker.swift in Sources */,
+				52AB404D26FC066F00E343C9 /* HomeView.swift in Sources */,
 				52AB403726FC05C300E343C9 /* freshAppApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
