@@ -7,79 +7,95 @@
 
 import SwiftUI
 
+
 struct HomeView: View {
     
+    @State var subject = SubjectsModel(id: 0, name: "", image: "")
     
-    @State var destination = ""
-    @State private var selection: String? = ""
+    var body: some View {
+        if subject.name == "" {
+            SubjectSelectView(subject: $subject)
+        } else {
+            HomePostView(subject: $subject)
+        }
+    }
     
-    @State private var subject = ""
-    private let homepostview = "homepostview"
-    private let subjects = SubjectsModel()
+}
+
+
+struct SubjectSelectView: View {
     
-    
+    @Binding var subject: SubjectsModel
+    @State var selection: String? = ""
+    private let profileView = "profileView"
+    private let subjects = Bundle.main.decode([SubjectsModel].self, from: "subjects.json")
     
     var body: some View {
         ZStack {
             Color.theme.background
                 .ignoresSafeArea()
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 0) {
                 HStack {
                     Text("Subjects")
                         .font(.largeTitle)
                         .padding()
                     Spacer()
-                    NavigationLink(
-                        destination: ProfileView(),
-                        label: {
-                            Image(systemName: "person.circle.fill")
-                                .resizable()
-                                .frame(width: 30, height: 30)
-                                .scaledToFit()
-                                .padding()
-                        })
+                    Menu {
+                        Button("View Profile") { selection = profileView }
+                    } label: {
+                        Image(systemName: "person.circle")
+                            .resizable()
+                            .frame(width: 30, height: 30)
+                            .scaledToFit()
+                            .padding()
+                    }
+                    
+                    
                 }
-                ScrollView {
-                    LazyVGrid(columns: [GridItem(), GridItem()]) {
-                        ForEach(subjects.list, id: \.self) { subject in
+                Rectangle()
+                    .frame(maxWidth: .infinity, maxHeight: 1)
+                    .foregroundColor(Color.theme.secondaryText)
+                ScrollView() {
+                    LazyVGrid(columns: [GridItem(spacing: 10), GridItem(spacing: 10)], spacing: 10, content: {
+                        ForEach(subjects) { subject in
                             Button(action: {
                                 self.subject = subject
-                                selection = homepostview
                             }, label: {
                                 ZStack {
                                     Rectangle()
-                                        .padding(5)
-                                        .frame(maxWidth: .infinity)
-                                        .frame(height: 115)
+                                        .frame(height: 75)
                                         .foregroundColor(Color.theme.pinkColor)
-                                    
-                                    Text(subject)
+                                    VStack {
+                                        Image(systemName: subject.image)
+                                        Text(subject.name)
+                                    }
                                 }
                             })
                         }
-                    }
+                    })
+                    .padding(.horizontal, 10)
                 }
             }
-            NavigationLink(
-                destination: HomePostView(subject: subject),
-                tag: homepostview,
-                selection: $selection,
-                label: {})
-                
-                .navigationBarTitle("Subjects")
-                .navigationBarHidden(true)
+            NavigationLink(destination: ProfileView(), tag: profileView, selection: $selection, label: {})
             
         }
+        .navigationBarHidden(true)
     }
 }
 
-
-
-struct HomeView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            HomeView()
-                .preferredColorScheme(.dark)
+struct HomePostView: View {
+    
+    @Binding var subject: SubjectsModel
+    
+    var body: some View {
+        HStack {
+            Text(subject.name)
+                .navigationBarHidden(true)
+                .onTapGesture {
+                    subject.name = ""
+                }
+            Image(systemName: subject.image)
         }
+        
     }
 }
