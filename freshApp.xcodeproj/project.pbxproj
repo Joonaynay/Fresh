@@ -101,12 +101,12 @@
 			isa = PBXGroup;
 			children = (
 				E0A9392C26FC0E8400735C99 /* MainView.swift */,
-				E0A9393026FC11B800735C99 /* FollowingView.swift */,
 				52AB404826FC066100E343C9 /* LoginView.swift */,
 				52AB404A26FC066900E343C9 /* SignUpView.swift */,
 				52AB404C26FC066F00E343C9 /* HomeView.swift */,
 				52AB405A26FC113D00E343C9 /* ProfileView.swift */,
 				E0A9392A26FC0CBF00735C99 /* HomePostView.swift */,
+				E0A9393026FC11B800735C99 /* FollowingView.swift */,
 				E0A9392E26FC0ECE00735C99 /* SearchView.swift */,
 			);
 			path = Views;
