@@ -48,7 +48,7 @@ struct AddPostView: View {
                     .foregroundColor(Color.theme.accent)
                 
                 NavigationLink(
-                    destination: SelectSubjectView(image: image),
+                    destination: SelectSubjectView(image: image!, caption: caption),
                     label: {
                         Rectangle()
                             .frame(maxWidth: .infinity)
@@ -71,8 +71,9 @@ struct AddPostView: View {
 
 struct AddPostView_Previews: PreviewProvider {
     static var previews: some View {
-        SelectSubjectView()
+        SelectSubjectView(image: UIImage(contentsOfFile: "Logo.png")!, caption: "Sup")
             .preferredColorScheme(.dark)
+            .environmentObject(FirebaseModel())
     }
 }
 
@@ -80,23 +81,47 @@ struct AddPostView_Previews: PreviewProvider {
 
 struct SelectSubjectView: View {
     
-    var image: UIImage?
-    private let subjects = Bundle.main.decode([SubjectsModel].self, from: "subject.json")
+    let image: UIImage
+    private let subjects = Bundle.main.decode([SubjectsModel].self, from: "subjects.json")
+    @State var list: [String] = []
+    private let profileViewTag = "profileView"
+    @State private var selection: String? = ""
+    @State private var buttonDisabled: Bool = true
+    let caption: String
+    
+    @EnvironmentObject private var fb: FirebaseModel
     
     var body: some View {
         ZStack(alignment: .topLeading) {
             Color.theme.background
                 .ignoresSafeArea()
-            ScrollView {
-                VStack {
-                    Text("Select up to 3 subjects that your post corresponds with.")
-                        .multilineTextAlignment(.center)
-                        .font(.title)
+            VStack {
+                Text("Select up to 3 subjects that your post corresponds with.")
+                    .multilineTextAlignment(.center)
+                    .font(.title2)
+                ScrollView(showsIndicators: false) {
                     ForEach(subjects) { subject in
-                        checkMarkSubjects(subject: subject)
+                        checkMarkSubjects(subject: subject, list: $list, buttonDisabled: $buttonDisabled)
                     }
                 }
+                Button(action: {
+                    fb.addPost(image: image, caption: caption, collections: list)
+                    selection = profileViewTag
+                }, label: {
+                    Text("Post")
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 50)
+                        .background(Color.theme.pinkColor)
+                })
+                .disabled(buttonDisabled)
             }
+            .padding()
+            
+            NavigationLink(
+                destination: ProfileView(),
+                tag: profileViewTag,
+                selection: $selection,
+                label: {})
         }
     }
 }
@@ -106,6 +131,8 @@ struct checkMarkSubjects : View {
     
     @State var checkMark: Bool = false
     let subject: SubjectsModel
+    @Binding var list: [String]
+    @Binding var buttonDisabled: Bool
     
     var body: some View {
         HStack {
@@ -117,7 +144,23 @@ struct checkMarkSubjects : View {
         .padding(.horizontal, 35)
         .background(Color.theme.sheetColor)
         .onTapGesture {
-            checkMark.toggle()
+            if list.count != 3 {
+                if !checkMark {
+                    list.append(subject.name)
+                } else {
+                    list.removeAll(where: { $0 == subject.name })
+                }
+                if (list.count > 0) && (list.count <= 3) {
+                    buttonDisabled = false
+                } else {
+                    buttonDisabled = true
+                }
+                checkMark.toggle()
+                print(list.count)
+            } else {
+                checkMark = false
+                list.removeAll(where: { $0 == subject.name })
+            }
         }
     }
 }
