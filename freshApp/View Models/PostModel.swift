@@ -6,3 +6,8 @@
 //
 
 import Foundation
+
+struct Posts: Identifiable {
+    let id: String
+    let caption: String
+}

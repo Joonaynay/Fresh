@@ -12,11 +12,9 @@ struct LoginView: View {
     @State private var username: String = ""
     @State private var password: String = ""
     @State private var selection: String? = ""
-    @State private var selection2: String? = ""
-    private let tag = "HomeView"
-    private let tag2 = "SignUp"
-    
-    
+    private let tag = "SignUp"
+    @EnvironmentObject var fb: FirebaseModel
+
     var body: some View {
         ZStack {
             Color.theme.background
@@ -45,7 +43,7 @@ struct LoginView: View {
                     .frame(height: 45)
                     .foregroundColor(Color.theme.pinkColor)
                     .onTapGesture {
-                       selection = tag
+                        fb.signedIn = true
                     }
                     .overlay(
                         Text("Login")
@@ -55,7 +53,7 @@ struct LoginView: View {
                     .frame(width: 100, height: 45)
                     .foregroundColor(Color(#colorLiteral(red: 0.1129587665, green: 0.1133331135, blue: 0.1243050769, alpha: 1)))
                     .onTapGesture {
-                        selection2 = tag2
+                        selection = tag
                     }
                     .overlay(
                         Text("Sign Up")
@@ -64,18 +62,57 @@ struct LoginView: View {
                 }
                 .padding()
             }
+
+            
+            NavigationLink(
+                destination: SignUpView(),
+                tag: tag,
+                selection: $selection,
+                label: {})
+        }
+    }
+}
+
+struct SignUpView: View {
+    
+    @State private var firstName: String = ""
+    @State private var lastName: String = ""
+    @State private var email: String = ""
+    @State private var password: String = ""
+    @State private var confirmPassword: String = ""
+    @State private var selection: String? = ""
+    private let tag = "NewHomeView"
+    
+    var body: some View {
+        VStack {
+            Form {
+                Section(header: Text("Name")) {
+                TextField("First Name", text: $firstName)
+                TextField("Last Name", text: $lastName)
+                }
+                Section(header: Text("Email")) {
+                    TextField("Email", text: $email)
+                }
+                Section(header: Text("Password")) {
+                    TextField("Password", text: $password)
+                    TextField("Confirm Password", text: $confirmPassword)
+                }
+            }
+            Button("Create Account") {
+                selection = tag
+            }
+            .frame(maxWidth: .infinity)
+            .frame(height: 45)
+            .background(Color.theme.pinkColor)
+            
             NavigationLink(
                 destination: HomeView(),
                 tag: tag,
                 selection: $selection,
                 label: {})
-            
-            NavigationLink(
-                destination: SignUpView(),
-                tag: tag2,
-                selection: $selection2,
-                label: {})
         }
+        .navigationTitle("Create Account")
+        .padding()
     }
 }
 

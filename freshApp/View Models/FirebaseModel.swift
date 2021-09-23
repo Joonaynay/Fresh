@@ -6,3 +6,10 @@
 //
 
 import Foundation
+
+class FirebaseModel: ObservableObject {
+    
+    @Published var signedIn = false
+    
+    
+}

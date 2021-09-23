@@ -11,6 +11,7 @@ struct SubjectsModel {
     let business = "Business"
     let school = "School"
     let financial = "Financial"
+    
     let list = [
         "Business",
         "School",
