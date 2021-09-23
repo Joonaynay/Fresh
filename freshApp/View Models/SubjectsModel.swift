@@ -7,14 +7,10 @@
 
 import Foundation
 
-struct SubjectsModel {    
-    let business = "Business"
-    let school = "School"
-    let financial = "Financial"
-    
-    let list = [
-        "Business",
-        "School",
-        "Financial"
-    ]
+struct SubjectsModel: Identifiable, Codable {
+    var id: Int
+    var name: String = ""
+    var image: String = ""
 }
+
+

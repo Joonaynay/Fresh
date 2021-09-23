@@ -21,11 +21,13 @@
 		52AB405B26FC113D00E343C9 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AB405A26FC113D00E343C9 /* ProfileView.swift */; };
 		52AB405D26FC245000E343C9 /* AddPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AB405C26FC245000E343C9 /* AddPostView.swift */; };
 		E0A9392926FC07B800735C99 /* SubjectsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A9392826FC07B800735C99 /* SubjectsModel.swift */; };
-		E0A9392B26FC0CBF00735C99 /* HomePostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A9392A26FC0CBF00735C99 /* HomePostView.swift */; };
 		E0A9392D26FC0E8400735C99 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A9392C26FC0E8400735C99 /* MainView.swift */; };
 		E0A9392F26FC0ECE00735C99 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A9392E26FC0ECE00735C99 /* SearchView.swift */; };
 		E0A9393126FC11B800735C99 /* FollowingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A9393026FC11B800735C99 /* FollowingView.swift */; };
 		E0A9393326FC1EDB00735C99 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E0A9393226FC1EDB00735C99 /* GoogleService-Info.plist */; };
+		E0E4385126FCEF3F000C5738 /* Launch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0E4385026FCEF3F000C5738 /* Launch.storyboard */; };
+		E0E4385526FD1484000C5738 /* subjects.json in Resources */ = {isa = PBXBuildFile; fileRef = E0E4385426FD1484000C5738 /* subjects.json */; };
+		E0E4385726FD1626000C5738 /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E4385626FD1626000C5738 /* Bundle.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,11 +49,13 @@
 		8F372103A81A4C451F224587 /* Pods_freshApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_freshApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B4CB17EBAEAB6C4F89A5490 /* Pods-freshApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-freshApp.debug.xcconfig"; path = "Target Support Files/Pods-freshApp/Pods-freshApp.debug.xcconfig"; sourceTree = "<group>"; };
 		E0A9392826FC07B800735C99 /* SubjectsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectsModel.swift; sourceTree = "<group>"; };
-		E0A9392A26FC0CBF00735C99 /* HomePostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePostView.swift; sourceTree = "<group>"; };
 		E0A9392C26FC0E8400735C99 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		E0A9392E26FC0ECE00735C99 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		E0A9393026FC11B800735C99 /* FollowingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowingView.swift; sourceTree = "<group>"; };
 		E0A9393226FC1EDB00735C99 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E0E4385026FCEF3F000C5738 /* Launch.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Launch.storyboard; sourceTree = "<group>"; };
+		E0E4385426FD1484000C5738 /* subjects.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = subjects.json; sourceTree = "<group>"; };
+		E0E4385626FD1626000C5738 /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +95,7 @@
 				52AB404726FC065500E343C9 /* Extras */,
 				52AB404626FC064200E343C9 /* View Models */,
 				52AB404526FC063D00E343C9 /* Views */,
+				E0E4385026FCEF3F000C5738 /* Launch.storyboard */,
 				E0A9393226FC1EDB00735C99 /* GoogleService-Info.plist */,
 				52AB403A26FC05C600E343C9 /* Assets.xcassets */,
 				52AB403F26FC05C600E343C9 /* Info.plist */,
@@ -138,6 +143,8 @@
 			children = (
 				52AB405026FC06E200E343C9 /* Color.swift */,
 				52AB404E26FC06DB00E343C9 /* ImagePicker.swift */,
+				E0E4385626FD1626000C5738 /* Bundle.swift */,
+				E0E4385426FD1484000C5738 /* subjects.json */,
 			);
 			path = Extras;
 			sourceTree = "<group>";
@@ -219,7 +226,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				52AB403E26FC05C600E343C9 /* Preview Assets.xcassets in Resources */,
+				E0E4385526FD1484000C5738 /* subjects.json in Resources */,
 				52AB403B26FC05C600E343C9 /* Assets.xcassets in Resources */,
+				E0E4385126FCEF3F000C5738 /* Launch.storyboard in Resources */,
 				E0A9393326FC1EDB00735C99 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -275,6 +284,7 @@
 			files = (
 				52AB405526FC074900E343C9 /* FirebaseModel.swift in Sources */,
 				E0A9392D26FC0E8400735C99 /* MainView.swift in Sources */,
+				E0E4385726FD1626000C5738 /* Bundle.swift in Sources */,
 				52AB405926FC076400E343C9 /* PostModel.swift in Sources */,
 				E0A9392B26FC0CBF00735C99 /* HomePostView.swift in Sources */,
 				52AB405D26FC245000E343C9 /* AddPostView.swift in Sources */,
@@ -466,7 +476,7 @@
 				52AB404126FC05C600E343C9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		52AB404226FC05C600E343C9 /* Build configuration list for PBXNativeTarget "freshApp" */ = {
 			isa = XCConfigurationList;
@@ -475,7 +485,7 @@
 				52AB404426FC05C600E343C9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};

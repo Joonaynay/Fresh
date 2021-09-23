@@ -1,0 +1,33 @@
+[
+  {
+    "id": 0,
+    "name": "Business",
+    "image": "building.2"
+  },
+  {
+    "id": 1,
+    "name": "School",
+    "image": "graduationcap"
+  },
+  {
+    "id": 2,
+    "name": "Financial",
+    "image": "dollarsign.circle"
+  },
+  {
+    "id": 3,
+    "name": "Self Improvement",
+    "image": "person"
+  },
+  {
+    "id": 4,
+    "name": "Politics",
+    "image": "building.columns"
+  },
+  {
+    "id": 5,
+    "name": "News",
+    "image": "newspaper"
+  },
+
+]
