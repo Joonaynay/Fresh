@@ -21,6 +21,9 @@
 		52AB405B26FC113D00E343C9 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AB405A26FC113D00E343C9 /* ProfileView.swift */; };
 		E0A9392926FC07B800735C99 /* SubjectsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A9392826FC07B800735C99 /* SubjectsModel.swift */; };
 		E0A9392B26FC0CBF00735C99 /* HomePostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A9392A26FC0CBF00735C99 /* HomePostView.swift */; };
+		E0A9392D26FC0E8400735C99 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A9392C26FC0E8400735C99 /* MainView.swift */; };
+		E0A9392F26FC0ECE00735C99 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A9392E26FC0ECE00735C99 /* SearchView.swift */; };
+		E0A9393126FC11B800735C99 /* FollowingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A9393026FC11B800735C99 /* FollowingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +43,9 @@
 		52AB405A26FC113D00E343C9 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		E0A9392826FC07B800735C99 /* SubjectsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectsModel.swift; sourceTree = "<group>"; };
 		E0A9392A26FC0CBF00735C99 /* HomePostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePostView.swift; sourceTree = "<group>"; };
+		E0A9392C26FC0E8400735C99 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		E0A9392E26FC0ECE00735C99 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		E0A9393026FC11B800735C99 /* FollowingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,11 +100,14 @@
 		52AB404526FC063D00E343C9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E0A9392C26FC0E8400735C99 /* MainView.swift */,
+				E0A9393026FC11B800735C99 /* FollowingView.swift */,
 				52AB404826FC066100E343C9 /* LoginView.swift */,
 				52AB404A26FC066900E343C9 /* SignUpView.swift */,
 				52AB404C26FC066F00E343C9 /* HomeView.swift */,
 				52AB405A26FC113D00E343C9 /* ProfileView.swift */,
 				E0A9392A26FC0CBF00735C99 /* HomePostView.swift */,
+				E0A9392E26FC0ECE00735C99 /* SearchView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -193,6 +202,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				52AB405526FC074900E343C9 /* FirebaseModel.swift in Sources */,
+				E0A9392D26FC0E8400735C99 /* MainView.swift in Sources */,
 				52AB405926FC076400E343C9 /* PostModel.swift in Sources */,
 				52AB404B26FC066900E343C9 /* SignUpView.swift in Sources */,
 				E0A9392B26FC0CBF00735C99 /* HomePostView.swift in Sources */,
@@ -201,7 +211,9 @@
 				52AB404926FC066100E343C9 /* LoginView.swift in Sources */,
 				52AB405126FC06E200E343C9 /* Color.swift in Sources */,
 				52AB404F26FC06DB00E343C9 /* ImagePicker.swift in Sources */,
+				E0A9392F26FC0ECE00735C99 /* SearchView.swift in Sources */,
 				52AB404D26FC066F00E343C9 /* HomeView.swift in Sources */,
+				E0A9393126FC11B800735C99 /* FollowingView.swift in Sources */,
 				52AB405726FC075B00E343C9 /* UserModel.swift in Sources */,
 				52AB403726FC05C300E343C9 /* freshAppApp.swift in Sources */,
 			);
