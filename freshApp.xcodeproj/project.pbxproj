@@ -11,7 +11,6 @@
 		52AB403B26FC05C600E343C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52AB403A26FC05C600E343C9 /* Assets.xcassets */; };
 		52AB403E26FC05C600E343C9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52AB403D26FC05C600E343C9 /* Preview Assets.xcassets */; };
 		52AB404926FC066100E343C9 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AB404826FC066100E343C9 /* LoginView.swift */; };
-		52AB404B26FC066900E343C9 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AB404A26FC066900E343C9 /* SignUpView.swift */; };
 		52AB404D26FC066F00E343C9 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AB404C26FC066F00E343C9 /* HomeView.swift */; };
 		52AB404F26FC06DB00E343C9 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AB404E26FC06DB00E343C9 /* ImagePicker.swift */; };
 		52AB405126FC06E200E343C9 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AB405026FC06E200E343C9 /* Color.swift */; };
@@ -33,7 +32,6 @@
 		52AB403D26FC05C600E343C9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		52AB403F26FC05C600E343C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		52AB404826FC066100E343C9 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
-		52AB404A26FC066900E343C9 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		52AB404C26FC066F00E343C9 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		52AB404E26FC06DB00E343C9 /* ImagePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		52AB405026FC06E200E343C9 /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
@@ -102,7 +100,6 @@
 			children = (
 				E0A9392C26FC0E8400735C99 /* MainView.swift */,
 				52AB404826FC066100E343C9 /* LoginView.swift */,
-				52AB404A26FC066900E343C9 /* SignUpView.swift */,
 				52AB404C26FC066F00E343C9 /* HomeView.swift */,
 				52AB405A26FC113D00E343C9 /* ProfileView.swift */,
 				E0A9392A26FC0CBF00735C99 /* HomePostView.swift */,
@@ -204,7 +201,6 @@
 				52AB405526FC074900E343C9 /* FirebaseModel.swift in Sources */,
 				E0A9392D26FC0E8400735C99 /* MainView.swift in Sources */,
 				52AB405926FC076400E343C9 /* PostModel.swift in Sources */,
-				52AB404B26FC066900E343C9 /* SignUpView.swift in Sources */,
 				E0A9392B26FC0CBF00735C99 /* HomePostView.swift in Sources */,
 				52AB405B26FC113D00E343C9 /* ProfileView.swift in Sources */,
 				E0A9392926FC07B800735C99 /* SubjectsModel.swift in Sources */,

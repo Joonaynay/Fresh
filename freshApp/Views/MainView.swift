@@ -8,13 +8,20 @@
 import SwiftUI
 
 struct MainView: View {
+    
+    @EnvironmentObject var fb: FirebaseModel
+    
+    
     var body: some View {
-        TabView {
-            
-            HomeView().tabItem { Image(systemName: "house.fill") }
-            SearchView().tabItem { Image(systemName: "magnifyingglass") }
-            FollowingView().tabItem { Image(systemName: "list.dash") }
-            
+        
+        if fb.signedIn {
+            TabView {
+                HomeView().tabItem { Image(systemName: "house.fill") }
+                SearchView().tabItem { Image(systemName: "magnifyingglass") }
+                FollowingView().tabItem { Image(systemName: "list.dash") }
+            }
+        } else {
+            LoginView()
         }
     }
 }
