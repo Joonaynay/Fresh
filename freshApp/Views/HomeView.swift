@@ -26,8 +26,6 @@ struct HomeView: View {
 struct SubjectSelectView: View {
     
     @Binding var subject: SubjectsModel
-    @State var selection: String? = ""
-    private let profileView = "profileView"
     private let subjects = Bundle.main.decode([SubjectsModel].self, from: "subjects.json")
     
     var body: some View {
@@ -57,8 +55,6 @@ struct SubjectSelectView: View {
                     .padding(.horizontal, 10)
                 }
             }
-            NavigationLink(destination: ProfileView(), tag: profileView, selection: $selection, label: {})
-            
         }
         .navigationBarHidden(true)
     }

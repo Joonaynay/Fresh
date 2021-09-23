@@ -12,6 +12,7 @@ import Firebase
 struct freshAppApp: App {
     
     @StateObject var fb = FirebaseModel()
+    
     init() {
         FirebaseApp.configure()
     }
@@ -19,9 +20,9 @@ struct freshAppApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationView {
-                MainView()
-                    .environmentObject(fb)
+                MainView()     
             }
+            .environmentObject(fb)
         }
     }
 }

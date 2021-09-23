@@ -47,19 +47,21 @@ struct AddPostView: View {
                     .background(Color.theme.secondaryText)
                     .foregroundColor(Color.theme.accent)
                 
-                NavigationLink(
-                    destination: SelectSubjectView(image: image!, caption: caption),
-                    label: {
-                        Rectangle()
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 50)
-                            .foregroundColor(Color.theme.pinkColor)
-                            .overlay(
-                                Text("Next")
-                                    .font(.headline)
-                                    .foregroundColor(.white)
-                            )
-                    })
+                if image != nil {
+                    NavigationLink(
+                        destination: SelectSubjectView(image: image!, caption: caption),
+                        label: {
+                            Rectangle()
+                                .frame(maxWidth: .infinity)
+                                .frame(height: 50)
+                                .foregroundColor(Color.theme.pinkColor)
+                                .overlay(
+                                    Text("Next")
+                                        .font(.headline)
+                                        .foregroundColor(.white)
+                                )
+                        })
+                }
             }
             .padding()
             .sheet(isPresented: $showImages, content: {
@@ -68,16 +70,6 @@ struct AddPostView: View {
         }
     }
 }
-
-struct AddPostView_Previews: PreviewProvider {
-    static var previews: some View {
-        SelectSubjectView(image: UIImage(contentsOfFile: "Logo.png")!, caption: "Sup")
-            .preferredColorScheme(.dark)
-            .environmentObject(FirebaseModel())
-    }
-}
-
-
 
 struct SelectSubjectView: View {
     
@@ -156,11 +148,18 @@ struct checkMarkSubjects : View {
                     buttonDisabled = true
                 }
                 checkMark.toggle()
-                print(list.count)
             } else {
                 checkMark = false
                 list.removeAll(where: { $0 == subject.name })
             }
         }
+    }
+}
+
+struct AddPostView_Previews: PreviewProvider {
+    static var previews: some View {
+        SelectSubjectView(image: UIImage(contentsOfFile: "Logo.png")!, caption: "Sup")
+            .preferredColorScheme(.dark)
+            .environmentObject(FirebaseModel())
     }
 }

@@ -44,5 +44,6 @@ struct TitleBarView: View {
 struct TitleBarView_Previews: PreviewProvider {
     static var previews: some View {
         TitleBarView(title: "Title")
+            .environmentObject(FirebaseModel())
     }
 }
