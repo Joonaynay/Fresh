@@ -40,20 +40,23 @@ struct HomeView: View {
                         })
                 }
                 ScrollView {
-                    ForEach(subjects.list, id: \.self) { subject in
-                        Button(action: {
-                            self.subject = subject
-                            selection = homepostview
-                        }, label: {
-                            ZStack {
-                                RoundedRectangle(cornerRadius: 10)
-                                    .padding()
-                                    .frame(maxWidth: .infinity)
-                                    .frame(height: 100)
-                                    .foregroundColor(Color.theme.pinkColor)
-                                Text(subject)
-                            }
-                        })
+                    LazyVGrid(columns: [GridItem(), GridItem()]) {
+                        ForEach(subjects.list, id: \.self) { subject in
+                            Button(action: {
+                                self.subject = subject
+                                selection = homepostview
+                            }, label: {
+                                ZStack {
+                                    Rectangle()
+                                        .padding(5)
+                                        .frame(maxWidth: .infinity)
+                                        .frame(height: 115)
+                                        .foregroundColor(Color.theme.pinkColor)
+                                    
+                                    Text(subject)
+                                }
+                            })
+                        }
                     }
                 }
             }
@@ -65,7 +68,7 @@ struct HomeView: View {
                 
                 .navigationBarTitle("Subjects")
                 .navigationBarHidden(true)
-                
+            
         }
     }
 }
@@ -75,8 +78,8 @@ struct HomeView: View {
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-        HomeView()
-            .preferredColorScheme(.dark)
+            HomeView()
+                .preferredColorScheme(.dark)
         }
     }
 }
