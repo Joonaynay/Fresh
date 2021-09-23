@@ -16,17 +16,19 @@ struct ProfileView: View {
             Color.theme.background
                 .ignoresSafeArea()
             ScrollView {
-                Rectangle()
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 50)
-                    .foregroundColor(Color.theme.pinkColor)
-                    .onTapGesture {
-                        // navigate to the file we post.
-                    }
-                    .overlay(
-                        Text("Add Post")
-                            .foregroundColor(.white)
-                    )
+                NavigationLink(
+                    destination: AddPostView(),
+                    label: {
+                        Rectangle()
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 50)
+                            .foregroundColor(Color.theme.pinkColor)
+                            .overlay(
+                                Text("Add Post")
+                                    .foregroundColor(.white)
+                            )
+                    })
+
                 Spacer()
                 ForEach(posts, id: \.self) { post in
                     HStack {
@@ -40,6 +42,7 @@ struct ProfileView: View {
                 }
             }
             .padding()
+            
         }
     }
 }
