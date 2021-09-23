@@ -9,12 +9,12 @@ import SwiftUI
 
 struct LoginView: View {
     
-    @State private var username: String = ""
+    @State private var email: String = ""
     @State private var password: String = ""
     @State private var selection: String? = ""
     private let tag = "SignUp"
     @EnvironmentObject var fb: FirebaseModel
-
+    
     var body: some View {
         ZStack {
             Color.theme.background
@@ -25,44 +25,44 @@ struct LoginView: View {
                     .frame(width: 200, height: 150)
                 Spacer()
                 VStack {
-                TextField("Username", text: $username)
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 50)
-                    .background(Color.theme.secondaryText)
-                SecureField("Password", text: $password)
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 50)
-                    .background(Color.theme.secondaryText)
+                    TextField("Email", text: $email)
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 50)
+                        .background(Color.theme.secondaryText)
+                    SecureField("Password", text: $password)
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 50)
+                        .background(Color.theme.secondaryText)
                 }
                 .padding()
                 VStack {
-                Rectangle()
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 45)
-                    .foregroundColor(Color.theme.pinkColor)
-                    .onTapGesture {
-                        fb.signedIn = true
-                    }
-                    .overlay(
-                        Text("Login")
-                            .foregroundColor(.white)
-                    )
-                Rectangle()
-                    .frame(width: 100, height: 45)
-                    .foregroundColor(Color(#colorLiteral(red: 0.1129587665, green: 0.1133331135, blue: 0.1243050769, alpha: 1)))
-                    .onTapGesture {
-                        selection = tag
-                    }
-                    .overlay(
-                        Text("Sign Up")
-                            .foregroundColor(.white)
-                    )
+                    Rectangle()
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 45)
+                        .foregroundColor(Color.theme.pinkColor)
+                        .onTapGesture {
+                            fb.signIn(email: email, password: password)
+                        }
+                        .overlay(
+                            Text("Login")
+                                .foregroundColor(.white)
+                        )
+                    Rectangle()
+                        .frame(width: 100, height: 45)
+                        .foregroundColor(Color(#colorLiteral(red: 0.1129587665, green: 0.1133331135, blue: 0.1243050769, alpha: 1)))
+                        .onTapGesture {
+                            selection = tag
+                        }
+                        .overlay(
+                            Text("Sign Up")
+                                .foregroundColor(.white)
+                        )
                 }
                 .padding()
             }
-
+            
             
             NavigationLink(
                 destination: SignUpView(),
@@ -80,15 +80,16 @@ struct SignUpView: View {
     @State private var email: String = ""
     @State private var password: String = ""
     @State private var confirmPassword: String = ""
-    @State private var selection: String? = ""
-    private let tag = "NewHomeView"
+    @State private var showAlert: Bool = false
+    
+    @EnvironmentObject private var fb: FirebaseModel
     
     var body: some View {
         VStack {
             Form {
                 Section(header: Text("Name")) {
-                TextField("First Name", text: $firstName)
-                TextField("Last Name", text: $lastName)
+                    TextField("First Name", text: $firstName)
+                    TextField("Last Name", text: $lastName)
                 }
                 Section(header: Text("Email")) {
                     TextField("Email", text: $email)
@@ -98,18 +99,19 @@ struct SignUpView: View {
                     TextField("Confirm Password", text: $confirmPassword)
                 }
             }
-            Button("Create Account") {
-                selection = tag
-            }
-            .frame(maxWidth: .infinity)
-            .frame(height: 45)
-            .background(Color.theme.pinkColor)
-            
-            NavigationLink(
-                destination: HomeView(),
-                tag: tag,
-                selection: $selection,
-                label: {})
+                Button("Create Account") {
+                    if password == confirmPassword {
+                    fb.signUp(email: email, password: password, firstName: firstName, lastName: lastName)
+                    } else {
+                        showAlert.toggle()
+                    }
+                }
+                .alert(isPresented: $showAlert, content: {
+                    Alert(title: Text("Invalid data."))
+                })
+                .frame(maxWidth: .infinity)
+                    .frame(height: 45)
+                    .background(Color.theme.pinkColor)
         }
         .navigationTitle("Create Account")
         .padding()
@@ -120,5 +122,6 @@ struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
         LoginView()
             .preferredColorScheme(.dark)
+            .environmentObject(FirebaseModel())
     }
 }
