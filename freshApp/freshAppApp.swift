@@ -9,10 +9,14 @@ import SwiftUI
 
 @main
 struct freshAppApp: App {
+    
+    @StateObject var fb = FirebaseModel()
+    
     var body: some Scene {
         WindowGroup {
             NavigationView {
-                LoginView()
+                MainView()
+                    .environmentObject(fb)
             }
         }
     }
