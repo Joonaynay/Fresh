@@ -20,45 +20,63 @@ struct HomeView: View {
     
     
     var body: some View {
-        NavigationView {
-            ZStack {
-                NavigationLink(
-                    destination: HomePostView(subject: subject),
-                    tag: homepostview,
-                    selection: $selection,
-                    label: {})
-                Color.theme.background
-                    .ignoresSafeArea()
+        ZStack {
+            Color.theme.background
+                .ignoresSafeArea()
+            VStack(alignment: .leading) {
+                HStack {
+                    Text("Subjects")
+                        .font(.largeTitle)
+                        .padding()
+                    Spacer()
+                    NavigationLink(
+                        destination: ProfileView(),
+                        label: {
+                            Image(systemName: "person.circle.fill")
+                                .resizable()
+                                .frame(width: 30, height: 30)
+                                .scaledToFit()
+                                .padding()
+                        })
+                }
                 ScrollView {
-                    VStack {
-                        ForEach(subjects.list, id: \.self) { subject in
-                            Button(action: {
-                                self.subject = subject
-                                selection = homepostview
-                            }, label: {
-                                ZStack {
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .padding()
-                                        .frame(maxWidth: .infinity)
-                                        .frame(height: 100)
-                                        .foregroundColor(Color.theme.pinkColor)
-                                    Text(subject)
-                                }
-                            }) // Button
-                        } // ForEach
-                    } // VStack
-                } // ScrollView
-                .navigationTitle("Subjects")
-            } // ZStack
-        } // NavigationView
-    } // Body
-} // View
+                    ForEach(subjects.list, id: \.self) { subject in
+                        Button(action: {
+                            self.subject = subject
+                            selection = homepostview
+                        }, label: {
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 10)
+                                    .padding()
+                                    .frame(maxWidth: .infinity)
+                                    .frame(height: 100)
+                                    .foregroundColor(Color.theme.pinkColor)
+                                Text(subject)
+                            }
+                        })
+                    }
+                }
+            }
+            NavigationLink(
+                destination: HomePostView(subject: subject),
+                tag: homepostview,
+                selection: $selection,
+                label: {})
+                
+                .navigationBarTitle("Subjects")
+                .navigationBarHidden(true)
+                
+        }
+    }
+}
 
 
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
+        NavigationView {
         HomeView()
             .preferredColorScheme(.dark)
+        }
     }
 }

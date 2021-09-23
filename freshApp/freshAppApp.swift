@@ -6,16 +6,22 @@
 //
 
 import SwiftUI
+import Firebase
 
 @main
 struct freshAppApp: App {
     
     @StateObject var fb = FirebaseModel()
+    init() {
+        FirebaseApp.configure()
+    }
     
     var body: some Scene {
         WindowGroup {
+            NavigationView {
                 MainView()
                     .environmentObject(fb)
+            }
         }
     }
 }
