@@ -15,28 +15,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fresh" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6kf-T5-57g">
-                                <rect key="frame" x="0.0" y="121" width="414" height="60"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="50"/>
-                                <color key="textColor" red="1" green="0.99107247590000003" blue="0.98769229650000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="0Mq-Ym-mup">
-                                <rect key="frame" x="77" y="299" width="260" height="232"/>
+                                <rect key="frame" x="77" y="332" width="260" height="232"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="232" id="qlF-Fg-niv"/>
+                                    <constraint firstAttribute="width" constant="260" id="Mf6-XG-wwR"/>
+                                    <constraint firstAttribute="height" constant="232" id="jVu-2p-WmK"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Bcu-3y-fUS"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="6kf-T5-57g" firstAttribute="centerX" secondItem="0Mq-Ym-mup" secondAttribute="centerX" id="Mfi-OL-Klk"/>
-                            <constraint firstItem="6kf-T5-57g" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="XRv-Ta-oHT"/>
-                            <constraint firstItem="Bcu-3y-fUS" firstAttribute="bottom" secondItem="0Mq-Ym-mup" secondAttribute="bottom" constant="331" id="eSI-tN-7Xi"/>
-                            <constraint firstItem="0Mq-Ym-mup" firstAttribute="leading" secondItem="Bcu-3y-fUS" secondAttribute="leading" constant="77" id="mRt-bk-17x"/>
-                            <constraint firstAttribute="trailing" secondItem="6kf-T5-57g" secondAttribute="trailing" id="maM-tU-NCm"/>
-                            <constraint firstItem="6kf-T5-57g" firstAttribute="top" secondItem="Bcu-3y-fUS" secondAttribute="top" constant="77" id="mc4-Gb-CYH"/>
+                            <constraint firstItem="0Mq-Ym-mup" firstAttribute="top" secondItem="Bcu-3y-fUS" secondAttribute="top" constant="288" id="B9S-4R-SI3"/>
+                            <constraint firstItem="Bcu-3y-fUS" firstAttribute="trailing" secondItem="0Mq-Ym-mup" secondAttribute="trailing" constant="77" id="cW4-Qa-xeW"/>
+                            <constraint firstItem="0Mq-Ym-mup" firstAttribute="leading" secondItem="Bcu-3y-fUS" secondAttribute="leading" constant="77" id="kz8-EP-f4S"/>
+                            <constraint firstItem="Bcu-3y-fUS" firstAttribute="bottom" secondItem="0Mq-Ym-mup" secondAttribute="bottom" constant="298" id="qye-vu-Bpl"/>
                         </constraints>
                     </view>
                 </viewController>
