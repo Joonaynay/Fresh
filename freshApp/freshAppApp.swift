@@ -11,7 +11,9 @@ import SwiftUI
 struct freshAppApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            NavigationView {
+                LoginView()
+            }
         }
     }
 }

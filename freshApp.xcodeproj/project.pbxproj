@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		52AB403726FC05C300E343C9 /* freshAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AB403626FC05C300E343C9 /* freshAppApp.swift */; };
-		52AB403926FC05C300E343C9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AB403826FC05C300E343C9 /* ContentView.swift */; };
 		52AB403B26FC05C600E343C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52AB403A26FC05C600E343C9 /* Assets.xcassets */; };
 		52AB403E26FC05C600E343C9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52AB403D26FC05C600E343C9 /* Preview Assets.xcassets */; };
 		52AB404926FC066100E343C9 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AB404826FC066100E343C9 /* LoginView.swift */; };
@@ -29,7 +28,6 @@
 /* Begin PBXFileReference section */
 		52AB403326FC05C300E343C9 /* freshApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = freshApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52AB403626FC05C300E343C9 /* freshAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = freshAppApp.swift; sourceTree = "<group>"; };
-		52AB403826FC05C300E343C9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		52AB403A26FC05C600E343C9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		52AB403D26FC05C600E343C9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		52AB403F26FC05C600E343C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -82,7 +80,6 @@
 				52AB404726FC065500E343C9 /* Extras */,
 				52AB404626FC064200E343C9 /* View Models */,
 				52AB404526FC063D00E343C9 /* Views */,
-				52AB403826FC05C300E343C9 /* ContentView.swift */,
 				52AB403A26FC05C600E343C9 /* Assets.xcassets */,
 				52AB403F26FC05C600E343C9 /* Info.plist */,
 				52AB403C26FC05C600E343C9 /* Preview Content */,
@@ -209,7 +206,6 @@
 				E0A9392926FC07B800735C99 /* SubjectsModel.swift in Sources */,
 				52AB404926FC066100E343C9 /* LoginView.swift in Sources */,
 				52AB405126FC06E200E343C9 /* Color.swift in Sources */,
-				52AB403926FC05C300E343C9 /* ContentView.swift in Sources */,
 				52AB404F26FC06DB00E343C9 /* ImagePicker.swift in Sources */,
 				E0A9392F26FC0ECE00735C99 /* SearchView.swift in Sources */,
 				52AB404D26FC066F00E343C9 /* HomeView.swift in Sources */,
