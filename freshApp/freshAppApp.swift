@@ -14,10 +14,8 @@ struct freshAppApp: App {
     
     var body: some Scene {
         WindowGroup {
-            NavigationView {
                 MainView()
                     .environmentObject(fb)
-            }
         }
     }
 }
