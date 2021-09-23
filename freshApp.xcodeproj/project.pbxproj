@@ -19,6 +19,7 @@
 		52AB405526FC074900E343C9 /* FirebaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AB405426FC074900E343C9 /* FirebaseModel.swift */; };
 		52AB405726FC075B00E343C9 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AB405626FC075B00E343C9 /* UserModel.swift */; };
 		52AB405926FC076400E343C9 /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AB405826FC076400E343C9 /* PostModel.swift */; };
+		E0A9392926FC07B800735C99 /* SubjectsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A9392826FC07B800735C99 /* SubjectsModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		52AB405426FC074900E343C9 /* FirebaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseModel.swift; sourceTree = "<group>"; };
 		52AB405626FC075B00E343C9 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		52AB405826FC076400E343C9 /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
+		E0A9392826FC07B800735C99 /* SubjectsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectsModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,9 +93,9 @@
 		52AB404526FC063D00E343C9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				52AB404C26FC066F00E343C9 /* HomeView.swift */,
 				52AB404826FC066100E343C9 /* LoginView.swift */,
 				52AB404A26FC066900E343C9 /* SignUpView.swift */,
-				52AB404C26FC066F00E343C9 /* HomeView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -104,6 +106,7 @@
 				52AB405426FC074900E343C9 /* FirebaseModel.swift */,
 				52AB405626FC075B00E343C9 /* UserModel.swift */,
 				52AB405826FC076400E343C9 /* PostModel.swift */,
+				E0A9392826FC07B800735C99 /* SubjectsModel.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -189,6 +192,7 @@
 				52AB405526FC074900E343C9 /* FirebaseModel.swift in Sources */,
 				52AB405926FC076400E343C9 /* PostModel.swift in Sources */,
 				52AB404B26FC066900E343C9 /* SignUpView.swift in Sources */,
+				E0A9392926FC07B800735C99 /* SubjectsModel.swift in Sources */,
 				52AB404926FC066100E343C9 /* LoginView.swift in Sources */,
 				52AB405126FC06E200E343C9 /* Color.swift in Sources */,
 				52AB403926FC05C300E343C9 /* ContentView.swift in Sources */,
