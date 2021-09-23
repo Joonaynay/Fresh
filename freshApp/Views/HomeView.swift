@@ -42,6 +42,7 @@ struct SubjectSelectView: View {
                     Spacer()
                     Menu {
                         Button("View Profile") { selection = profileView }
+                        Button("Settings") {}
                     } label: {
                         Image(systemName: "person.circle")
                             .resizable()

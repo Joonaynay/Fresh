@@ -29,5 +29,10 @@
     "name": "News",
     "image": "newspaper"
   },
+  {
+    "id": 6,
+    "name": "Workout",
+    "image": "figure.walk"
+  }
 
 ]

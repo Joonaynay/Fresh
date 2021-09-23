@@ -81,7 +81,7 @@ struct AddPostView_Previews: PreviewProvider {
 struct SelectSubjectView: View {
     
     var image: UIImage?
-    private let subjects = SubjectsModel()
+    private let subjects = Bundle.main.decode([SubjectsModel].self, from: "subject.json")
     
     var body: some View {
         ZStack(alignment: .topLeading) {
@@ -92,7 +92,7 @@ struct SelectSubjectView: View {
                     Text("Select up to 3 subjects that your post corresponds with.")
                         .multilineTextAlignment(.center)
                         .font(.title)
-                    ForEach(subjects.list, id: \.self) { subject in
+                    ForEach(subjects) { subject in
                         checkMarkSubjects(subject: subject)
                     }
                 }
@@ -105,12 +105,12 @@ struct SelectSubjectView: View {
 struct checkMarkSubjects : View {
     
     @State var checkMark: Bool = false
-    let subject: String
+    let subject: SubjectsModel
     
     var body: some View {
         HStack {
             Image(systemName: checkMark ? "checkmark.square" : "square")
-            Text(subject)
+            Text(subject.name)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .frame(height: 75)
