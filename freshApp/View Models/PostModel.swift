@@ -5,9 +5,11 @@
 //  Created by Wendy Buhler on 9/22/21.
 //
 
-import Foundation
+import SwiftUI
 
 struct Posts: Identifiable {
-    let id: String
-    let caption: String
+    var id: String
+    var image: UIImage?
+    var caption: String
+    var subjects: [String]
 }
