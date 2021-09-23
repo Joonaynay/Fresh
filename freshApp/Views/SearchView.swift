@@ -8,8 +8,18 @@
 import SwiftUI
 
 struct SearchView: View {
+    
+    @State var selection: String? = ""
+    @State var profileView = "profileView"
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack(alignment: .topLeading) {
+            VStack(spacing: 0) {
+                TitleBarView(title: "Trending")
+                ScrollView {}
+            }
+        }
+        .navigationBarHidden(true)
     }
 }
 

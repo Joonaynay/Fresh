@@ -81,7 +81,7 @@ struct AddPostView_Previews: PreviewProvider {
 struct SelectSubjectView: View {
     
     var image: UIImage?
-    private let subjects = Bundle.main.decode([SubjectsModel].self, from: "subject.json")
+    private let subjects = Bundle.main.decode([SubjectsModel].self, from: "subjects.json")
     
     var body: some View {
         ZStack(alignment: .topLeading) {
