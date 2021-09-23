@@ -12,8 +12,12 @@ struct HomeView: View {
     let subjects = SubjectsModel()
     
     var body: some View {
-        ForEach(subjects.list, id: \.self) { subject in
-            Text(subject)
+        VStack {
+            ForEach(subjects.list, id: \.self) { subject in
+                Button(subject) {}
+                    .padding()
+                    .background(Color.pink)
+            }
         }
     }
 }
