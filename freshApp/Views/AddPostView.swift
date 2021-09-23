@@ -39,13 +39,27 @@ struct AddPostView: View {
                 if image != nil {
                     Image(uiImage: image!)
                         .resizable()
-                        .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width)
+                        .frame(width: UIScreen.main.bounds.width / 1.05, height: UIScreen.main.bounds.width / 1.05)
                 }
                 TextEditor(text: $caption)
                     .frame(maxWidth: .infinity)
                     .frame(height: 45)
                     .background(Color.theme.secondaryText)
                     .foregroundColor(Color.theme.accent)
+                
+                NavigationLink(
+                    destination: SelectSubjectView(image: image),
+                    label: {
+                        Rectangle()
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 50)
+                            .foregroundColor(Color.theme.pinkColor)
+                            .overlay(
+                                Text("Next")
+                                    .font(.headline)
+                                    .foregroundColor(.white)
+                            )
+                    })
             }
             .padding()
             .sheet(isPresented: $showImages, content: {
@@ -57,6 +71,53 @@ struct AddPostView: View {
 
 struct AddPostView_Previews: PreviewProvider {
     static var previews: some View {
-        AddPostView()
+        SelectSubjectView()
+            .preferredColorScheme(.dark)
+    }
+}
+
+
+
+struct SelectSubjectView: View {
+    
+    var image: UIImage?
+    private let subjects = SubjectsModel()
+    
+    var body: some View {
+        ZStack(alignment: .topLeading) {
+            Color.theme.background
+                .ignoresSafeArea()
+            ScrollView {
+                VStack {
+                    Text("Select up to 3 subjects that your post corresponds with.")
+                        .multilineTextAlignment(.center)
+                        .font(.title)
+                    ForEach(subjects.list, id: \.self) { subject in
+                        checkMarkSubjects(subject: subject)
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+struct checkMarkSubjects : View {
+    
+    @State var checkMark: Bool = false
+    let subject: String
+    
+    var body: some View {
+        HStack {
+            Image(systemName: checkMark ? "checkmark.square" : "square")
+            Text(subject)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .frame(height: 75)
+        .padding(.horizontal, 35)
+        .background(Color.theme.sheetColor)
+        .onTapGesture {
+            checkMark.toggle()
+        }
     }
 }
