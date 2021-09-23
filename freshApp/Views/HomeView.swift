@@ -8,8 +8,13 @@
 import SwiftUI
 
 struct HomeView: View {
+    
+    let subjects = SubjectsModel()
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ForEach(subjects.list, id: \.self) { subject in
+            Text(subject)
+        }
     }
 }
 
