@@ -20,17 +20,12 @@ struct HomeView: View {
     
     
     var body: some View {
-        NavigationView {
-            ZStack {
-                NavigationLink(
-                    destination: HomePostView(subject: subject),
-                    tag: homepostview,
-                    selection: $selection,
-                    label: {})
+        ZStack(alignment: .topTrailing) {
+                ZStack {
                 Color.theme.background
                     .ignoresSafeArea()
                 ScrollView {
-                    VStack {
+                    VStack() {
                         ForEach(subjects.list, id: \.self) { subject in
                             Button(action: {
                                 self.subject = subject
@@ -48,9 +43,24 @@ struct HomeView: View {
                         } // ForEach
                     } // VStack
                 } // ScrollView
+                NavigationLink(
+                    destination: HomePostView(subject: subject),
+                    tag: homepostview,
+                    selection: $selection,
+                    label: {})
+                }
                 .navigationTitle("Subjects")
+            NavigationLink(
+                destination: ProfileView(),
+                label: {
+                    Image(systemName: "person.circle.fill")
+                        .resizable()
+                        .frame(width: 28, height: 28)
+                        .foregroundColor(.white)
+                        .padding(55)
+                })
             } // ZStack
-        } // NavigationView
+
     } // Body
 } // View
 
