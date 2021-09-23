@@ -28,6 +28,7 @@
 		E0E4385126FCEF3F000C5738 /* Launch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0E4385026FCEF3F000C5738 /* Launch.storyboard */; };
 		E0E4385526FD1484000C5738 /* subjects.json in Resources */ = {isa = PBXBuildFile; fileRef = E0E4385426FD1484000C5738 /* subjects.json */; };
 		E0E4385726FD1626000C5738 /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E4385626FD1626000C5738 /* Bundle.swift */; };
+		E0E4389126FD33FD000C5738 /* TitleBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E4389026FD33FD000C5738 /* TitleBarView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,7 @@
 		E0E4385026FCEF3F000C5738 /* Launch.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Launch.storyboard; sourceTree = "<group>"; };
 		E0E4385426FD1484000C5738 /* subjects.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = subjects.json; sourceTree = "<group>"; };
 		E0E4385626FD1626000C5738 /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
+		E0E4389026FD33FD000C5738 /* TitleBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleBarView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,9 +122,9 @@
 				52AB404C26FC066F00E343C9 /* HomeView.swift */,
 				52AB405A26FC113D00E343C9 /* ProfileView.swift */,
 				52AB405C26FC245000E343C9 /* AddPostView.swift */,
-				E0A9392A26FC0CBF00735C99 /* HomePostView.swift */,
-				E0A9393026FC11B800735C99 /* FollowingView.swift */,
 				E0A9392E26FC0ECE00735C99 /* SearchView.swift */,
+				E0A9393026FC11B800735C99 /* FollowingView.swift */,
+				E0E4388F26FD33DB000C5738 /* Subviews */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -164,6 +166,14 @@
 				8F372103A81A4C451F224587 /* Pods_freshApp.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E0E4388F26FD33DB000C5738 /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				E0E4389026FD33FD000C5738 /* TitleBarView.swift */,
+			);
+			path = Subviews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -286,7 +296,6 @@
 				E0A9392D26FC0E8400735C99 /* MainView.swift in Sources */,
 				E0E4385726FD1626000C5738 /* Bundle.swift in Sources */,
 				52AB405926FC076400E343C9 /* PostModel.swift in Sources */,
-				E0A9392B26FC0CBF00735C99 /* HomePostView.swift in Sources */,
 				52AB405D26FC245000E343C9 /* AddPostView.swift in Sources */,
 				52AB405B26FC113D00E343C9 /* ProfileView.swift in Sources */,
 				E0A9392926FC07B800735C99 /* SubjectsModel.swift in Sources */,
@@ -298,6 +307,7 @@
 				E0A9393126FC11B800735C99 /* FollowingView.swift in Sources */,
 				52AB405726FC075B00E343C9 /* UserModel.swift in Sources */,
 				52AB403726FC05C300E343C9 /* freshAppApp.swift in Sources */,
+				E0E4389126FD33FD000C5738 /* TitleBarView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
