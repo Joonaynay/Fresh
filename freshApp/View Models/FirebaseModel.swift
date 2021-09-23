@@ -10,7 +10,7 @@ import FirebaseAuth
 import FirebaseFirestore
 import FirebaseStorage
 
-class FirebaseViewModel: ObservableObject {
+class FirebaseModel: ObservableObject {
     
     @Published var signedIn = false
     @Published var posts: [Posts] = []
