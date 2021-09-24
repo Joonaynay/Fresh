@@ -29,6 +29,8 @@
 		E0E4385526FD1484000C5738 /* subjects.json in Resources */ = {isa = PBXBuildFile; fileRef = E0E4385426FD1484000C5738 /* subjects.json */; };
 		E0E4385726FD1626000C5738 /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E4385626FD1626000C5738 /* Bundle.swift */; };
 		E0E4389126FD33FD000C5738 /* TitleBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E4389026FD33FD000C5738 /* TitleBarView.swift */; };
+		E0E4389326FD52F9000C5738 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E4389226FD52F9000C5738 /* LoadingView.swift */; };
+		E0E4389526FD5B2E000C5738 /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E4389426FD5B2E000C5738 /* Keyboard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +60,8 @@
 		E0E4385426FD1484000C5738 /* subjects.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = subjects.json; sourceTree = "<group>"; };
 		E0E4385626FD1626000C5738 /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
 		E0E4389026FD33FD000C5738 /* TitleBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleBarView.swift; sourceTree = "<group>"; };
+		E0E4389226FD52F9000C5738 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		E0E4389426FD5B2E000C5738 /* Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keyboard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +151,7 @@
 				52AB404E26FC06DB00E343C9 /* ImagePicker.swift */,
 				E0E4385626FD1626000C5738 /* Bundle.swift */,
 				E0E4385426FD1484000C5738 /* subjects.json */,
+				E0E4389426FD5B2E000C5738 /* Keyboard.swift */,
 			);
 			path = Extras;
 			sourceTree = "<group>";
@@ -172,6 +177,7 @@
 			isa = PBXGroup;
 			children = (
 				E0E4389026FD33FD000C5738 /* TitleBarView.swift */,
+				E0E4389226FD52F9000C5738 /* LoadingView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -296,6 +302,8 @@
 				E0A9392D26FC0E8400735C99 /* MainView.swift in Sources */,
 				E0E4385726FD1626000C5738 /* Bundle.swift in Sources */,
 				52AB405926FC076400E343C9 /* PostModel.swift in Sources */,
+				E0E4389526FD5B2E000C5738 /* Keyboard.swift in Sources */,
+				E0E4389326FD52F9000C5738 /* LoadingView.swift in Sources */,
 				52AB405D26FC245000E343C9 /* AddPostView.swift in Sources */,
 				52AB405B26FC113D00E343C9 /* ProfileView.swift in Sources */,
 				E0A9392926FC07B800735C99 /* SubjectsModel.swift in Sources */,

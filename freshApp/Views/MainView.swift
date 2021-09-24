@@ -16,9 +16,11 @@ struct MainView: View {
         
         if fb.signedIn {
             TabView {
-                HomeView().tabItem { Image(systemName: "house.fill") }
-                SearchView().tabItem { Image(systemName: "magnifyingglass") }
-                FollowingView().tabItem { Image(systemName: "list.dash") }
+                SearchView().tabItem { Image(systemName: "network") }
+                HomeView().tabItem { Image(systemName: "list.dash") }
+                FollowingView().tabItem { Image(systemName: "person.2") }
+
+
             }
         } else {
             LoginView()

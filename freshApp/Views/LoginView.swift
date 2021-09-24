@@ -43,22 +43,27 @@ struct LoginView: View {
                 })
                 .padding()
                 VStack {
-                    Rectangle()
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 45)
-                        .foregroundColor(Color.theme.pinkColor)
-                        .onTapGesture {
-                            DispatchQueue.main.async {
-                                fb.signIn(email: email, password: password)
-                                if Auth.auth().currentUser == nil {
-                                    showAlert.toggle()
-                                }
+                    Button(action: {
+                        self.hideKeyboard()
+                        fb.signIn(email: email, password: password)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                            if fb.loading {
+                                fb.loading = false
+                                showAlert = true
                             }
                         }
-                        .overlay(
-                            Text("Login")
-                                .foregroundColor(.white)
-                        )
+                        
+                    }, label: {
+                        Rectangle()
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 45)
+                            .foregroundColor(Color.theme.pinkColor)
+                            .overlay(
+                                Text("Login")
+                                    .foregroundColor(.white)
+                            )
+                    })
+
                     Rectangle()
                         .frame(width: 100, height: 45)
                         .foregroundColor(Color(#colorLiteral(red: 0.1129587665, green: 0.1133331135, blue: 0.1243050769, alpha: 1)))
@@ -73,13 +78,16 @@ struct LoginView: View {
                 .padding()
             }
             
-            
             NavigationLink(
                 destination: SignUpView(),
                 tag: tag,
                 selection: $selection,
                 label: {})
+            if fb.loading {
+                LoadingView()
+            }
         }
+        .navigationBarHidden(true)
     }
 }
 
@@ -109,19 +117,19 @@ struct SignUpView: View {
                     TextField("Confirm Password", text: $confirmPassword)
                 }
             }
-                Button("Create Account") {
-                    if password == confirmPassword {
+            Button("Create Account") {
+                if password == confirmPassword {
                     fb.signUp(email: email, password: password, firstName: firstName, lastName: lastName)
-                    } else {
-                        showAlert.toggle()
-                    }
+                } else {
+                    showAlert.toggle()
                 }
-                .alert(isPresented: $showAlert, content: {
-                    Alert(title: Text("Invalid data."))
-                })
-                .frame(maxWidth: .infinity)
-                    .frame(height: 45)
-                    .background(Color.theme.pinkColor)
+            }
+            .alert(isPresented: $showAlert, content: {
+                Alert(title: Text("Invalid data."))
+            })
+            .frame(maxWidth: .infinity)
+            .frame(height: 45)
+            .background(Color.theme.pinkColor)
         }
         .navigationTitle("Create Account")
         .padding()
