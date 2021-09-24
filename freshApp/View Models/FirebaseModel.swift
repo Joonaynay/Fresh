@@ -34,9 +34,9 @@ class FirebaseModel: ObservableObject {
         })
     }
     
-    func addPost(image: UIImage, caption: String, collections: [String]) {
+    func addPost(image: UIImage, caption: String, subjects: [String]) {
         
-        let dbPosts = Firestore.firestore().collection("posts").addDocument(data: ["caption" : caption, "subjects": collections, "uid": self.auth.currentUser!.uid])
+        let dbPosts = Firestore.firestore().collection("posts").addDocument(data: ["caption" : caption, "subjects": subjects, "uid": self.auth.currentUser!.uid])
         let postId = dbPosts.documentID
         let dbUsers = Firestore.firestore().collection("users").document(auth.currentUser!.uid)
         dbUsers.updateData(["posts": FieldValue.arrayUnion([postId])])
