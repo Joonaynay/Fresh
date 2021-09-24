@@ -59,16 +59,14 @@ class FirebaseModel: ObservableObject {
         }
     }
     
-    func signInWithGoogle(email: String, password: String) {
-        
-    }
     
-    func signUp(email: String, password: String, firstName: String, lastName: String) {
+    func signUp(email: String, password: String, name: String) {
         DispatchQueue.main.async {
             self.auth.createUser(withEmail: email, password: password) { [weak self] result, error in
                 if result != nil && error == nil {
                     self?.signedIn = true
-                    Firestore.firestore().collection("users").document(self!.auth.currentUser!.uid).setData(["firstName": firstName, "lastName": lastName])
+                    Firestore.firestore().collection("users").document(self!.auth.currentUser!.uid).setData(["name": name])
+            
                 }
             }
         }

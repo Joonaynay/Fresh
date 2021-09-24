@@ -120,7 +120,7 @@ struct SignUpView: View {
             }
             Button("Create Account") {
                 if password == confirmPassword {
-                    fb.signUp(email: email, password: password, firstName: firstName, lastName: lastName)
+                    fb.signUp(email: email, password: password, name: "\(firstName) \(lastName)")
                 } else {
                     showAlert.toggle()
                 }
