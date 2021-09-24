@@ -12,10 +12,7 @@ struct AddPostView: View {
     @State private var caption: String = ""
     @State private var showImages: Bool = false
     @State var image: UIImage?
-    
-    init() {
-        UITextView.appearance().backgroundColor = .clear
-    }
+    @Binding var isActive: Bool
     
     var body: some View {
         ZStack {
@@ -49,7 +46,7 @@ struct AddPostView: View {
                 
                 if image != nil {
                     NavigationLink(
-                        destination: SelectSubjectView(image: image!, caption: caption),
+                        destination: SelectSubjectView(image: image!, caption: caption, isActive: $isActive),
                         label: {
                             Rectangle()
                                 .frame(maxWidth: .infinity)
@@ -61,6 +58,7 @@ struct AddPostView: View {
                                         .foregroundColor(.white)
                                 )
                         })
+                        .isDetailLink(false)
                 }
             }
             .padding()
@@ -76,10 +74,11 @@ struct SelectSubjectView: View {
     let image: UIImage
     private let subjects = Bundle.main.decode([SubjectsModel].self, from: "subjects.json")
     @State var list: [String] = []
-    private let profileViewTag = "profileView"
+    private let trendingViewTag = "profileView"
     @State private var selection: String? = ""
     @State private var buttonDisabled: Bool = true
     let caption: String
+    @Binding var isActive: Bool
     
     @EnvironmentObject private var fb: FirebaseModel
     
@@ -97,8 +96,9 @@ struct SelectSubjectView: View {
                     }
                 }
                 Button(action: {
-                    fb.addPost(image: image, caption: caption, subjects: list)
-                    selection = profileViewTag
+                    //fb.addPost(image: image, caption: caption, subjects: list)
+                    isActive = false
+                    print(isActive)
                 }, label: {
                     Text("Post")
                         .frame(maxWidth: .infinity)
@@ -108,12 +108,6 @@ struct SelectSubjectView: View {
                 .disabled(buttonDisabled)
             }
             .padding()
-            
-            NavigationLink(
-                destination: ProfileView(),
-                tag: profileViewTag,
-                selection: $selection,
-                label: {})
         }
     }
 }
@@ -158,7 +152,7 @@ struct checkMarkSubjects : View {
 
 struct AddPostView_Previews: PreviewProvider {
     static var previews: some View {
-        SelectSubjectView(image: UIImage(contentsOfFile: "Logo.png")!, caption: "Sup")
+        SelectSubjectView(image: UIImage(contentsOfFile: "Logo.png")!, caption: "Sup", isActive: .constant(true))
             .preferredColorScheme(.dark)
             .environmentObject(FirebaseModel())
     }

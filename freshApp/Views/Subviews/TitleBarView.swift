@@ -11,7 +11,7 @@ struct TitleBarView: View {
     
     @State private var selection: String? = ""
     @State private var profileViewTag = "profileView"
-    @State private var addPostViewTag = "addPostView"
+    @State private var rootIsActive: Bool = false
     @EnvironmentObject var fb: FirebaseModel
     
     let title: String
@@ -26,7 +26,7 @@ struct TitleBarView: View {
                 Spacer()
                 Menu() {
                     Button("View Profile") { selection = profileViewTag }
-                    Button("New Post") { selection = addPostViewTag }
+                    Button("New Post") { rootIsActive = true }
                     Button("Settings") {}
                     Button(action: { fb.signOut() }, label: { Text("Sign Out").accentColor(.red) }).accentColor(.red)
                 } label: {
@@ -42,7 +42,11 @@ struct TitleBarView: View {
                 .frame(maxWidth: .infinity, maxHeight: 1)
                 .foregroundColor(Color.theme.secondaryText)
             NavigationLink(destination: ProfileView(), tag: profileViewTag, selection: $selection, label: {})
-            NavigationLink(destination: AddPostView(), tag: addPostViewTag, selection: $selection, label: {})
+            NavigationLink(
+                destination: AddPostView(isActive: $rootIsActive),
+                isActive: $rootIsActive,
+                label: {})
+                .isDetailLink(false)
         }
     }
 }
