@@ -11,8 +11,14 @@ struct TitleBarView: View {
     
     @State private var selection: String? = ""
     @State private var profileViewTag = "profileView"
-    @State private var rootIsActive: Bool = false
+    @State private var addPostViewTag = "addPostView"
     @EnvironmentObject var fb: FirebaseModel
+    
+    @State var dissmissView = false
+    
+    @Environment(\.presentationMode) var pres
+        
+    
     
     let title: String
     
@@ -26,9 +32,9 @@ struct TitleBarView: View {
                 Spacer()
                 Menu() {
                     Button("View Profile") { selection = profileViewTag }
-                    Button("New Post") { rootIsActive = true }
+                    Button("New Post") {  selection = addPostViewTag }
                     Button("Settings") {}
-                    Button(action: { fb.signOut() }, label: { Text("Sign Out").accentColor(.red) }).accentColor(.red)
+                    Button(action: { fb.signOut() }, label: { Text("Sign Out") })
                 } label: {
                     Image(systemName: "person.circle")
                         .resizable()
@@ -42,11 +48,13 @@ struct TitleBarView: View {
                 .frame(maxWidth: .infinity, maxHeight: 1)
                 .foregroundColor(Color.theme.secondaryText)
             NavigationLink(destination: ProfileView(), tag: profileViewTag, selection: $selection, label: {})
-            NavigationLink(
-                destination: AddPostView(isActive: $rootIsActive),
-                isActive: $rootIsActive,
-                label: {})
-                .isDetailLink(false)
+            NavigationLink(destination: AddPostView(dissmissView: $dissmissView), tag: addPostViewTag, selection: $selection, label: {})
+
+        }
+        .onAppear() {
+            if dissmissView {
+                pres.wrappedValue.dismiss()
+            }
         }
     }
 }

@@ -12,7 +12,9 @@ struct AddPostView: View {
     @State private var caption: String = ""
     @State private var showImages: Bool = false
     @State var image: UIImage?
-    @Binding var isActive: Bool
+    
+    @Binding var dissmissView: Bool
+    @Environment(\.presentationMode) var pres
     
     var body: some View {
         ZStack {
@@ -45,9 +47,7 @@ struct AddPostView: View {
                     .foregroundColor(Color.theme.accent)
                 
                 if image != nil {
-                    NavigationLink(
-                        destination: SelectSubjectView(image: image!, caption: caption, isActive: $isActive),
-                        label: {
+                    NavigationLink(destination: SelectSubjectView(image: image!, caption: caption, dissmissView: $dissmissView), label: {
                             Rectangle()
                                 .frame(maxWidth: .infinity)
                                 .frame(height: 50)
@@ -58,13 +58,17 @@ struct AddPostView: View {
                                         .foregroundColor(.white)
                                 )
                         })
-                        .isDetailLink(false)
                 }
             }
             .padding()
             .sheet(isPresented: $showImages, content: {
                 ImagePickerView(image: $image)
             })
+        }
+        .onAppear() {
+            if dissmissView {
+                pres.wrappedValue.dismiss()
+            }
         }
     }
 }
@@ -78,7 +82,9 @@ struct SelectSubjectView: View {
     @State private var selection: String? = ""
     @State private var buttonDisabled: Bool = true
     let caption: String
-    @Binding var isActive: Bool
+    
+    @Binding var dissmissView: Bool
+    @Environment(\.presentationMode) var pres
     
     @EnvironmentObject private var fb: FirebaseModel
     
@@ -96,9 +102,8 @@ struct SelectSubjectView: View {
                     }
                 }
                 Button(action: {
-                    //fb.addPost(image: image, caption: caption, subjects: list)
-                    isActive = false
-                    print(isActive)
+                    dissmissView = true
+                    //fb.addPost(image: image, caption: caption, subjects: list)                
                 }, label: {
                     Text("Post")
                         .frame(maxWidth: .infinity)
@@ -108,6 +113,11 @@ struct SelectSubjectView: View {
                 .disabled(buttonDisabled)
             }
             .padding()
+        }
+        .onAppear() {
+            if dissmissView {
+                pres.wrappedValue.dismiss()
+            }
         }
     }
 }
@@ -152,7 +162,7 @@ struct checkMarkSubjects : View {
 
 struct AddPostView_Previews: PreviewProvider {
     static var previews: some View {
-        SelectSubjectView(image: UIImage(contentsOfFile: "Logo.png")!, caption: "Sup", isActive: .constant(true))
+        SelectSubjectView(image: UIImage(contentsOfFile: "Logo.png")!, caption: "Sup", dissmissView: .constant(false))
             .preferredColorScheme(.dark)
             .environmentObject(FirebaseModel())
     }
