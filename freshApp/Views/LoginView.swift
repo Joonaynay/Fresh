@@ -100,6 +100,7 @@ struct SignUpView: View {
     @State private var password: String = ""
     @State private var confirmPassword: String = ""
     @State private var showAlert: Bool = false
+    @State private var username: String = ""
     
     @EnvironmentObject private var fb: FirebaseModel
     
@@ -109,6 +110,9 @@ struct SignUpView: View {
                 Section(header: Text("Name")) {
                     TextField("First Name", text: $firstName)
                     TextField("Last Name", text: $lastName)
+                }
+                Section(header: Text("Username (Users will see this name.)")) {
+                    TextField("Username", text: $username)
                 }
                 Section(header: Text("Email")) {
                     TextField("Email", text: $email)
