@@ -1,5 +1,5 @@
 //
-//  SearchView.swift
+//  TrendingView.swift
 //  freshApp
 //
 //  Created by Forrest Buhler on 9/22/21.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SearchView: View {
+struct TrendingView: View {
     
     @State var selection: String? = ""
     @State var profileView = "profileView"
@@ -23,8 +23,8 @@ struct SearchView: View {
     }
 }
 
-struct SearchView_Previews: PreviewProvider {
+struct TrendingView_Previews: PreviewProvider {
     static var previews: some View {
-        SearchView()
+        TrendingView()
     }
 }

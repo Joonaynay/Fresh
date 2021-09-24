@@ -20,7 +20,7 @@ struct freshAppApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationView {
-                MainView()
+                MainView(tab: 1)
                     .onAppear() {
                         if Auth.auth().currentUser != nil {
                             fb.signedIn = true
