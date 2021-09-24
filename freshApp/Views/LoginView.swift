@@ -6,12 +6,14 @@
 //
 
 import SwiftUI
+import Firebase
 
 struct LoginView: View {
     
     @State private var email: String = ""
     @State private var password: String = ""
     @State private var selection: String? = ""
+    @State private var showAlert: Bool = false
     private let tag = "SignUp"
     @EnvironmentObject var fb: FirebaseModel
     
@@ -36,6 +38,9 @@ struct LoginView: View {
                         .frame(height: 50)
                         .background(Color.theme.secondaryText)
                 }
+                .alert(isPresented: $showAlert, content: {
+                    Alert(title: Text("Incorrect email or password"))
+                })
                 .padding()
                 VStack {
                     Rectangle()
@@ -43,7 +48,12 @@ struct LoginView: View {
                         .frame(height: 45)
                         .foregroundColor(Color.theme.pinkColor)
                         .onTapGesture {
-                            fb.signIn(email: email, password: password)
+                            DispatchQueue.main.async {
+                                fb.signIn(email: email, password: password)
+                                if Auth.auth().currentUser == nil {
+                                    showAlert.toggle()
+                                }
+                            }
                         }
                         .overlay(
                             Text("Login")
