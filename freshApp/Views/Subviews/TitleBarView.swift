@@ -9,8 +9,10 @@ import SwiftUI
 
 struct TitleBarView: View {
     
-    @State var selection: String? = ""
-    @State var profileView = "profileView"
+    @State private var selection: String? = ""
+    @State private var profileViewTag = "profileView"
+    @State private var addPostViewTag = "addPostView"
+    @EnvironmentObject var fb: FirebaseModel
     
     let title: String
     
@@ -23,8 +25,10 @@ struct TitleBarView: View {
                     .padding()
                 Spacer()
                 Menu {
-                    Button("View Profile") { selection = profileView }
+                    Button("View Profile") { selection = profileViewTag }
+                    Button("New Post") { selection = addPostViewTag }
                     Button("Settings") {}
+                    Button(action: { fb.signOut() }, label: { Text("Sign Out").accentColor(.red) }).accentColor(.red)
                 } label: {
                     Image(systemName: "person.circle")
                         .resizable()
@@ -36,7 +40,8 @@ struct TitleBarView: View {
             Rectangle()
                 .frame(maxWidth: .infinity, maxHeight: 1)
                 .foregroundColor(Color.theme.secondaryText)
-            NavigationLink(destination: ProfileView(), tag: profileView, selection: $selection, label: {})
+            NavigationLink(destination: ProfileView(), tag: profileViewTag, selection: $selection, label: {})
+            NavigationLink(destination: AddPostView(), tag: addPostViewTag, selection: $selection, label: {})
         }
     }
 }

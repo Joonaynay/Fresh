@@ -16,19 +16,6 @@ struct ProfileView: View {
             Color.theme.background
                 .ignoresSafeArea()
             ScrollView {
-                NavigationLink(
-                    destination: AddPostView(),
-                    label: {
-                        Rectangle()
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 50)
-                            .foregroundColor(Color.theme.pinkColor)
-                            .overlay(
-                                Text("Add Post")
-                                    .foregroundColor(.white)
-                            )
-                    })
-
                 Spacer()
                 ForEach(posts, id: \.self) { post in
                     HStack {
