@@ -24,7 +24,7 @@ struct TitleBarView: View {
                     .font(.largeTitle)
                     .padding()
                 Spacer()
-                Menu {
+                Menu() {
                     Button("View Profile") { selection = profileViewTag }
                     Button("New Post") { selection = addPostViewTag }
                     Button("Settings") {}
@@ -36,6 +36,7 @@ struct TitleBarView: View {
                         .scaledToFit()
                         .padding()
                 }
+                .menuStyle(BorderlessButtonMenuStyle())
             }
             Rectangle()
                 .frame(maxWidth: .infinity, maxHeight: 1)

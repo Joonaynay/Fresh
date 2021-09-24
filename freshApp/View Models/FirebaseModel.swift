@@ -14,14 +14,8 @@ class FirebaseModel: ObservableObject {
     
     @Published var signedIn = false
     @Published var posts: [Posts] = []
+    @Published var loading = false
     let auth = Auth.auth()
-    
-    var isSignedIn: Bool {
-        return auth.currentUser != nil
-    }
-    
-    
-    
     
     func loadPosts() {
         let db = Firestore.firestore()
@@ -52,13 +46,12 @@ class FirebaseModel: ObservableObject {
     }
     
     func signIn(email: String, password: String) {
-        auth.signIn(withEmail: email, password: password) { [weak self] result, error in
-            if error != nil {
-                
-            } else {
-                // Success
-                DispatchQueue.main.async {
+        DispatchQueue.main.async {
+            self.loading = true
+            self.auth.signIn(withEmail: email, password: password) { [weak self] result, error in
+                if result != nil && error == nil {
                     self?.signedIn = true
+                    self?.loading = false
                 }
             }
             
@@ -71,15 +64,12 @@ class FirebaseModel: ObservableObject {
     }
     
     func signUp(email: String, password: String, firstName: String, lastName: String) {
-        auth.createUser(withEmail: email, password: password) { [weak self] result, error in
-            guard result != nil, error == nil else {
-                return
-            }
-            
-            // Success
-            DispatchQueue.main.async {
-                self?.signedIn = true
-                Firestore.firestore().collection("users").document(self!.auth.currentUser!.uid).setData(["firstName": firstName, "lastName": lastName])
+        DispatchQueue.main.async {
+            self.auth.createUser(withEmail: email, password: password) { [weak self] result, error in
+                if result != nil && error == nil {
+                    self?.signedIn = true
+                    Firestore.firestore().collection("users").document(self!.auth.currentUser!.uid).setData(["firstName": firstName, "lastName": lastName])
+                }
             }
         }
     }
