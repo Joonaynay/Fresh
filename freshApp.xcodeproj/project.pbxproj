@@ -123,10 +123,10 @@
 			children = (
 				E0A9392C26FC0E8400735C99 /* MainView.swift */,
 				52AB404826FC066100E343C9 /* LoginView.swift */,
-				52AB404C26FC066F00E343C9 /* HomeView.swift */,
 				52AB405A26FC113D00E343C9 /* ProfileView.swift */,
 				52AB405C26FC245000E343C9 /* AddPostView.swift */,
 				E0A9392E26FC0ECE00735C99 /* TrendingView.swift */,
+				52AB404C26FC066F00E343C9 /* HomeView.swift */,
 				E0A9393026FC11B800735C99 /* FollowingView.swift */,
 				E0E4388F26FD33DB000C5738 /* Subviews */,
 			);

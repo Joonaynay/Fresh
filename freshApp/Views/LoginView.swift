@@ -39,7 +39,7 @@ struct LoginView: View {
                         .background(Color.theme.secondaryText)
                 }
                 .alert(isPresented: $showAlert, content: {
-                    Alert(title: Text("Incorrect email or password"))
+                    Alert(title: Text("Incorrect email or password. Try Again."))
                 })
                 .padding()
                 VStack {
@@ -63,17 +63,18 @@ struct LoginView: View {
                                     .foregroundColor(.white)
                             )
                     })
-
-                    Rectangle()
-                        .frame(width: 100, height: 45)
-                        .foregroundColor(Color(#colorLiteral(red: 0.1129587665, green: 0.1133331135, blue: 0.1243050769, alpha: 1)))
-                        .onTapGesture {
-                            selection = tag
-                        }
-                        .overlay(
-                            Text("Sign Up")
-                                .foregroundColor(.white)
-                        )
+                    Button(action: { selection = tag}, label: {
+                        Rectangle()
+                            .frame(width: 100, height: 45)
+                            .foregroundColor(Color(#colorLiteral(red: 0.1129587665, green: 0.1133331135, blue: 0.1243050769, alpha: 1)))
+                            .onTapGesture {
+                                selection = tag
+                            }
+                            .overlay(
+                                Text("Sign Up")
+                                    .foregroundColor(.white)
+                            )
+                    })
                 }
                 .padding()
             }

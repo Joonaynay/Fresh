@@ -43,6 +43,8 @@ class FirebaseModel: ObservableObject {
         let imageData = image.jpegData(compressionQuality: 1)
         let storage = Storage.storage().reference()
         storage.child("images").child(postId).putData(imageData!)
+        self.posts.append(Posts(id: postId, image: image, caption: caption, subjects: subjects))
+        
         
     }
     
@@ -55,6 +57,8 @@ class FirebaseModel: ObservableObject {
                     self?.loading = false
                 }
             }
+            
+            
         }
     }
     

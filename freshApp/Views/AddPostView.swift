@@ -97,7 +97,7 @@ struct SelectSubjectView: View {
                     }
                 }
                 Button(action: {
-                    fb.addPost(image: image, caption: caption, collections: list)
+                    fb.addPost(image: image, caption: caption, subjects: list)
                     selection = profileViewTag
                 }, label: {
                     Text("Post")
