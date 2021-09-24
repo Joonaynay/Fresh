@@ -102,8 +102,9 @@ struct SelectSubjectView: View {
                     }
                 }
                 Button(action: {
+                    fb.addPost(image: image, caption: caption, subjects: list)
                     dissmissView = true
-                    //fb.addPost(image: image, caption: caption, subjects: list)                
+                    pres.wrappedValue.dismiss()
                 }, label: {
                     Text("Post")
                         .frame(maxWidth: .infinity)
@@ -113,11 +114,6 @@ struct SelectSubjectView: View {
                 .disabled(buttonDisabled)
             }
             .padding()
-        }
-        .onAppear() {
-            if dissmissView {
-                pres.wrappedValue.dismiss()
-            }
         }
     }
 }
