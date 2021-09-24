@@ -36,8 +36,10 @@ class FirebaseModel: ObservableObject {
     
     func addPost(image: UIImage, caption: String, collections: [String]) {
         
-        let db = Firestore.firestore().collection("posts").addDocument(data: ["caption" : caption, "subjects": collections, "uid": self.auth.currentUser!.uid])
-        let postId = db.documentID
+        let dbPosts = Firestore.firestore().collection("posts").addDocument(data: ["caption" : caption, "subjects": collections, "uid": self.auth.currentUser!.uid])
+        let postId = dbPosts.documentID
+        let dbUsers = Firestore.firestore().collection("users").document(auth.currentUser!.uid)
+        dbUsers.updateData(["posts": FieldValue.arrayUnion([postId])])
         let imageData = image.jpegData(compressionQuality: 1)
         let storage = Storage.storage().reference()
         storage.child("images").child(postId).putData(imageData!)
@@ -62,8 +64,8 @@ class FirebaseModel: ObservableObject {
             self.auth.createUser(withEmail: email, password: password) { [weak self] result, error in
                 if result != nil && error == nil {
                     self?.signedIn = true
-                    Firestore.firestore().collection("users").document(self!.auth.currentUser!.uid).setData(["name": name])
-            
+                    let db = Firestore.firestore().collection("users").document(self!.auth.currentUser!.uid)
+                    db.setData(["name": name, "posts": []])
                 }
             }
         }
