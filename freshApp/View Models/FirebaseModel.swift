@@ -51,14 +51,16 @@ class FirebaseModel: ObservableObject {
     
     func signIn(email: String, password: String) {
         auth.signIn(withEmail: email, password: password) { [weak self] result, error in
-            guard result != nil, error == nil else {
-                return
+            if error != nil {
+                
+            } else {
+                // Success
+                DispatchQueue.main.async {
+                    self?.signedIn = true
+                }
             }
             
-            // Success
-            DispatchQueue.main.async {
-                self?.signedIn = true
-            }
+
         }
     }
     
