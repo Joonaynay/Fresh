@@ -10,6 +10,7 @@ import SwiftUI
 struct ProfileView: View {
     
     @State private var posts: [String] = ["sadg", "asdg", "kfk", "hyf", "jkk"]
+    @EnvironmentObject private var fb: FirebaseModel
     
     var body: some View {
         ZStack {
@@ -17,12 +18,13 @@ struct ProfileView: View {
                 .ignoresSafeArea()
             ScrollView {
                 Spacer()
-                ForEach(posts, id: \.self) { post in
+                ForEach(fb.posts) { post in
                     HStack {
-                        Rectangle()
+                        Image(uiImage: post.image!)
+                            .resizable()
                             .frame(width: 120, height: 120)
                         
-                        Text("This will be the title of whatever the title screen is.")
+                        Text(post.caption)
                             .font(.body)
                             .multilineTextAlignment(.center)
                     }
@@ -38,5 +40,6 @@ struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
         ProfileView()
             .preferredColorScheme(.dark)
+            .environmentObject(FirebaseModel())
     }
 }

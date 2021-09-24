@@ -39,7 +39,7 @@ struct LoginView: View {
                         .background(Color.theme.secondaryText)
                 }
                 .alert(isPresented: $showAlert, content: {
-                    Alert(title: Text("Incorrect email or password"))
+                    Alert(title: Text("Incorrect email or password. Try Again."))
                 })
                 .padding()
                 VStack {
@@ -48,8 +48,8 @@ struct LoginView: View {
                         .frame(height: 45)
                         .foregroundColor(Color.theme.pinkColor)
                         .onTapGesture {
+                            fb.signIn(email: email, password: password)
                             DispatchQueue.main.async {
-                                fb.signIn(email: email, password: password)
                                 if Auth.auth().currentUser == nil {
                                     showAlert.toggle()
                                 }
