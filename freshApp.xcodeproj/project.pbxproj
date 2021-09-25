@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1600AF20FF33B341803F37C4 /* Pods_freshApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F372103A81A4C451F224587 /* Pods_freshApp.framework */; };
-		52AB403726FC05C300E343C9 /* freshAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AB403626FC05C300E343C9 /* freshAppApp.swift */; };
+		52AB403726FC05C300E343C9 /* Fresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AB403626FC05C300E343C9 /* Fresh.swift */; };
 		52AB403B26FC05C600E343C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52AB403A26FC05C600E343C9 /* Assets.xcassets */; };
 		52AB403E26FC05C600E343C9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52AB403D26FC05C600E343C9 /* Preview Assets.xcassets */; };
 		52AB404926FC066100E343C9 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AB404826FC066100E343C9 /* LoginView.swift */; };
@@ -36,7 +36,7 @@
 /* Begin PBXFileReference section */
 		3DD5CE6420CDD96374E09335 /* Pods-freshApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-freshApp.release.xcconfig"; path = "Target Support Files/Pods-freshApp/Pods-freshApp.release.xcconfig"; sourceTree = "<group>"; };
 		52AB403326FC05C300E343C9 /* freshApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = freshApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		52AB403626FC05C300E343C9 /* freshAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = freshAppApp.swift; sourceTree = "<group>"; };
+		52AB403626FC05C300E343C9 /* Fresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fresh.swift; sourceTree = "<group>"; };
 		52AB403A26FC05C600E343C9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		52AB403D26FC05C600E343C9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		52AB403F26FC05C600E343C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -97,7 +97,7 @@
 		52AB403526FC05C300E343C9 /* freshApp */ = {
 			isa = PBXGroup;
 			children = (
-				52AB403626FC05C300E343C9 /* freshAppApp.swift */,
+				52AB403626FC05C300E343C9 /* Fresh.swift */,
 				52AB404726FC065500E343C9 /* Extras */,
 				52AB404626FC064200E343C9 /* View Models */,
 				52AB404526FC063D00E343C9 /* Views */,
@@ -314,7 +314,7 @@
 				52AB404D26FC066F00E343C9 /* HomeView.swift in Sources */,
 				E0A9393126FC11B800735C99 /* FollowingView.swift in Sources */,
 				52AB405726FC075B00E343C9 /* UserModel.swift in Sources */,
-				52AB403726FC05C300E343C9 /* freshAppApp.swift in Sources */,
+				52AB403726FC05C300E343C9 /* Fresh.swift in Sources */,
 				E0E4389126FD33FD000C5738 /* TitleBarView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

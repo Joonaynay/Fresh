@@ -13,41 +13,58 @@ struct AddPostView: View {
     @State private var showImages: Bool = false
     @State var image: UIImage?
     
-    @Binding var dissmissView: Bool
+    @State var dissmissView: Bool = false
     @Environment(\.presentationMode) var pres
     
+    init() {
+        UITextView.appearance().backgroundColor = .clear
+    }
+    
     var body: some View {
-        ZStack {
+        ZStack(alignment: .topLeading) {
             Color.theme.background
                 .ignoresSafeArea()
-            ScrollView {
-                Text("Add A Post")
-                    .font(.largeTitle)
-                    .foregroundColor(Color.theme.accent)
-                Button(action: { showImages.toggle() }, label: {
-                    Rectangle()
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 50)
-                        .foregroundColor(Color.theme.pinkColor)
-                        .overlay(
-                            Text("Select an image...")
-                                .font(.headline)
-                                .foregroundColor(.white)
-                        )
-                })
-                if image != nil {
-                    Image(uiImage: image!)
-                        .resizable()
-                        .frame(width: UIScreen.main.bounds.width / 1.05, height: UIScreen.main.bounds.width / 1.05)
-                }
-                TextEditor(text: $caption)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 45)
-                    .background(Color.theme.secondaryText)
-                    .foregroundColor(Color.theme.accent)
+            VStack(spacing: 0) {
                 
-                if image != nil {
-                    NavigationLink(destination: SelectSubjectView(image: image!, caption: caption, dissmissView: $dissmissView), label: {
+                HStack {
+                    Text("New Post")
+                        .font(.largeTitle)
+                        .padding()
+                    Spacer()
+                    Button("Cancel") { pres.wrappedValue.dismiss() }
+                        .padding()
+                }
+                Rectangle()
+                    .frame(maxWidth: .infinity, maxHeight: 1)
+                    .foregroundColor(Color.theme.secondaryText)
+                
+                ScrollView() {
+                    Button(action: { showImages.toggle() }, label: {
+                        Rectangle()
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 50)
+                            .foregroundColor(Color.theme.pinkColor)
+                            .overlay(
+                                Text("Select an image...")
+                                    .font(.headline)
+                                    .foregroundColor(.white)
+                                                                )
+                    })
+                    .padding(.top)
+
+                    if image != nil {
+                        Image(uiImage: image!)
+                            .resizable()
+                            .frame(width: UIScreen.main.bounds.width / 1.05, height: UIScreen.main.bounds.width / 1.05)
+                    }
+                    TextEditor(text: $caption)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 45)
+                        .background(Color.theme.secondaryText)
+                        .foregroundColor(Color.theme.accent)
+                    
+                    if image != nil {
+                        NavigationLink(destination: SelectSubjectView(image: image!, caption: caption, dissmissView: $dissmissView), label: {
                             Rectangle()
                                 .frame(maxWidth: .infinity)
                                 .frame(height: 50)
@@ -58,12 +75,12 @@ struct AddPostView: View {
                                         .foregroundColor(.white)
                                 )
                         })
+                    }
                 }
+                .sheet(isPresented: $showImages, content: {
+                    ImagePickerView(image: $image)
+                })
             }
-            .padding()
-            .sheet(isPresented: $showImages, content: {
-                ImagePickerView(image: $image)
-            })
         }
         .onAppear() {
             if dissmissView {

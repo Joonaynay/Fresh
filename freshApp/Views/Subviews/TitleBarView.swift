@@ -14,8 +14,6 @@ struct TitleBarView: View {
     @State private var addPostViewTag = "addPostView"
     @EnvironmentObject var fb: FirebaseModel
     
-    @State var dissmissView = false
-    
     @Environment(\.presentationMode) var pres
         
     
@@ -48,13 +46,8 @@ struct TitleBarView: View {
                 .frame(maxWidth: .infinity, maxHeight: 1)
                 .foregroundColor(Color.theme.secondaryText)
             NavigationLink(destination: ProfileView(), tag: profileViewTag, selection: $selection, label: {})
-            NavigationLink(destination: AddPostView(dissmissView: $dissmissView), tag: addPostViewTag, selection: $selection, label: {})
+            NavigationLink(destination: AddPostView(), tag: addPostViewTag, selection: $selection, label: {})
 
-        }
-        .onAppear() {
-            if dissmissView {
-                pres.wrappedValue.dismiss()
-            }
         }
     }
 }
