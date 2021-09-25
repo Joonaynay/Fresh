@@ -75,9 +75,7 @@ struct HomePostView: View {
                 .ignoresSafeArea()
             VStack(spacing: 0) {
                 TitleBarView(title: subject.name)
-                    .onTapGesture {
-                        subject.name = ""
-                    }
+                Button("Cancel") { subject.name = "" }
                 ScrollView {
                     VStack {
                         ForEach(fb.posts) { post in

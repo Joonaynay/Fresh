@@ -100,6 +100,7 @@ struct SignUpView: View {
     @State private var password: String = ""
     @State private var confirmPassword: String = ""
     @State private var showAlert: Bool = false
+    @State private var alertText: String = ""
     @State private var username: String = ""
     
     @EnvironmentObject private var fb: FirebaseModel
@@ -124,13 +125,15 @@ struct SignUpView: View {
             }
             Button("Create Account") {
                 if password == confirmPassword {
-                    fb.signUp(email: email, password: password, name: "\(firstName) \(lastName)")
+
                 } else {
+                    let error = fb.signUp(email: email, password: password, name: "\(firstName) \(lastName)", username: username)
+                    alertText = error
                     showAlert.toggle()
                 }
             }
             .alert(isPresented: $showAlert, content: {
-                Alert(title: Text("Invalid data."))
+                Alert(title: Text(alertText))
             })
             .frame(maxWidth: .infinity)
             .frame(height: 45)

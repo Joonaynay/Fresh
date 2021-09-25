@@ -19,13 +19,15 @@ struct freshAppApp: App {
     
     var body: some Scene {
         WindowGroup {
-            MainView()
-                .onAppear() {
-                    if Auth.auth().currentUser != nil {
-                        fb.signedIn = true
+            NavigationView {
+                MainView()
+                    .onAppear() {
+                        if Auth.auth().currentUser != nil {
+                            fb.signedIn = true
+                        }
                     }
-                }
-                .environmentObject(fb)
+            }
+            .environmentObject(fb)
         }
     }
 }

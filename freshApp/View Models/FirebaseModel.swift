@@ -63,16 +63,26 @@ class FirebaseModel: ObservableObject {
     }
     
     
-    func signUp(email: String, password: String, name: String) {
+    func signUp(email: String, password: String, name: String, username: String) -> String {
+        var errorString: String = ""
+        
         DispatchQueue.main.async {
-            self.auth.createUser(withEmail: email, password: password) { [weak self] result, error in
-                if result != nil && error == nil {
-                    self?.signedIn = true
-                    let db = Firestore.firestore().collection("users").document(self!.auth.currentUser!.uid)
-                    db.setData(["name": name, "posts": []])
-                }
+            
+        }
+        self.auth.createUser(withEmail: email, password: password) { [weak self] result, error in
+            if result != nil && error == nil {
+                self?.signedIn = true
+                let changeRequest = self!.auth.currentUser?.createProfileChangeRequest()
+                changeRequest?.displayName = username
+                changeRequest?.commitChanges(completion: { error in })
+                let db = Firestore.firestore().collection("users").document(self!.auth.currentUser!.uid)
+                db.setData(["name": name, "posts": []])
+            } else {
+                errorString = error!.localizedDescription
             }
         }
+        
+        return errorString
     }
     
     func signOut() {
