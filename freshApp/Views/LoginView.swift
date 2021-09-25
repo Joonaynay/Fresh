@@ -51,32 +51,23 @@ struct LoginView: View {
                                 fb.loading = false
                                 showAlert = true
                             }
-                        }
-                        
+                        }                        
                     }, label: {
-                        Rectangle()
+                        Text("Login")
                             .frame(maxWidth: .infinity)
                             .frame(height: 45)
-                            .foregroundColor(Color.theme.pinkColor)
-                            .overlay(
-                                Text("Login")
-                                    .foregroundColor(.white)
-                            )
+                            .background(Color.theme.pinkColor)
                     })
+                    .padding(.horizontal)
                     Button(action: { selection = tag}, label: {
-                        Rectangle()
-                            .frame(width: 100, height: 45)
-                            .foregroundColor(Color(#colorLiteral(red: 0.1129587665, green: 0.1133331135, blue: 0.1243050769, alpha: 1)))
-                            .onTapGesture {
-                                selection = tag
-                            }
-                            .overlay(
-                                Text("Sign Up")
-                                    .foregroundColor(.white)
-                            )
+                       Text("Create Account")
+                        .frame(width: UIScreen.main.bounds.width / 2.5, height: 45)
+                        .background(Color.theme.secondaryText)
                     })
+                    .padding(5)
+                    .padding(.bottom)
                 }
-                .padding()
+                
             }
             
             NavigationLink(
@@ -99,14 +90,19 @@ struct SignUpView: View {
     @State private var email: String = ""
     @State private var password: String = ""
     @State private var confirmPassword: String = ""
+    @State private var username: String = ""
+    
     @State private var showAlert: Bool = false
     @State private var alertText: String = ""
-    @State private var username: String = ""
+    
+    @State private var selection: String? = ""
+    private let profilePictureTag = "i like pot"
     
     @EnvironmentObject private var fb: FirebaseModel
     
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
+            
             Form {
                 Section(header: Text("Name")) {
                     TextField("First Name", text: $firstName)
@@ -123,30 +119,106 @@ struct SignUpView: View {
                     TextField("Confirm Password", text: $confirmPassword)
                 }
             }
-            Button("Create Account") {
+            Button(action: {
                 if password == confirmPassword {
-
+                    let errorMessage = fb.signUp(email: email, password: password, name: "\(firstName) \(lastName)", username: username)
+                    alertText = errorMessage
+                    selection = profilePictureTag
                 } else {
-                    let error = fb.signUp(email: email, password: password, name: "\(firstName) \(lastName)", username: username)
-                    alertText = error
                     showAlert.toggle()
                 }
-            }
+            }, label: {
+                Text("Create Account")
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 45)
+                    .background(Color.theme.pinkColor)
+            })
             .alert(isPresented: $showAlert, content: {
                 Alert(title: Text(alertText))
             })
-            .frame(maxWidth: .infinity)
-            .frame(height: 45)
-            .background(Color.theme.pinkColor)
+            NavigationLink(
+                destination: ProfilePictureView(),
+                tag: profilePictureTag,
+                selection: $selection,
+                label: {})
         }
         .navigationTitle("Create Account")
+        .navigationBarTitleDisplayMode(.inline)
         .padding()
+    }
+}
+
+struct ProfilePictureView: View {
+    
+    @EnvironmentObject var fb: FirebaseModel
+    @State private var imagePickerShowing: Bool = false
+    @State private var image: UIImage?
+    
+    
+    var body: some View {
+        VStack {
+            
+            Text("Choose Profile Picture")
+                .multilineTextAlignment(.center)
+                .font(.largeTitle)
+                .padding()
+                .frame(maxWidth: .infinity)
+            Spacer()
+            Button(action: {
+                imagePickerShowing = true
+            }, label: {
+                VStack {
+  
+                    if image == nil {
+                        Text("Select an Image...")
+                            .font(.title)
+                        Image(systemName: "person.circle.fill")
+                            .resizable()
+                            .frame(width: 200, height: 200)
+                            .scaledToFit()
+                            .padding()
+                    } else {
+                        Text("Select an Image...")
+                            .font(.title)
+                        Image(uiImage: image!)
+                            .resizable()
+                            .clipShape(Circle())
+                            .frame(width: 200, height: 200)
+                            .scaledToFit()
+                            .padding()
+                    }
+                }
+            })
+            .sheet(isPresented: $imagePickerShowing, content: {
+                ImagePickerView(image: $image)
+            })
+            
+            Spacer()
+            
+            Button(action: { fb.addProfilePicture(image: image!)}, label: {
+                Text("Done")
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 45)
+                    .background(Color.theme.pinkColor)
+            })
+            .padding(.horizontal)
+            Button(action: { fb.signedIn = true }, label: {
+                Text("Skip")
+                    .frame(width: UIScreen.main.bounds.width / 2.5, height: 45)
+                    .background(Color.theme.secondaryText)
+            })
+            .padding(5)
+            .padding(.bottom)
+        }
+        .navigationBarHidden(true)
     }
 }
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView()
+        ProfilePictureView()
+            .preferredColorScheme(.dark)
+        SignUpView()
             .preferredColorScheme(.dark)
             .environmentObject(FirebaseModel())
     }

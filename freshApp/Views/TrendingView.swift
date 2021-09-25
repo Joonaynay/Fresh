@@ -19,25 +19,15 @@ struct TrendingView: View {
             Color.theme.background
                 .ignoresSafeArea()
             VStack(spacing: 0) {
-                Button(action: { fb.loadPosts() }, label: {
-                    Text("Load")
-                })
                 TitleBarView(title: "Trending")
                 ScrollView {
-                        VStack {
-                            ForEach(fb.posts) { post in
-                                Image(uiImage: post.image!)
-                                    .resizable()
-                                    .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width)
-                                HStack {
-                                    Image(systemName: "person.circle.fill")
-                                        .resizable()
-                                        .frame(width: 50, height: 50)
-                                    Text("Username: \(post.caption)")
-                                        .multilineTextAlignment(.leading)
-                                        .font(.title3)
-                                }.padding(25)
-                            }
+                    Button(action: { fb.loadPosts() }, label: {
+                        Text("Load")
+                    })
+                    VStack {
+                        ForEach(fb.posts) { post in
+                            PostView(post: post)
+                        }
                     }
                 }
             }

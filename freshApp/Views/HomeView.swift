@@ -77,21 +77,13 @@ struct HomePostView: View {
                 TitleBarView(title: subject.name)
                 Button("Cancel") { subject.name = "" }
                 ScrollView {
+                    Button(action: { fb.loadPosts() }, label: {
+                        Text("Load")
+                    })
                     VStack {
                         ForEach(fb.posts) { post in
                             if post.subjects.contains(subject.name) {
-                                
-                                Image(uiImage: post.image!)
-                                    .resizable()
-                                    .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width)
-                                HStack {
-                                    Image(systemName: "person.circle.fill")
-                                        .resizable()
-                                        .frame(width: 50, height: 50)
-                                    Text("Username: \(post.caption)")
-                                        .multilineTextAlignment(.leading)
-                                        .font(.title3)
-                                }.padding(25)
+                                PostView(post: post)
                             }
                         }
                     }

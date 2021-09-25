@@ -20,7 +20,7 @@ struct ProfileView: View {
                 Spacer()
                 ForEach(fb.posts) { post in
                     HStack {
-                        Image(uiImage: post.image!)
+                        Image(uiImage: post.image)
                             .resizable()
                             .frame(width: 120, height: 120)
                         
