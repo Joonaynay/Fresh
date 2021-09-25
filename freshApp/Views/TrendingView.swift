@@ -19,6 +19,9 @@ struct TrendingView: View {
             Color.theme.background
                 .ignoresSafeArea()
             VStack(spacing: 0) {
+                Button(action: { fb.loadPosts() }, label: {
+                    Text("Load")
+                })
                 TitleBarView(title: "Trending")
                 ScrollView {
                         VStack {
