@@ -23,7 +23,7 @@ struct VideoView: View {
                 .padding()
             HStack {
                 NavigationLink(
-                    destination: ProfileView(user: fb.currentUser!),
+                    destination: ProfileView(post: post, currentUser: fb.currentUser!),
                     label: {
                         HStack {
                             if post.user.profileImage != nil {

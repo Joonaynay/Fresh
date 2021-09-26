@@ -9,10 +9,12 @@ import SwiftUI
 
 struct ProfileView: View {
     
+    let post: Posts?
+    
     @State private var posts: [String] = ["sadg", "asdg", "kfk", "hyf", "jkk"]
     @EnvironmentObject private var fb: FirebaseModel
     
-    let user: User
+    let currentUser: User
     
     var body: some View {
         ZStack {
@@ -23,7 +25,11 @@ struct ProfileView: View {
                     .resizable()
                     .frame(width: 150, height: 150)
                 HStack {
-                    Text(user.username)
+                    if post == nil {
+                    Text(currentUser.username)
+                    } else {
+                        Text(post!.user.username)
+                    }
                 }
                 ScrollView {
                     Spacer()
@@ -48,7 +54,7 @@ struct ProfileView: View {
 
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileView(user: User(id: "asdf", username: "Trevor Buhler", name: "Trevor Buhler", profileImage: UIImage(systemName: "person")!))
+        ProfileView(post: nil, currentUser: User(id: "asdf", username: "Trevor Buhler", name: "Trevor Buhler", profileImage: UIImage(systemName: "person")!))
             .preferredColorScheme(.dark)
             .environmentObject(FirebaseModel())
     }

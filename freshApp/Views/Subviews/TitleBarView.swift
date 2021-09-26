@@ -12,6 +12,7 @@ struct TitleBarView: View {
     @State private var selection: String? = ""
     @State private var profileViewTag = "profileView"
     @State private var addPostViewTag = "addPostView"
+    
     @EnvironmentObject var fb: FirebaseModel
     
     @Environment(\.presentationMode) var pres
@@ -46,7 +47,7 @@ struct TitleBarView: View {
                 .frame(maxWidth: .infinity, maxHeight: 1)
                 .foregroundColor(Color.theme.secondaryText)
             if fb.currentUser != nil {
-                NavigationLink(destination: ProfileView(user: fb.currentUser!), tag: profileViewTag, selection: $selection, label: {})
+                NavigationLink(destination: ProfileView(post: nil, currentUser: fb.currentUser!), tag: profileViewTag, selection: $selection, label: {})
             }
             NavigationLink(destination: AddPostView(), tag: addPostViewTag, selection: $selection, label: {})
 
