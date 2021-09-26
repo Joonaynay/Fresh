@@ -27,8 +27,13 @@ class FirebaseModel: ObservableObject {
             let username = doc?.get("username") as! String
             let name = doc?.get("name") as! String
             self.storage.child("Profile Images").child(id!).getData(maxSize: 20 * 1024 * 1024) { data, error in
-                let image = UIImage(data: data!)
-                self.currentUser = User(id: id!, username: username, name: name, profileImage: image!)
+                if data != nil {
+                    let image = UIImage(data: data!)
+                    self.currentUser = User(id: id!, username: username, name: name, profileImage: image!)
+                } else {
+                    self.currentUser = User(id: id!, username: username, name: name, profileImage: nil)
+
+                }
             }
         }
     }
@@ -38,21 +43,23 @@ class FirebaseModel: ObservableObject {
         storage.child("Profile Images").child(auth.currentUser!.uid).putData(imageData!)
     }
     
-    func loadUser(uid: String) -> User {
+    
+    func loadUser(uid: String, completionHandler:@escaping (User?) -> Void) {
+        
         let db = Firestore.firestore().collection("users")
-        var user = User(id: "", username: "", name: "")
         db.document(uid).getDocument { doc, error in
             let username = doc?.get("username") as! String
             let name = doc?.get("name") as! String
             self.storage.child("Profile Images").child(uid).getData(maxSize: 20 * 1024 * 1024) { data, error in
                 if data != nil {
                     let profileImage = UIImage(data: data!)
-                    user = User(id: uid, username: username, name: name, profileImage: profileImage!)
+                    let user = User(id: uid, username: username, name: name, profileImage: profileImage!)
+                    completionHandler(user)
                 }
             }
         }
-        return user
     }
+        
     
     func loadPosts() {
         let db = Firestore.firestore()
@@ -67,8 +74,9 @@ class FirebaseModel: ObservableObject {
                             let subjects = post.get("subjects") as! [String]
                             let date = post.get("date") as! String
                             let uid = post.get("uid") as! String
-                            let user = self.loadUser(uid: uid)
-                            self.posts.append(Posts(id: postId, image: image!, title: title, subjects: subjects, date: date, user: user))
+                            self.loadUser(uid: uid) { user in
+                                self.posts.append(Posts(id: postId, image: image!, title: title, subjects: subjects, date: date, user: user!))
+                            }
                         }
                     }
                 }

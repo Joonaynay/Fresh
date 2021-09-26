@@ -26,9 +26,15 @@ struct VideoView: View {
                     destination: ProfileView(user: fb.currentUser!),
                     label: {
                         HStack {
-                            Image(uiImage: post.user.profileImage)
-                            .resizable()
-                            .frame(width: 30, height: 30)
+                            if post.user.profileImage != nil {
+                                Image(uiImage: post.user.profileImage!)
+                                    .resizable()
+                                    .frame(width: 30, height: 30)
+                            } else {
+                                Image(systemName: "person.circle.fill")
+                                    .resizable()
+                                    .frame(width: 30, height: 30)
+                            }
                             Text(post.user.username)
                         }
                     })

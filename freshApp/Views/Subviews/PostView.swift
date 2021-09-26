@@ -27,11 +27,19 @@ struct PostView: View {
                         .padding(.top, 10)
                         .padding(.horizontal, 10)
                     HStack {
-                        Image(uiImage: post.user.profileImage)
-                            .resizable()
-                            .frame(width: 35, height: 35)
-                            .clipShape(Circle())
-                            .scaledToFill()
+                        if post.user.profileImage != nil {
+                            Image(uiImage: post.user.profileImage!)
+                                .resizable()
+                                .frame(width: 35, height: 35)
+                                .clipShape(Circle())
+                                .scaledToFill()
+                        } else {
+                            Image(systemName: "person.circle.fill")
+                                .resizable()
+                                .frame(width: 35, height: 35)
+                                .clipShape(Circle())
+                                .scaledToFill()
+                        }
                         Text(post.user.username)
                             .multilineTextAlignment(.leading)
                             .font(.callout)
