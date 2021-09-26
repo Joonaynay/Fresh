@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AddPostView: View {
     
-    @State private var caption: String = ""
+    @State private var title: String = ""
     @State private var showImages: Bool = false
     @State var image: UIImage?
     
@@ -57,14 +57,14 @@ struct AddPostView: View {
                             .resizable()
                             .frame(width: UIScreen.main.bounds.width / 1.05, height: UIScreen.main.bounds.width / 1.05)
                     }
-                    TextEditor(text: $caption)
+                    TextEditor(text: $title)
                         .frame(maxWidth: .infinity)
                         .frame(height: 45)
                         .background(Color.theme.secondaryText)
                         .foregroundColor(Color.theme.accent)
                     
                     if image != nil {
-                        NavigationLink(destination: SelectSubjectView(image: image!, caption: caption, dissmissView: $dissmissView), label: {
+                        NavigationLink(destination: SelectSubjectView(image: image!, title: title, dissmissView: $dissmissView), label: {
                             Rectangle()
                                 .frame(maxWidth: .infinity)
                                 .frame(height: 50)
@@ -98,7 +98,7 @@ struct SelectSubjectView: View {
     private let trendingViewTag = "profileView"
     @State private var selection: String? = ""
     @State private var buttonDisabled: Bool = true
-    let caption: String
+    let title: String
     
     @Binding var dissmissView: Bool
     @Environment(\.presentationMode) var pres
@@ -119,7 +119,7 @@ struct SelectSubjectView: View {
                     }
                 }
                 Button(action: {
-                    fb.addPost(image: image, caption: caption, subjects: list)
+                    fb.addPost(image: image, title: title, subjects: list)
                     dissmissView = true
                     pres.wrappedValue.dismiss()
                 }, label: {
@@ -175,7 +175,7 @@ struct checkMarkSubjects : View {
 
 struct AddPostView_Previews: PreviewProvider {
     static var previews: some View {
-        SelectSubjectView(image: UIImage(contentsOfFile: "Logo.png")!, caption: "Sup", dissmissView: .constant(false))
+        SelectSubjectView(image: UIImage(contentsOfFile: "Logo.png")!, title: "Sup", dissmissView: .constant(false))
             .preferredColorScheme(.dark)
             .environmentObject(FirebaseModel())
     }

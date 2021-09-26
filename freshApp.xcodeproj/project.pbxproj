@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1600AF20FF33B341803F37C4 /* Pods_freshApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F372103A81A4C451F224587 /* Pods_freshApp.framework */; };
+		5290E24026FFF39B005DD737 /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5290E23F26FFF39B005DD737 /* VideoView.swift */; };
 		52AB403726FC05C300E343C9 /* Fresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AB403626FC05C300E343C9 /* Fresh.swift */; };
 		52AB403B26FC05C600E343C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52AB403A26FC05C600E343C9 /* Assets.xcassets */; };
 		52AB403E26FC05C600E343C9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52AB403D26FC05C600E343C9 /* Preview Assets.xcassets */; };
@@ -36,6 +37,7 @@
 
 /* Begin PBXFileReference section */
 		3DD5CE6420CDD96374E09335 /* Pods-freshApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-freshApp.release.xcconfig"; path = "Target Support Files/Pods-freshApp/Pods-freshApp.release.xcconfig"; sourceTree = "<group>"; };
+		5290E23F26FFF39B005DD737 /* VideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
 		52AB403326FC05C300E343C9 /* freshApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = freshApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52AB403626FC05C300E343C9 /* Fresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fresh.swift; sourceTree = "<group>"; };
 		52AB403A26FC05C600E343C9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 				E0A9392E26FC0ECE00735C99 /* TrendingView.swift */,
 				52AB404C26FC066F00E343C9 /* HomeView.swift */,
 				E0A9393026FC11B800735C99 /* FollowingView.swift */,
+				5290E23F26FFF39B005DD737 /* VideoView.swift */,
 				E0E4388F26FD33DB000C5738 /* Subviews */,
 			);
 			path = Views;
@@ -317,6 +320,7 @@
 				E0A9392F26FC0ECE00735C99 /* TrendingView.swift in Sources */,
 				52AB404D26FC066F00E343C9 /* HomeView.swift in Sources */,
 				E0A9393126FC11B800735C99 /* FollowingView.swift in Sources */,
+				5290E24026FFF39B005DD737 /* VideoView.swift in Sources */,
 				52AB405726FC075B00E343C9 /* UserModel.swift in Sources */,
 				52AB403726FC05C300E343C9 /* Fresh.swift in Sources */,
 				E0E4389126FD33FD000C5738 /* TitleBarView.swift in Sources */,

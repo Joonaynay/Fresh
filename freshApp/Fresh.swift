@@ -24,6 +24,7 @@ struct freshAppApp: App {
                     .onAppear() {
                         if Auth.auth().currentUser != nil {
                             fb.signedIn = true
+                            fb.loadCurrentUser()
                         }
                     }
             }

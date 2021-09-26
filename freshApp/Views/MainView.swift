@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Firebase
 
 struct MainView: View {
     
@@ -19,6 +20,11 @@ struct MainView: View {
                 TrendingView().tabItem { Image(systemName: "network") }.tag(1)
                 HomeView().tabItem { Image(systemName: "list.dash") }.tag(2)
                 FollowingView().tabItem { tab == 3 ? Image(systemName: "person.2.fill") : Image(systemName: "person.2") }.tag(3)
+            }
+            .onAppear() {
+                if Auth.auth().currentUser != nil {
+                    fb.loadCurrentUser()
+                }
             }
             .navigationBarHidden(true)
         } else {

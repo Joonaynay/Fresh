@@ -15,16 +15,44 @@ class FirebaseModel: ObservableObject {
     @Published var signedIn = false
     @Published var posts: [Posts] = []
     @Published var loading = false
+    @Published var currentUser: User?
     let auth = Auth.auth()
     let storage = Storage.storage().reference()
     
     
+    
+    func loadCurrentUser() {
+        let id = auth.currentUser?.uid
+        Firestore.firestore().collection("users").document(id!).getDocument { doc, error in
+            let username = doc?.get("username") as! String
+            let name = doc?.get("name") as! String
+            self.storage.child("Profile Images").child(id!).getData(maxSize: 20 * 1024 * 1024) { data, error in
+                let image = UIImage(data: data!)
+                self.currentUser = User(id: id!, username: username, name: name, profileImage: image!)
+            }
+        }
+    }
     
     func addProfilePicture(image: UIImage) {
         let imageData = image.jpegData(compressionQuality: 1)
         storage.child("Profile Images").child(auth.currentUser!.uid).putData(imageData!)
     }
     
+    func loadUser(uid: String) -> User {
+        let db = Firestore.firestore().collection("users")
+        var user = User(id: "", username: "", name: "")
+        db.document(uid).getDocument { doc, error in
+            let username = doc?.get("username") as! String
+            let name = doc?.get("name") as! String
+            self.storage.child("Profile Images").child(uid).getData(maxSize: 20 * 1024 * 1024) { data, error in
+                if data != nil {
+                    let profileImage = UIImage(data: data!)
+                    user = User(id: uid, username: username, name: name, profileImage: profileImage!)
+                }
+            }
+        }
+        return user
+    }
     
     func loadPosts() {
         let db = Firestore.firestore()
@@ -34,22 +62,13 @@ class FirebaseModel: ObservableObject {
                     self.storage.child("images").child(post.documentID).getData(maxSize: 20 * 1024 * 1024) { imageData, error in
                         if error == nil {
                             let image = UIImage(data: imageData!)
-                            let caption = post.get("caption") as! String
+                            let title = post.get("title") as! String
                             let postId = post.documentID
                             let subjects = post.get("subjects") as! [String]
                             let date = post.get("date") as! String
                             let uid = post.get("uid") as! String
-                            db.collection("users").document(uid).getDocument { doc, error in
-                                let username = doc?.get("username") as! String
-                                self.storage.child("Profile Images").child(uid).getData(maxSize: 20 * 1024 * 1024) { data, error in
-                                    if error != nil {
-                                        self.posts.append(Posts(id: postId, image: image!, caption: caption, subjects: subjects, date: date, username: username, uid: uid, profileImage: UIImage(systemName: "person.circle.fill")!))
-                                    } else {
-                                        let profileImage = UIImage(data: data!)
-                                        self.posts.append(Posts(id: postId, image: image!, caption: caption, subjects: subjects, date: date, username: username, uid: uid, profileImage: profileImage!))
-                                    }
-                                }
-                            }                            
+                            let user = self.loadUser(uid: uid)
+                            self.posts.append(Posts(id: postId, image: image!, title: title, subjects: subjects, date: date, user: user))
                         }
                     }
                 }
@@ -57,7 +76,7 @@ class FirebaseModel: ObservableObject {
         })
     }
     
-    func addPost(image: UIImage, caption: String, subjects: [String]) {
+    func addPost(image: UIImage, title: String, subjects: [String]) {
         
         //Find Date
         let dateFormat = DateFormatter()
@@ -67,7 +86,7 @@ class FirebaseModel: ObservableObject {
         
         //Save Post to Firestore
         let dbPosts = Firestore.firestore().collection("posts")
-        let dbPostsDoc = dbPosts.addDocument(data: ["caption" : caption, "subjects": subjects, "uid": self.auth.currentUser!.uid, "date": dateString])
+        let dbPostsDoc = dbPosts.addDocument(data: ["title" : title, "subjects": subjects, "uid": self.auth.currentUser!.uid, "date": dateString])
         let postId = dbPostsDoc.documentID
         
         //Save postId to User
@@ -76,7 +95,7 @@ class FirebaseModel: ObservableObject {
         
         //Save Image to Firebase Storage
         let imageData = image.jpegData(compressionQuality: 1)
-        storage.child("images").child(postId).putData(imageData!)        
+        storage.child("images").child(postId).putData(imageData!)
         
     }
     
