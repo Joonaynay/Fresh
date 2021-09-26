@@ -15,23 +15,31 @@ class FirebaseModel: ObservableObject {
     @Published var signedIn = false
     @Published var posts: [Posts] = []
     @Published var loading = false
-    @Published var currentUser: User?
+    @Published var currentUser = User(id: "", username: "", name: "", profileImage: nil, following: [], followers: [])
     let auth = Auth.auth()
     let storage = Storage.storage().reference()
     
     
+    func followUser(currentUser: User, followUser: User) {
+        let db = Firestore.firestore().collection("users")
+        db.document(currentUser.id).updateData(["following": FieldValue.arrayUnion([followUser.id])])
+        db.document(followUser.id).updateData(["followers": FieldValue.arrayUnion([currentUser.id])])
+        self.currentUser.following.append(followUser.id)
+    }
     
     func loadCurrentUser() {
         let id = auth.currentUser?.uid
         Firestore.firestore().collection("users").document(id!).getDocument { doc, error in
             let username = doc?.get("username") as! String
             let name = doc?.get("name") as! String
+            let following = doc?.get("following") as! [String]
+            let followers = doc?.get("followers") as! [String]
             self.storage.child("Profile Images").child(id!).getData(maxSize: 20 * 1024 * 1024) { data, error in
                 if data != nil {
                     let image = UIImage(data: data!)
-                    self.currentUser = User(id: id!, username: username, name: name, profileImage: image!)
+                    self.currentUser = User(id: id!, username: username, name: name, profileImage: image, following: following, followers: followers)
                 } else {
-                    self.currentUser = User(id: id!, username: username, name: name, profileImage: nil)
+                    self.currentUser = User(id: id!, username: username, name: name, profileImage: nil, following: following, followers: followers)
 
                 }
             }
@@ -50,10 +58,15 @@ class FirebaseModel: ObservableObject {
         db.document(uid).getDocument { doc, error in
             let username = doc?.get("username") as! String
             let name = doc?.get("name") as! String
+            let following = doc?.get("following") as! [String]
+            let followers = doc?.get("followers") as! [String]
             self.storage.child("Profile Images").child(uid).getData(maxSize: 20 * 1024 * 1024) { data, error in
                 if data != nil {
                     let profileImage = UIImage(data: data!)
-                    let user = User(id: uid, username: username, name: name, profileImage: profileImage!)
+                    let user = User(id: uid, username: username, name: name, profileImage: profileImage, following: following, followers: followers)
+                    completionHandler(user)
+                } else {
+                    let user = User(id: uid, username: username, name: name, profileImage: nil, following: following, followers: followers)
                     completionHandler(user)
                 }
             }
@@ -129,7 +142,7 @@ class FirebaseModel: ObservableObject {
             if result != nil && error == nil {
                 // Save in Firestore
                 let db = Firestore.firestore().collection("users").document(self!.auth.currentUser!.uid)
-                db.setData(["name": name, "username": username, "posts": []])
+                db.setData(["name": name, "username": username, "posts": [], "followers": [], "following": []])
                 
             } else {
                 errorString = error!.localizedDescription

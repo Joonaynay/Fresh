@@ -12,5 +12,6 @@ struct User: Identifiable {
     let username: String
     let name: String
     let profileImage: UIImage?
-    //let followedUsers: [String]
+    var following: [String]
+    var followers: [String]
 }

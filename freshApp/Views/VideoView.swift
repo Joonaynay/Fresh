@@ -23,7 +23,7 @@ struct VideoView: View {
                 .padding()
             HStack {
                 NavigationLink(
-                    destination: ProfileView(post: post, currentUser: fb.currentUser!),
+                    destination: ProfileView(post: post, currentUser: fb.currentUser),
                     label: {
                         HStack {
                             if post.user.profileImage != nil {
@@ -61,6 +61,6 @@ struct VideoView: View {
 
 struct VideoView_Previews: PreviewProvider {
     static var previews: some View {
-        VideoView(post: Posts(id: "ds", image: UIImage(systemName: "person")!, title: "ds", subjects: ["sd", "ds"], date: "ds", user: User(id: "ds", username: "ds", name: "ds", profileImage: UIImage(systemName: "person")!)))
+        VideoView(post: Posts(id: "ds", image: UIImage(systemName: "person")!, title: "ds", subjects: [], date: "ds", user: User(id: "ds", username: "fds", name: "dfs", profileImage: nil, following: [], followers: [])))
     }
 }

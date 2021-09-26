@@ -54,7 +54,7 @@ struct ProfileView: View {
 
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileView(post: nil, currentUser: User(id: "asdf", username: "Trevor Buhler", name: "Trevor Buhler", profileImage: UIImage(systemName: "person")!))
+        ProfileView(post: nil, currentUser: User(id: "ds", username: "ds", name: "ds", profileImage: nil, following: [], followers: []))
             .preferredColorScheme(.dark)
             .environmentObject(FirebaseModel())
     }
