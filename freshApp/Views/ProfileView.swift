@@ -27,8 +27,12 @@ struct ProfileView: View {
                 HStack {
                     if post == nil {
                     Text(currentUser.username)
+                        Text("Followers \(currentUser.followers.count)")
+                        Text("Following \(currentUser.following.count)")
                     } else {
                         Text(post!.user.username)
+                        Text("Followers \(post!.user.followers.count)")
+                        Text("Following \(post!.user.following.count)")
                     }
                 }
                 ScrollView {

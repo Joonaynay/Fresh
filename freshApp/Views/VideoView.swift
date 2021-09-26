@@ -40,7 +40,7 @@ struct VideoView: View {
                     })
                 Spacer()
                 Button(action: {
-                    
+                    fb.followUser(currentUser: fb.currentUser, followUser: post.user)
                 }, label: {
                     Text("Follow")
                         .frame(width: UIScreen.main.bounds.width / 3.5, height: 45)
