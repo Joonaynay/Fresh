@@ -26,7 +26,6 @@ struct MainView: View {
                     fb.loadCurrentUser()
                 }
             }
-            .navigationBarHidden(true)
         } else {
             LoginView()
         }

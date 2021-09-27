@@ -14,10 +14,11 @@ struct PostView: View {
     var post: Posts
     
     var body: some View {
-        NavigationLink(
-            destination: VideoView(post: post),
-            label: {
-                VStack(alignment: .leading, spacing: 0) {
+        VStack(alignment: .leading, spacing: 0) {
+            NavigationLink(
+                destination: VideoView(post: post),
+                label: {
+                    VStack(alignment: .leading, spacing: 0) {
                     Image(uiImage: post.image)
                         .resizable()
                         .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width)
@@ -26,6 +27,11 @@ struct PostView: View {
                         .multilineTextAlignment(.leading)
                         .padding(.top, 10)
                         .padding(.horizontal, 10)
+                    }
+                })
+            NavigationLink(
+                destination: ProfileView(post: post, currentUser: fb.currentUser),
+                label: {
                     HStack {
                         if post.user.profileImage != nil {
                             Image(uiImage: post.user.profileImage!)
@@ -44,15 +50,16 @@ struct PostView: View {
                             .multilineTextAlignment(.leading)
                             .font(.callout)
                     }.padding(10)
-                    Text(post.date)
-                        .font(.caption2)
-                        .padding(10)
-                    Rectangle()
-                        .frame(maxWidth: .infinity, maxHeight: 1)
-                        .foregroundColor(Color.theme.secondaryText)
-                }
-                
-            })
+                })
+            
+            Text(post.date)
+                .font(.caption2)
+                .padding(10)
+            Rectangle()
+                .frame(maxWidth: .infinity, maxHeight: 1)
+                .foregroundColor(Color.theme.secondaryText)
+        }
+        
     }
 }
 

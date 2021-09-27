@@ -16,7 +16,6 @@ struct FollowingView: View {
             Color.theme.background
                 .ignoresSafeArea()
             VStack(spacing: 0) {
-                
                 TitleBarView(title: "Following")
                 ScrollView {
                     Button(action: { fb.loadPosts() }, label: {

@@ -11,9 +11,18 @@ struct VideoView: View {
     
     let post: Posts
     @EnvironmentObject private var fb: FirebaseModel
+    @Environment(\.presentationMode) private var pres
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
+            Button(action: { pres.wrappedValue.dismiss() }, label: {
+                HStack {
+                Image(systemName: "chevron.left")
+                    .font(Font.headline.weight(.bold))
+                    Text("Back")
+                }
+            })
+            .padding()
         Image(uiImage: post.image)
             .resizable()
             .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width * 9/16)
@@ -56,6 +65,7 @@ struct VideoView: View {
                 .padding()
             Spacer()
         }
+        .navigationBarHidden(true)
     }
 }
 

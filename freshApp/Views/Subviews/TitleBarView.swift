@@ -35,18 +35,27 @@ struct TitleBarView: View {
                     Button("Settings") {}
                     Button(action: { fb.signOut() }, label: { Text("Sign Out") })
                 } label: {
+                    if fb.currentUser.profileImage != nil {
+                        Image(uiImage: fb.currentUser.profileImage!)
+                            .resizable()
+                            .frame(width: 30, height: 30)
+                            .clipShape(Circle())
+                            .padding()
+                            
+                    } else {
                     Image(systemName: "person.circle")
                         .resizable()
                         .frame(width: 30, height: 30)
                         .scaledToFit()
                         .padding()
+                    }
                 }
                 .menuStyle(BorderlessButtonMenuStyle())
             }
             Rectangle()
                 .frame(maxWidth: .infinity, maxHeight: 1)
                 .foregroundColor(Color.theme.secondaryText)
-                NavigationLink(destination: ProfileView(post: nil, currentUser: fb.currentUser), tag: profileViewTag, selection: $selection, label: {})
+            NavigationLink(destination: ProfileView(post: nil, currentUser: fb.currentUser), tag: profileViewTag, selection: $selection, label: {})
             
             NavigationLink(destination: AddPostView(), tag: addPostViewTag, selection: $selection, label: {})
 
