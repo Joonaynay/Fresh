@@ -45,7 +45,7 @@ struct LoginView: View {
                 VStack {
                     Button(action: {
                         self.hideKeyboard()
-                        fb.auth.signIn(email: email, password: password)
+                        fb.signIn(email: email, password: password)
                         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                             if fb.loading {
                                 fb.loading = false
@@ -121,8 +121,13 @@ struct SignUpView: View {
             }
             Button(action: {
                 if password == confirmPassword {
-                    let errorMessage = fb.auth.signUp(email: email, password: password, name: "\(firstName) \(lastName)", username: username)
-                    alertText = errorMessage
+                    fb.signUp(email: email, password: password, name: "\(firstName) \(lastName)", username: username) { errorMessage in
+                        if errorMessage != nil {
+                            alertText = errorMessage!
+                        }
+                        
+                    }
+                    
                     selection = profilePictureTag
                 } else {
                     showAlert.toggle()
@@ -195,7 +200,7 @@ struct ProfilePictureView: View {
             
             Spacer()
             
-            Button(action: { fb.storage.saveImage(path: "Profile Images", file: fb.currentUser.id, image: image!) }, label: {
+            Button(action: { fb.saveImage(path: "Profile Images", file: fb.currentUser.id, image: image!) }, label: {
                 Text("Done")
                     .frame(maxWidth: .infinity)
                     .frame(height: 45)

@@ -33,7 +33,7 @@ struct TitleBarView: View {
                     Button("View Profile") { selection = profileViewTag }
                     Button("New Post") {  selection = addPostViewTag }
                     Button("Settings") { }
-                    Button(action: { fb.auth.signOut() }, label: { Text("Sign Out") })
+                    Button(action: { fb.signOut() }, label: { Text("Sign Out") })
                 } label: {
                     if fb.currentUser.profileImage != nil {
                         Image(uiImage: fb.currentUser.profileImage!)
