@@ -122,16 +122,13 @@ struct SignUpView: View {
             Button(action: {
                 if password == confirmPassword {
                     fb.signUp(email: email, password: password, name: "\(firstName) \(lastName)", username: username) { errorMessage in
-                        if errorMessage != nil {
+                        if errorMessage != "" {
                             alertText = errorMessage!
-                        }
-                        
+                            showAlert.toggle()
+                        }                                             
                     }
-                    
-                    selection = profilePictureTag
-                } else {
-                    showAlert.toggle()
                 }
+                selection = profilePictureTag
             }, label: {
                 Text("Create Account")
                     .frame(maxWidth: .infinity)
@@ -200,7 +197,7 @@ struct ProfilePictureView: View {
             
             Spacer()
             
-            Button(action: { fb.saveImage(path: "Profile Images", file: fb.currentUser.id, image: image!) }, label: {
+            Button(action: { fb.saveImage(path: "Profile Images", file: fb.currentUser.id, image: image!); fb.signedIn = true }, label: {
                 Text("Done")
                     .frame(maxWidth: .infinity)
                     .frame(height: 45)

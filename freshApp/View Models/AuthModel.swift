@@ -36,6 +36,14 @@ extension FirebaseModel {
                 let dict = ["name": name, "username": username, "posts": [], "followers": [], "following": []] as [String : Any]
                 self.newDoc(collection: "users", document: self.auth.currentUser?.uid, data: dict) { uid in }
                 
+                //Send Email Verification
+                self.auth.currentUser!.sendEmailVerification(completion: { error in
+                    if error != nil {
+                        completion(error?.localizedDescription)
+                    }
+                })
+                
+                
             } else {
                 // Return Error
                 completion(error?.localizedDescription)
