@@ -29,11 +29,11 @@ struct TitleBarView: View {
                     .font(.largeTitle)
                     .padding()
                 Spacer()
-                Menu() {
+                Menu {
                     Button("View Profile") { selection = profileViewTag }
                     Button("New Post") {  selection = addPostViewTag }
-                    Button("Settings") {}
-                    Button(action: { fb.signOut() }, label: { Text("Sign Out") })
+                    Button("Settings") { }
+                    Button(action: { fb.auth.signOut() }, label: { Text("Sign Out") })
                 } label: {
                     if fb.currentUser.profileImage != nil {
                         Image(uiImage: fb.currentUser.profileImage!)
@@ -50,7 +50,6 @@ struct TitleBarView: View {
                         .padding()
                     }
                 }
-                .menuStyle(BorderlessButtonMenuStyle())
             }
             Rectangle()
                 .frame(maxWidth: .infinity, maxHeight: 1)
