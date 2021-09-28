@@ -26,7 +26,8 @@ struct HomeView: View {
 struct SubjectSelectView: View {
     
     @Binding var subject: SubjectsModel
-    private let subjects = Bundle.main.decode([SubjectsModel].self, from: "subjects.json")
+    
+    @EnvironmentObject private var vm: SearchBar
     
     var body: some View {
         ZStack(alignment: .topLeading) {
@@ -34,9 +35,10 @@ struct SubjectSelectView: View {
                 .ignoresSafeArea()
             VStack(alignment: .leading, spacing: 0) {
                 TitleBarView(title: "Subjects")
+                SearchBarView(textFieldText: $vm.searchText)
                 ScrollView() {
                     LazyVGrid(columns: [GridItem(spacing: 10), GridItem(spacing: 10)], spacing: 10, content: {
-                        ForEach(subjects) { subject in
+                        ForEach(vm.subjects) { subject in
                             Button(action: {
                                 self.subject = subject
                             }, label: {
@@ -73,9 +75,14 @@ struct HomePostView: View {
         ZStack(alignment: .topLeading) {
             Color.theme.background
                 .ignoresSafeArea()
-            VStack(spacing: 0) {
+            VStack(alignment: .leading, spacing: 0) {
                 TitleBarView(title: subject.name)
-                Button("Cancel") { subject.name = "" }
+                Button(action: { subject.name = "" }, label: {
+                    Image(systemName: "chevron.left")
+                        .font(Font.headline.weight(.bold))
+                })
+                .padding()
+                
                 ScrollView {
                     Button(action: { fb.loadPosts() }, label: {
                         Text("Load")

@@ -12,6 +12,7 @@ import Firebase
 struct freshAppApp: App {
     
     @StateObject var fb = FirebaseModel()
+    @StateObject var vm = SearchBar()
     
     init() {
         FirebaseApp.configure()
@@ -28,6 +29,7 @@ struct freshAppApp: App {
                     }
             }
             .environmentObject(fb)
+            .environmentObject(vm)
         }
     }
 }

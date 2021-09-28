@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		1600AF20FF33B341803F37C4 /* Pods_freshApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F372103A81A4C451F224587 /* Pods_freshApp.framework */; };
 		5290E24026FFF39B005DD737 /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5290E23F26FFF39B005DD737 /* VideoView.swift */; };
+		529349EB2702B9EF00C9C634 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529349EA2702B9EF00C9C634 /* SearchBarView.swift */; };
+		529349ED2702BA5500C9C634 /* UIApplicationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529349EC2702BA5500C9C634 /* UIApplicationExtension.swift */; };
+		529349EF2702BB2300C9C634 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529349EE2702BB2300C9C634 /* SearchBar.swift */; };
 		52AB403726FC05C300E343C9 /* Fresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AB403626FC05C300E343C9 /* Fresh.swift */; };
 		52AB403B26FC05C600E343C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52AB403A26FC05C600E343C9 /* Assets.xcassets */; };
 		52AB403E26FC05C600E343C9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52AB403D26FC05C600E343C9 /* Preview Assets.xcassets */; };
@@ -38,6 +41,9 @@
 /* Begin PBXFileReference section */
 		3DD5CE6420CDD96374E09335 /* Pods-freshApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-freshApp.release.xcconfig"; path = "Target Support Files/Pods-freshApp/Pods-freshApp.release.xcconfig"; sourceTree = "<group>"; };
 		5290E23F26FFF39B005DD737 /* VideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
+		529349EA2702B9EF00C9C634 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
+		529349EC2702BA5500C9C634 /* UIApplicationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationExtension.swift; sourceTree = "<group>"; };
+		529349EE2702BB2300C9C634 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		52AB403326FC05C300E343C9 /* freshApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = freshApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52AB403626FC05C300E343C9 /* Fresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fresh.swift; sourceTree = "<group>"; };
 		52AB403A26FC05C600E343C9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -154,6 +160,8 @@
 			children = (
 				52AB405026FC06E200E343C9 /* Color.swift */,
 				52AB404E26FC06DB00E343C9 /* ImagePicker.swift */,
+				529349EC2702BA5500C9C634 /* UIApplicationExtension.swift */,
+				529349EE2702BB2300C9C634 /* SearchBar.swift */,
 				E0E4385626FD1626000C5738 /* Bundle.swift */,
 				E0E4385426FD1484000C5738 /* subjects.json */,
 				E0E4389426FD5B2E000C5738 /* Keyboard.swift */,
@@ -184,6 +192,7 @@
 				E00139F026FEC34D0036CD94 /* PostView.swift */,
 				E0E4389026FD33FD000C5738 /* TitleBarView.swift */,
 				E0E4389226FD52F9000C5738 /* LoadingView.swift */,
+				529349EA2702B9EF00C9C634 /* SearchBarView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -310,14 +319,17 @@
 				52AB405926FC076400E343C9 /* PostModel.swift in Sources */,
 				E0E4389526FD5B2E000C5738 /* Keyboard.swift in Sources */,
 				E0E4389326FD52F9000C5738 /* LoadingView.swift in Sources */,
+				529349ED2702BA5500C9C634 /* UIApplicationExtension.swift in Sources */,
 				52AB405D26FC245000E343C9 /* AddPostView.swift in Sources */,
 				52AB405B26FC113D00E343C9 /* ProfileView.swift in Sources */,
 				E0A9392926FC07B800735C99 /* SubjectsModel.swift in Sources */,
 				E00139F126FEC34D0036CD94 /* PostView.swift in Sources */,
+				529349EB2702B9EF00C9C634 /* SearchBarView.swift in Sources */,
 				52AB404926FC066100E343C9 /* LoginView.swift in Sources */,
 				52AB405126FC06E200E343C9 /* Color.swift in Sources */,
 				52AB404F26FC06DB00E343C9 /* ImagePicker.swift in Sources */,
 				E0A9392F26FC0ECE00735C99 /* TrendingView.swift in Sources */,
+				529349EF2702BB2300C9C634 /* SearchBar.swift in Sources */,
 				52AB404D26FC066F00E343C9 /* HomeView.swift in Sources */,
 				E0A9393126FC11B800735C99 /* FollowingView.swift in Sources */,
 				5290E24026FFF39B005DD737 /* VideoView.swift in Sources */,

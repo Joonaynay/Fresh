@@ -146,8 +146,6 @@ class FirebaseModel: ObservableObject {
                     self?.loading = false
                 }
             }
-            
-            
         }
     }
     
