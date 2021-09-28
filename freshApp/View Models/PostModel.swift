@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Posts: Identifiable {
+struct Post: Identifiable {
     var id: String
     var image: UIImage
     var title: String

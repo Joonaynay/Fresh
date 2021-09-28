@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ProfileView: View {
     
-    let post: Posts?
+    let post: Post?
     
     @EnvironmentObject private var fb: FirebaseModel
     @Environment(\.presentationMode) private var pres
@@ -83,7 +83,7 @@ struct ProfileView: View {
 
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileView(post: nil, currentUser: User(id: "Joonaynay", username: "ds", name: "ds", profileImage: nil, following: [], followers: []))
+        ProfileView(post: nil, currentUser: User(id: "Joonaynay", username: "ds", name: "ds", profileImage: nil, following: [], followers: [], posts: []))
             .preferredColorScheme(.dark)
             .environmentObject(FirebaseModel())
     }

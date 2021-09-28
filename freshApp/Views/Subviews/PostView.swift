@@ -11,7 +11,7 @@ import FirebaseAuth
 struct PostView: View {
     
     @EnvironmentObject private var fb: FirebaseModel
-    var post: Posts
+    var post: Post
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {

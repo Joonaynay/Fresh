@@ -9,7 +9,7 @@ import SwiftUI
 
 struct VideoView: View {
     
-    let post: Posts
+    let post: Post
     @EnvironmentObject private var fb: FirebaseModel
     @Environment(\.presentationMode) private var pres
     
@@ -71,6 +71,6 @@ struct VideoView: View {
 
 struct VideoView_Previews: PreviewProvider {
     static var previews: some View {
-        VideoView(post: Posts(id: "ds", image: UIImage(systemName: "person")!, title: "ds", subjects: [], date: "ds", user: User(id: "ds", username: "fds", name: "dfs", profileImage: nil, following: [], followers: [])))
+        VideoView(post: Post(id: "ds", image: UIImage(systemName: "person")!, title: "ds", subjects: [], date: "ds", user: User(id: "ds", username: "fds", name: "dfs", profileImage: nil, following: [], followers: [], posts: [])))
     }
 }

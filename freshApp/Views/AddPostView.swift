@@ -82,6 +82,7 @@ struct AddPostView: View {
                 })
             }
         }
+        .navigationBarHidden(true)
         .onAppear() {
             if dissmissView {
                 pres.wrappedValue.dismiss()

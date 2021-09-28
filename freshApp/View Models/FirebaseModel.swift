@@ -13,12 +13,22 @@ import FirebaseStorage
 class FirebaseModel: ObservableObject {
     
     @Published var signedIn = false
-    @Published var posts: [Posts] = []
+    @Published var posts: [Post] = []
     @Published var loading = false
-    @Published var currentUser = User(id: "", username: "", name: "", profileImage: nil, following: [], followers: [])
+    @Published var currentUser = User(id: "", username: "", name: "", profileImage: nil, following: [], followers: [], posts: [])
     let auth = Auth.auth()
     let storage = Storage.storage().reference()
     
+    
+    
+    func loadImage(id: String, path: String, completion:@escaping (UIImage?) -> Void) {
+        storage.child(path).child(id).getData(maxSize: 20 * 1024 * 1024) { data, error in
+            if error == nil {
+                let image = UIImage(data: data!)
+                completion(image)
+            }
+        }
+    }
     
     func followUser(currentUser: User, followUser: User) {
         let db = Firestore.firestore().collection("users")
@@ -29,20 +39,8 @@ class FirebaseModel: ObservableObject {
     
     func loadCurrentUser() {
         let id = auth.currentUser?.uid
-        Firestore.firestore().collection("users").document(id!).getDocument { doc, error in
-            let username = doc?.get("username") as! String
-            let name = doc?.get("name") as! String
-            let following = doc?.get("following") as! [String]
-            let followers = doc?.get("followers") as! [String]
-            self.storage.child("Profile Images").child(id!).getData(maxSize: 20 * 1024 * 1024) { data, error in
-                if data != nil {
-                    let image = UIImage(data: data!)
-                    self.currentUser = User(id: id!, username: username, name: name, profileImage: image, following: following, followers: followers)
-                } else {
-                    self.currentUser = User(id: id!, username: username, name: name, profileImage: nil, following: following, followers: followers)
-
-                }
-            }
+        self.loadUser(uid: id!) { user in
+            self.currentUser = user!
         }
     }
     
@@ -52,7 +50,7 @@ class FirebaseModel: ObservableObject {
     }
     
     
-    func loadUser(uid: String, completionHandler:@escaping (User?) -> Void) {
+    func loadUser(uid: String, completion:@escaping (User?) -> Void) {
         
         let db = Firestore.firestore().collection("users")
         db.document(uid).getDocument { doc, error in
@@ -60,19 +58,38 @@ class FirebaseModel: ObservableObject {
             let name = doc?.get("name") as! String
             let following = doc?.get("following") as! [String]
             let followers = doc?.get("followers") as! [String]
+            let posts = doc?.get("posts") as! [String]
             self.storage.child("Profile Images").child(uid).getData(maxSize: 20 * 1024 * 1024) { data, error in
                 if data != nil {
                     let profileImage = UIImage(data: data!)
-                    let user = User(id: uid, username: username, name: name, profileImage: profileImage, following: following, followers: followers)
-                    completionHandler(user)
+                    let user = User(id: uid, username: username, name: name, profileImage: profileImage, following: following, followers: followers, posts: posts)
+                    completion(user)
                 } else {
-                    let user = User(id: uid, username: username, name: name, profileImage: nil, following: following, followers: followers)
-                    completionHandler(user)
+                    let user = User(id: uid, username: username, name: name, profileImage: nil, following: following, followers: followers, posts: posts)
+                    completion(user)
                 }
             }
         }
     }
         
+    func loadPost(postId: String, completion:@escaping (Post?) -> Void) {
+        let db = Firestore.firestore().collection("posts").document(postId)
+        db.getDocument { doc, error in
+            let title = doc?.get("title") as! String
+            let subjects = doc?.get("subjects") as! [String]
+            let date = doc?.get("date") as! String
+            let uid = doc?.get("uid") as! String
+            self.loadUser(uid: uid) { loadUser in
+                let user = loadUser!
+                self.loadImage(id: postId, path: "images") { uiImage in
+                    let image = uiImage!
+                    let post = Post(id: postId, image: image, title: title, subjects: subjects, date: date, user: user)
+                    completion(post)
+                }
+            }
+        }
+    }
+    
     
     func loadPosts() {
         let db = Firestore.firestore()
@@ -88,7 +105,7 @@ class FirebaseModel: ObservableObject {
                             let date = post.get("date") as! String
                             let uid = post.get("uid") as! String
                             self.loadUser(uid: uid) { user in
-                                self.posts.append(Posts(id: postId, image: image!, title: title, subjects: subjects, date: date, user: user!))
+                                self.posts.append(Post(id: postId, image: image!, title: title, subjects: subjects, date: date, user: user!))
                             }
                         }
                     }
