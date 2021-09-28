@@ -41,13 +41,14 @@ struct ProfileView: View {
                         .clipShape(Circle())
                         .frame(width: 100, height: 100)
                 }
+                Text(user.username)
                 Button(action: {
                     withAnimation(.spring()) {
                         animate.toggle()
                     }
                     fb.followUser(currentUser: fb.currentUser, followUser: user)
                 }, label: {
-                    Text(animate ? "Unfollow" : "follow")
+                    Text(animate ? "Unfollow" : "Follow")
                         .frame(width: animate ? (UIScreen.main.bounds.width / 2.5) : (UIScreen.main.bounds.width / 3.5), height: 45)
                         .background(Color.theme.pinkColor)
                     

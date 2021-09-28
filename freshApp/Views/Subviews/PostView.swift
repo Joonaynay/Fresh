@@ -26,9 +26,15 @@ struct PostView: View {
             
             Button(action: { selection = VideoViewTag }, label: {
                 VStack(alignment: .leading, spacing: 0) {
-                    Image(uiImage: post.image)
-                        .resizable()
-                        .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width)
+                    if post.image == nil {
+                        Rectangle()
+                            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width)
+                    } else {
+                        Image(uiImage: post.image!)
+                            .resizable()
+                            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width)
+                    }
+
                     Text(post.title)
                         .font(.title2)
                         .multilineTextAlignment(.leading)

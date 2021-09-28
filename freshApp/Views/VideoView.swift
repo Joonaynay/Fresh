@@ -24,9 +24,14 @@ struct VideoView: View {
                 }
             })
             .padding()
-        Image(uiImage: post.image)
-            .resizable()
-            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width * 9/16)
+            if post.image == nil {
+                Rectangle()
+                    .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width)
+            } else {
+                Image(uiImage: post.image!)
+                    .resizable()
+                    .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width)
+            }
             Text(post.title)
                 .font(.title)
                 .multilineTextAlignment(.leading)

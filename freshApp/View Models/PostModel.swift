@@ -9,7 +9,7 @@ import SwiftUI
 
 struct Post: Identifiable {
     var id: String
-    var image: UIImage
+    var image: UIImage?
     var title: String
     var subjects: [String]
     var date: String
