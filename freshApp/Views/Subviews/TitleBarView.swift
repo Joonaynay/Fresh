@@ -55,7 +55,7 @@ struct TitleBarView: View {
             Rectangle()
                 .frame(maxWidth: .infinity, maxHeight: 1)
                 .foregroundColor(Color.theme.secondaryText)
-            NavigationLink(destination: ProfileView(post: nil, currentUser: fb.currentUser), tag: profileViewTag, selection: $selection, label: {})
+            NavigationLink(destination: ProfileView(user: fb.currentUser), tag: profileViewTag, selection: $selection, label: {})
             
             NavigationLink(destination: AddPostView(), tag: addPostViewTag, selection: $selection, label: {})
 

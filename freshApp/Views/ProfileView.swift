@@ -9,81 +9,60 @@ import SwiftUI
 
 struct ProfileView: View {
     
-    let post: Posts?
-    
     @EnvironmentObject private var fb: FirebaseModel
     @Environment(\.presentationMode) private var pres
     
-    let currentUser: User
+    let user: User
     
     var body: some View {
-        ZStack(alignment: .topLeading) {
+        ZStack {
             Color.theme.background
                 .ignoresSafeArea()
-            VStack(alignment: .leading, spacing: 0) {
-                Button (action: { pres.wrappedValue.dismiss() }, label: {
-                    HStack {
-                    Image(systemName: "chevron.left")
-                        .font(Font.headline.weight(.bold))
-                        Text("Back")
+            VStack {
+                if user.profileImage == nil {
+                    Image(systemName: "person.circle.fill")
+                        .resizable()
+                        .frame(width: 100, height: 100)
+                    
+                    
+                } else {
+                    Image(uiImage: user.profileImage!)
+                        .resizable()
+                        .clipShape(Circle())
+                        .frame(width: 100, height: 100)
+                }
+                Button(action: {}, label: {
+                    Text("Follow")
+                        .frame(width: UIScreen.main.bounds.width / 3.5, height: 45)
+                        .background(Color.theme.pinkColor)
+                })
+                .padding()
+                HStack {
+                    VStack {
+                        Text("\(fb.currentUser.followers.count)")
+                        Text("Followers")
+                            .foregroundColor(Color.theme.secondaryText)
                     }
                     .padding()
-                })
-                    if post == nil {
-                        HStack {
-                            Image(systemName: "person.circle.fill")
-                                .resizable()
-                                .frame(width: 150, height: 150)
-                            VStack {
-                                Text(currentUser.username)
-                                VStack {
-                                    Text("Followers")
-                                    Text("\(currentUser.followers.count)")
-                                }
-                                .padding()
-                                VStack {
-                                    Text("Following")
-                                    Text("\(currentUser.following.count)")
-                                }
-                            }
-                            .padding()
-                        }
-                    } else {
-                        HStack {
-                            Image(systemName: "person.circle.fill")
-                                .resizable()
-                                .frame(width: 150, height: 150)
-                            Text(post!.user.username)
-                            Text("Followers \(post!.user.followers.count)")
-                            Text("Following \(post!.user.following.count)")
-                        }
+                    VStack {
+                        Text("\(fb.currentUser.following.count)")
+                        Text("Following")
+                            .foregroundColor(Color.theme.secondaryText)
                     }
-                
-                ScrollView {
-                    Spacer()
-                    ForEach(fb.posts) { post in
-                        HStack {
-                            Image(uiImage: post.image)
-                                .resizable()
-                                .frame(width: 120, height: 120)
-                            
-                            Text(post.title)
-                                .font(.body)
-                                .multilineTextAlignment(.center)
-                        }
-                    }
+                    .padding()
                 }
-                .padding()
+                ScrollView {
+                    ForEach(<#T##data: _##_#>, content: <#T##(_.Element) -> _#>)
+                }
             }
-            
         }
-        .navigationBarHidden(true)
     }
 }
 
+
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileView(post: nil, currentUser: User(id: "Joonaynay", username: "ds", name: "ds", profileImage: nil, following: [], followers: []))
+        ProfileView(user: User(id: "ds", username: "joonaynay", name: "jon", profileImage: nil, following: [], followers: []))
             .preferredColorScheme(.dark)
             .environmentObject(FirebaseModel())
     }

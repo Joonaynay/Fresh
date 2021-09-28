@@ -19,7 +19,6 @@ struct VideoView: View {
                 HStack {
                 Image(systemName: "chevron.left")
                     .font(Font.headline.weight(.bold))
-                    Text("Back")
                 }
             })
             .padding()
@@ -32,7 +31,7 @@ struct VideoView: View {
                 .padding()
             HStack {
                 NavigationLink(
-                    destination: ProfileView(post: post, currentUser: fb.currentUser),
+                    destination: ProfileView(user: post.user),
                     label: {
                         HStack {
                             if post.user.profileImage != nil {
