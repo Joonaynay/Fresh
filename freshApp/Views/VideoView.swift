@@ -10,6 +10,8 @@ import SwiftUI
 struct VideoView: View {
     
     let post: Post
+    @State private var animate: Bool = false
+    
     @EnvironmentObject private var fb: FirebaseModel
     @Environment(\.presentationMode) private var pres
     
@@ -33,25 +35,33 @@ struct VideoView: View {
                 NavigationLink(
                     destination: ProfileView(user: post.user),
                     label: {
-                        HStack {
-                            if post.user.profileImage != nil {
-                                Image(uiImage: post.user.profileImage!)
-                                    .resizable()
-                                    .frame(width: 30, height: 30)
-                            } else {
-                                Image(systemName: "person.circle.fill")
-                                    .resizable()
-                                    .frame(width: 30, height: 30)
+                        VStack {
+                            HStack {
+                                if post.user.profileImage != nil {
+                                    Image(uiImage: post.user.profileImage!)
+                                        .resizable()
+                                        .frame(width: 30, height: 30)
+                                } else {
+                                    Image(systemName: "person.circle.fill")
+                                        .resizable()
+                                        .frame(width: 30, height: 30)
+                                }
+                                Text(post.user.username)
                             }
-                            Text(post.user.username)
+                            Text("Followers: \(post.user.followers.count)")
+                                .foregroundColor(Color.theme.secondaryText)
                         }
+
                     })
                 Spacer()
                 Button(action: {
+                    withAnimation(.spring()) {
+                        animate.toggle()
+                    }
                     fb.followUser(currentUser: fb.currentUser, followUser: post.user)
                 }, label: {
-                    Text("Follow")
-                        .frame(width: UIScreen.main.bounds.width / 3.5, height: 45)
+                    Text(animate ? "Unfollow" : "Follow")
+                        .frame(width: animate ? UIScreen.main.bounds.width / 2.5 : UIScreen.main.bounds.width / 3.0, height: 45)
                         .background(Color.theme.pinkColor)
                 })
             }

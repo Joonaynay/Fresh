@@ -11,15 +11,21 @@ import FirebaseAuth
 struct PostView: View {
     
     @EnvironmentObject private var fb: FirebaseModel
-    var post: Posts
+    var post: Post
     @State private var selection: String? = ""
     private let VideoViewTag = "VideoViewTag"
     private let ProfileViewTag = "ProfileView"
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
+            NavigationLink(
+                destination: VideoView(post: post),
+                tag: VideoViewTag,
+                selection: $selection,
+                label: {})
+            
             Button(action: { selection = VideoViewTag }, label: {
-                VStack {
+                VStack(alignment: .leading, spacing: 0) {
                     Image(uiImage: post.image)
                         .resizable()
                         .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width)
@@ -31,6 +37,13 @@ struct PostView: View {
                 }
             })
             .buttonStyle(PlainButtonStyle())
+            
+            NavigationLink(
+                destination: ProfileView(user: post.user),
+                tag: ProfileViewTag,
+                selection: $selection,
+                label: {})
+            
             Button(action: { selection = ProfileViewTag}, label: {
                 HStack {
                     if post.user.profileImage != nil {
