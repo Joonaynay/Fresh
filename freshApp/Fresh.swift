@@ -24,7 +24,7 @@ struct freshAppApp: App {
             NavigationView {
                 MainView()
                     .navigationBarHidden(true)
-                    .onAppear() {
+                    .onAppear() {                        
                         if Auth.auth().currentUser != nil {
                             fb.signedIn = true
                         }
