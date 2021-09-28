@@ -11,7 +11,6 @@
 		5290E24026FFF39B005DD737 /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5290E23F26FFF39B005DD737 /* VideoView.swift */; };
 		529349EB2702B9EF00C9C634 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529349EA2702B9EF00C9C634 /* SearchBarView.swift */; };
 		529349ED2702BA5500C9C634 /* UIApplicationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529349EC2702BA5500C9C634 /* UIApplicationExtension.swift */; };
-		529349EF2702BB2300C9C634 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529349EE2702BB2300C9C634 /* SearchBar.swift */; };
 		52AB403726FC05C300E343C9 /* Fresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AB403626FC05C300E343C9 /* Fresh.swift */; };
 		52AB403B26FC05C600E343C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52AB403A26FC05C600E343C9 /* Assets.xcassets */; };
 		52AB403E26FC05C600E343C9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52AB403D26FC05C600E343C9 /* Preview Assets.xcassets */; };
@@ -25,6 +24,7 @@
 		52AB405B26FC113D00E343C9 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AB405A26FC113D00E343C9 /* ProfileView.swift */; };
 		52AB405D26FC245000E343C9 /* AddPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AB405C26FC245000E343C9 /* AddPostView.swift */; };
 		52E7EBA52702D63600B7F3B6 /* FirestoreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E7EBA42702D63600B7F3B6 /* FirestoreModel.swift */; };
+		52E7EBA72703D0FC00B7F3B6 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E7EBA62703D0FC00B7F3B6 /* SearchBar.swift */; };
 		E00139F126FEC34D0036CD94 /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E00139F026FEC34D0036CD94 /* PostView.swift */; };
 		E01022A52702B30F003CB9CA /* FirebaseAuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E01022A42702B30F003CB9CA /* FirebaseAuthModel.swift */; };
 		E01022A92702B8DF003CB9CA /* FirebaseStorageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E01022A82702B8DF003CB9CA /* FirebaseStorageModel.swift */; };
@@ -46,7 +46,6 @@
 		5290E23F26FFF39B005DD737 /* VideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
 		529349EA2702B9EF00C9C634 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		529349EC2702BA5500C9C634 /* UIApplicationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationExtension.swift; sourceTree = "<group>"; };
-		529349EE2702BB2300C9C634 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		52AB403326FC05C300E343C9 /* freshApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = freshApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52AB403626FC05C300E343C9 /* Fresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fresh.swift; sourceTree = "<group>"; };
 		52AB403A26FC05C600E343C9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -62,6 +61,7 @@
 		52AB405A26FC113D00E343C9 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		52AB405C26FC245000E343C9 /* AddPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPostView.swift; sourceTree = "<group>"; };
 		52E7EBA42702D63600B7F3B6 /* FirestoreModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreModel.swift; sourceTree = "<group>"; };
+		52E7EBA62703D0FC00B7F3B6 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		8F372103A81A4C451F224587 /* Pods_freshApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_freshApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B4CB17EBAEAB6C4F89A5490 /* Pods-freshApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-freshApp.debug.xcconfig"; path = "Target Support Files/Pods-freshApp/Pods-freshApp.debug.xcconfig"; sourceTree = "<group>"; };
 		E00139F026FEC34D0036CD94 /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
@@ -170,7 +170,7 @@
 				52AB405026FC06E200E343C9 /* Color.swift */,
 				52AB404E26FC06DB00E343C9 /* ImagePicker.swift */,
 				529349EC2702BA5500C9C634 /* UIApplicationExtension.swift */,
-				529349EE2702BB2300C9C634 /* SearchBar.swift */,
+				52E7EBA62703D0FC00B7F3B6 /* SearchBar.swift */,
 				E0E4385626FD1626000C5738 /* Bundle.swift */,
 				E0E4385426FD1484000C5738 /* subjects.json */,
 				E0E4389426FD5B2E000C5738 /* Keyboard.swift */,
@@ -335,13 +335,13 @@
 				E01022A52702B30F003CB9CA /* FirebaseAuthModel.swift in Sources */,
 				52AB405B26FC113D00E343C9 /* ProfileView.swift in Sources */,
 				E0A9392926FC07B800735C99 /* SubjectsModel.swift in Sources */,
+				52E7EBA72703D0FC00B7F3B6 /* SearchBar.swift in Sources */,
 				E00139F126FEC34D0036CD94 /* PostView.swift in Sources */,
 				529349EB2702B9EF00C9C634 /* SearchBarView.swift in Sources */,
 				52AB404926FC066100E343C9 /* LoginView.swift in Sources */,
 				52AB405126FC06E200E343C9 /* Color.swift in Sources */,
 				52AB404F26FC06DB00E343C9 /* ImagePicker.swift in Sources */,
 				E0A9392F26FC0ECE00735C99 /* TrendingView.swift in Sources */,
-				529349EF2702BB2300C9C634 /* SearchBar.swift in Sources */,
 				52AB404D26FC066F00E343C9 /* HomeView.swift in Sources */,
 				E0A9393126FC11B800735C99 /* FollowingView.swift in Sources */,
 				5290E24026FFF39B005DD737 /* VideoView.swift in Sources */,

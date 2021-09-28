@@ -12,6 +12,8 @@ struct HomeView: View {
     
     @State var subject = SubjectsModel(id: 0, name: "", image: "")
     
+    @EnvironmentObject private var vm: SearchBar
+    
     var body: some View {
         if subject.name == "" {
             SubjectSelectView(subject: $subject)
@@ -38,7 +40,7 @@ struct SubjectSelectView: View {
                 SearchBarView(textFieldText: $vm.searchText)
                 ScrollView() {
                     LazyVGrid(columns: [GridItem(spacing: 10), GridItem(spacing: 10)], spacing: 10, content: {
-                        ForEach(vm.subjects) { subject in
+                        ForEach(vm.filteredData) { subject in
                             Button(action: {
                                 self.subject = subject
                             }, label: {
