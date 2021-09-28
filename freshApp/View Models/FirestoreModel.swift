@@ -2,7 +2,7 @@
 //  FirestoreModel.swift
 //  freshApp
 //
-//  Created by Forrest Buhler on 9/27/21.
+//  Created by Wendy Buhler on 9/27/21.
 //
 
 import SwiftUI

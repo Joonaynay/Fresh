@@ -24,9 +24,9 @@
 		52AB405926FC076400E343C9 /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AB405826FC076400E343C9 /* PostModel.swift */; };
 		52AB405B26FC113D00E343C9 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AB405A26FC113D00E343C9 /* ProfileView.swift */; };
 		52AB405D26FC245000E343C9 /* AddPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AB405C26FC245000E343C9 /* AddPostView.swift */; };
+		52E7EBA52702D63600B7F3B6 /* FirestoreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E7EBA42702D63600B7F3B6 /* FirestoreModel.swift */; };
 		E00139F126FEC34D0036CD94 /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E00139F026FEC34D0036CD94 /* PostView.swift */; };
 		E01022A52702B30F003CB9CA /* FirebaseAuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E01022A42702B30F003CB9CA /* FirebaseAuthModel.swift */; };
-		E01022A72702B8A9003CB9CA /* FirestoreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E01022A62702B8A9003CB9CA /* FirestoreModel.swift */; };
 		E01022A92702B8DF003CB9CA /* FirebaseStorageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E01022A82702B8DF003CB9CA /* FirebaseStorageModel.swift */; };
 		E0A9392926FC07B800735C99 /* SubjectsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A9392826FC07B800735C99 /* SubjectsModel.swift */; };
 		E0A9392D26FC0E8400735C99 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A9392C26FC0E8400735C99 /* MainView.swift */; };
@@ -61,11 +61,11 @@
 		52AB405826FC076400E343C9 /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
 		52AB405A26FC113D00E343C9 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		52AB405C26FC245000E343C9 /* AddPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPostView.swift; sourceTree = "<group>"; };
+		52E7EBA42702D63600B7F3B6 /* FirestoreModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreModel.swift; sourceTree = "<group>"; };
 		8F372103A81A4C451F224587 /* Pods_freshApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_freshApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B4CB17EBAEAB6C4F89A5490 /* Pods-freshApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-freshApp.debug.xcconfig"; path = "Target Support Files/Pods-freshApp/Pods-freshApp.debug.xcconfig"; sourceTree = "<group>"; };
 		E00139F026FEC34D0036CD94 /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
 		E01022A42702B30F003CB9CA /* FirebaseAuthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthModel.swift; sourceTree = "<group>"; };
-		E01022A62702B8A9003CB9CA /* FirestoreModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreModel.swift; sourceTree = "<group>"; };
 		E01022A82702B8DF003CB9CA /* FirebaseStorageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorageModel.swift; sourceTree = "<group>"; };
 		E0A9392826FC07B800735C99 /* SubjectsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectsModel.swift; sourceTree = "<group>"; };
 		E0A9392C26FC0E8400735C99 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -155,7 +155,7 @@
 			children = (
 				52AB405426FC074900E343C9 /* FirebaseModel.swift */,
 				E01022A42702B30F003CB9CA /* FirebaseAuthModel.swift */,
-				E01022A62702B8A9003CB9CA /* FirestoreModel.swift */,
+				52E7EBA42702D63600B7F3B6 /* FirestoreModel.swift */,
 				E01022A82702B8DF003CB9CA /* FirebaseStorageModel.swift */,
 				52AB405626FC075B00E343C9 /* UserModel.swift */,
 				52AB405826FC076400E343C9 /* PostModel.swift */,
@@ -325,6 +325,7 @@
 				52AB405526FC074900E343C9 /* FirebaseModel.swift in Sources */,
 				E0A9392D26FC0E8400735C99 /* MainView.swift in Sources */,
 				E0E4385726FD1626000C5738 /* Bundle.swift in Sources */,
+				52E7EBA52702D63600B7F3B6 /* FirestoreModel.swift in Sources */,
 				52AB405926FC076400E343C9 /* PostModel.swift in Sources */,
 				E0E4389526FD5B2E000C5738 /* Keyboard.swift in Sources */,
 				E01022A92702B8DF003CB9CA /* FirebaseStorageModel.swift in Sources */,
