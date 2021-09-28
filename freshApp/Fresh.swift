@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Firebase
+import FirebaseAuth
 
 @main
 struct freshAppApp: App {
@@ -22,11 +23,13 @@ struct freshAppApp: App {
         WindowGroup {
             NavigationView {
                 MainView()
+                    .navigationBarHidden(true)
                     .onAppear() {
                         if Auth.auth().currentUser != nil {
                             fb.signedIn = true
                         }
                     }
+                    
             }
             .environmentObject(fb)
             .environmentObject(vm)

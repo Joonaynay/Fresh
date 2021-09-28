@@ -121,8 +121,13 @@ struct SignUpView: View {
             }
             Button(action: {
                 if password == confirmPassword {
-                    let errorMessage = fb.signUp(email: email, password: password, name: "\(firstName) \(lastName)", username: username)
-                    alertText = errorMessage
+                    fb.signUp(email: email, password: password, name: "\(firstName) \(lastName)", username: username) { errorMessage in
+                        if errorMessage != nil {
+                            alertText = errorMessage!
+                        }
+                        
+                    }
+                    
                     selection = profilePictureTag
                 } else {
                     showAlert.toggle()
