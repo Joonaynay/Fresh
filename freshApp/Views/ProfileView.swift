@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ProfileView: View {
     
+    let post: Post?
+    
     @EnvironmentObject private var fb: FirebaseModel
     @Environment(\.presentationMode) private var pres
     
