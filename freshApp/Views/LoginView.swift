@@ -60,9 +60,9 @@ struct LoginView: View {
                     })
                     .padding(.horizontal)
                     Button(action: { selection = tag}, label: {
-                       Text("Create Account")
-                        .frame(width: UIScreen.main.bounds.width / 2.5, height: 45)
-                        .background(Color.theme.secondaryText)
+                        Text("Create Account")
+                            .frame(width: UIScreen.main.bounds.width / 2.5, height: 45)
+                            .background(Color.theme.secondaryText)
                     })
                     .padding(5)
                     .padding(.bottom)
@@ -76,7 +76,7 @@ struct LoginView: View {
                 selection: $selection,
                 label: {})
             if fb.loading {
-                LoadingView()
+                LoadingView(text: nil)
             }
         }
         .navigationBarHidden(true)
@@ -101,52 +101,58 @@ struct SignUpView: View {
     @EnvironmentObject private var fb: FirebaseModel
     
     var body: some View {
-        VStack(alignment: .leading) {
-            
-            Form {
-                Section(header: Text("Name")) {
-                    TextField("First Name", text: $firstName)
-                    TextField("Last Name", text: $lastName)
-                }
-                Section(header: Text("Username (Users will see this name.)")) {
-                    TextField("Username", text: $username)
-                }
-                Section(header: Text("Email")) {
-                    TextField("Email", text: $email)
-                }
-                Section(header: Text("Password")) {
-                    TextField("Password", text: $password)
-                    TextField("Confirm Password", text: $confirmPassword)
-                }
-            }
-            Button(action: {
-                if password == confirmPassword {
-                    fb.signUp(email: email, password: password, name: "\(firstName) \(lastName)", username: username) { errorMessage in
-                        if errorMessage != "" {
-                            alertText = errorMessage!
-                            showAlert.toggle()
-                        }                                             
+        ZStack {
+            VStack(alignment: .leading) {
+                
+                Form {
+                    Section(header: Text("Name")) {
+                        TextField("First Name", text: $firstName)
+                        TextField("Last Name", text: $lastName)
+                    }
+                    Section(header: Text("Username (Users will see this name.)")) {
+                        TextField("Username", text: $username)
+                    }
+                    Section(header: Text("Email")) {
+                        TextField("Email", text: $email)
+                    }
+                    Section(header: Text("Password")) {
+                        TextField("Password", text: $password)
+                        TextField("Confirm Password", text: $confirmPassword)
                     }
                 }
-                selection = profilePictureTag
-            }, label: {
-                Text("Create Account")
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 45)
-                    .background(Color.theme.pinkColor)
-            })
-            .alert(isPresented: $showAlert, content: {
-                Alert(title: Text(alertText))
-            })
-            NavigationLink(
-                destination: ProfilePictureView(),
-                tag: profilePictureTag,
-                selection: $selection,
-                label: {})
+                Button(action: {
+                    fb.signUp(email: email, password: password, name: "\(firstName) \(lastName)", username: username) { errorMessage in
+                        if errorMessage != nil {
+                            alertText = errorMessage!
+                            showAlert.toggle()
+                        } else {
+                            selection = profilePictureTag
+                        }
+                    }
+                    
+                    
+                }, label: {
+                    Text("Create Account")
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 45)
+                        .background(Color.theme.pinkColor)
+                })
+                .alert(isPresented: $showAlert, content: {
+                    Alert(title: Text(alertText))
+                })
+                NavigationLink(
+                    destination: ProfilePictureView(),
+                    tag: profilePictureTag,
+                    selection: $selection,
+                    label: {})
+            }
+            .navigationTitle("Create Account")
+            .navigationBarTitleDisplayMode(.inline)
+            .padding()
+            if fb.loading {
+                LoadingView(text: nil)
+            }
         }
-        .navigationTitle("Create Account")
-        .navigationBarTitleDisplayMode(.inline)
-        .padding()
     }
 }
 
@@ -170,7 +176,7 @@ struct ProfilePictureView: View {
                 imagePickerShowing = true
             }, label: {
                 VStack {
-  
+                    
                     if image == nil {
                         Text("Select an Image...")
                             .font(.title)
@@ -197,7 +203,13 @@ struct ProfilePictureView: View {
             
             Spacer()
             
-            Button(action: { fb.saveImage(path: "Profile Images", file: fb.currentUser.id, image: image!); fb.signedIn = true }, label: {
+            Button(action: {
+                if image != nil {
+                    fb.saveImage(path: "Profile Images", file: fb.currentUser.id, image: image!)
+                    fb.signedIn = true
+                    fb.currentUser.profileImage = image
+                }
+            }, label: {
                 Text("Done")
                     .frame(maxWidth: .infinity)
                     .frame(height: 45)

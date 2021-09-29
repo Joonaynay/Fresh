@@ -8,18 +8,26 @@
 import SwiftUI
 
 struct LoadingView: View {
+    
+    let text: String?
+    
     var body: some View {
         ZStack {
             Rectangle()
                 .ignoresSafeArea()
                 .foregroundColor(Color.theme.secondaryText.opacity(0.35))
-            ProgressView()
+            VStack {
+                if text != nil {
+                    Text(text!)
+                }
+                ProgressView()
+            }
         }
     }
 }
 
 struct LoadingView_Previews: PreviewProvider {
     static var previews: some View {
-        LoadingView()
+        LoadingView(text: nil)
     }
 }
