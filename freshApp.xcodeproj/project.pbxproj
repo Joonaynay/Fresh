@@ -25,6 +25,7 @@
 		52AB405D26FC245000E343C9 /* AddPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AB405C26FC245000E343C9 /* AddPostView.swift */; };
 		52E7EBA52702D63600B7F3B6 /* FirestoreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E7EBA42702D63600B7F3B6 /* FirestoreModel.swift */; };
 		52E7EBA72703D0FC00B7F3B6 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E7EBA62703D0FC00B7F3B6 /* SearchBar.swift */; };
+		52E7EBA9270404A000B7F3B6 /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E7EBA8270404A000B7F3B6 /* FileManager.swift */; };
 		E00139F126FEC34D0036CD94 /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E00139F026FEC34D0036CD94 /* PostView.swift */; };
 		E01022A52702B30F003CB9CA /* AuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E01022A42702B30F003CB9CA /* AuthModel.swift */; };
 		E0A9392926FC07B800735C99 /* SubjectsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A9392826FC07B800735C99 /* SubjectsModel.swift */; };
@@ -62,6 +63,7 @@
 		52AB405C26FC245000E343C9 /* AddPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPostView.swift; sourceTree = "<group>"; };
 		52E7EBA42702D63600B7F3B6 /* FirestoreModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreModel.swift; sourceTree = "<group>"; };
 		52E7EBA62703D0FC00B7F3B6 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		52E7EBA8270404A000B7F3B6 /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
 		8F372103A81A4C451F224587 /* Pods_freshApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_freshApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B4CB17EBAEAB6C4F89A5490 /* Pods-freshApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-freshApp.debug.xcconfig"; path = "Target Support Files/Pods-freshApp/Pods-freshApp.debug.xcconfig"; sourceTree = "<group>"; };
 		E00139F026FEC34D0036CD94 /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 				E01022A42702B30F003CB9CA /* AuthModel.swift */,
 				52E7EBA42702D63600B7F3B6 /* FirestoreModel.swift */,
 				E0E4DB1F2703D3A900131C6E /* StorageModel.swift */,
+				52E7EBA8270404A000B7F3B6 /* FileManager.swift */,
 				52AB405626FC075B00E343C9 /* UserModel.swift */,
 				52AB405826FC076400E343C9 /* PostModel.swift */,
 				E0A9392826FC07B800735C99 /* SubjectsModel.swift */,
@@ -337,6 +340,7 @@
 				E0A9392926FC07B800735C99 /* SubjectsModel.swift in Sources */,
 				52E7EBA72703D0FC00B7F3B6 /* SearchBar.swift in Sources */,
 				E00139F126FEC34D0036CD94 /* PostView.swift in Sources */,
+				52E7EBA9270404A000B7F3B6 /* FileManager.swift in Sources */,
 				529349EB2702B9EF00C9C634 /* SearchBarView.swift in Sources */,
 				52AB404926FC066100E343C9 /* LoginView.swift in Sources */,
 				52AB405126FC06E200E343C9 /* Color.swift in Sources */,

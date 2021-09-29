@@ -15,7 +15,7 @@ class FirebaseModel: ObservableObject {
     let auth = Auth.auth()
     let db = Firestore.firestore()
     let storage = Storage.storage().reference()
-    
+    let file = FileManagerModel()
     
     @Published var signedIn = false
     @Published var posts: [Post] = []
@@ -111,18 +111,24 @@ class FirebaseModel: ObservableObject {
                     let date = post.get("date") as! String
                     let uid = post.get("uid") as! String
                     
-                    //Load Image
-                    self.loadImage(path: "images", id: post.documentID) { image in
+                    //Load user for post
+                    self.loadUser(uid: uid) { user in
                         
-                        //Load user for post
-                        self.loadUser(uid: uid) { user in
+                    //Load from file manager
+                    let image = self.file.getFromFileManager(name: postId)
+                        
+                    if image != nil {
+                        self.posts.append(Post(id: postId, image: image, title: title, subjects: subjects, date: date, user: user!))
+                    } else {
+                        self.loadImage(path: "images", id: post.documentID) { image in
                             
-                            //Add post to PostModel
-                            if image == nil {
-                                self.posts.append(Post(id: postId, image: nil, title: title, subjects: subjects, date: date, user: user!))
-                            } else {
-                                self.posts.append(Post(id: postId, image: image!, title: title, subjects: subjects, date: date, user: user!))
-                            }                            
+                                //Add post to PostModel
+                                if image == nil {
+                                    self.posts.append(Post(id: postId, image: nil, title: title, subjects: subjects, date: date, user: user!))
+                                } else {
+                                    self.posts.append(Post(id: postId, image: image!, title: title, subjects: subjects, date: date, user: user!))
+                                }
+                            }
                         }
                     }
                 }
@@ -138,12 +144,16 @@ class FirebaseModel: ObservableObject {
         dateFormat.timeStyle = .none
         let dateString = dateFormat.string(from: Date())
         
+        
         //Save Post to Firestore
         let dict = ["title": title, "subjects": subjects, "uid": currentUser.id, "date": dateString] as [String : Any]
         newDoc(collection: "posts", document: nil, data: dict) { postId in
             
             //Save postId to User
             self.save(collection: "users", document: self.currentUser.id, field: "posts", data: [postId!])
+            
+            //Save to filemanager
+            self.file.saveImage(image: image, name: postId!)
             
             //Save Image to Firebase Storage
             self.saveImage(path: "images", file: postId!, image: image)

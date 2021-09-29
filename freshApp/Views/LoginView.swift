@@ -122,13 +122,14 @@ struct SignUpView: View {
             Button(action: {
                 if password == confirmPassword {
                     fb.signUp(email: email, password: password, name: "\(firstName) \(lastName)", username: username) { errorMessage in
-                        if errorMessage != "" {
+                        if errorMessage != nil {
                             alertText = errorMessage!
                             showAlert.toggle()
-                        }                                             
+                        } else {
+                            selection = profilePictureTag
+                        }
                     }
                 }
-                selection = profilePictureTag
             }, label: {
                 Text("Create Account")
                     .frame(maxWidth: .infinity)
@@ -147,6 +148,15 @@ struct SignUpView: View {
         .navigationTitle("Create Account")
         .navigationBarTitleDisplayMode(.inline)
         .padding()
+    }
+}
+
+struct WaitingForEmailVerification: View {
+    var body: some View {
+        VStack {
+            Text("Waiting for email to be verified.")
+            LoadingView()
+        }
     }
 }
 
