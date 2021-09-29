@@ -26,6 +26,9 @@ extension FirebaseModel {
     }
     
     func signUp(email: String, password: String, name: String, username: String, completion:@escaping (String?) -> Void) {
+        //Set loading to true
+        self.loading = true
+        
         //Create User
         self.auth.createUser(withEmail: email, password: password) { result, error in
             
@@ -39,13 +42,18 @@ extension FirebaseModel {
                 //Send Email Verification
                 self.auth.currentUser!.sendEmailVerification(completion: { error in
                     if error != nil {
+                        self.loading = false
                         completion(error?.localizedDescription)
+                    } else {
+                        self.loading = false
+                        completion(nil)
                     }
                 })
                 
                 
             } else {
                 // Return Error
+                self.loading = false
                 completion(error?.localizedDescription)
             }
         }
@@ -56,8 +64,7 @@ extension FirebaseModel {
             try auth.signOut()
         } catch let error {
             print("Error signing out. \(error)")
-        }
-        
+        }        
         self.signedIn = false
     }
 }
