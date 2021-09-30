@@ -16,6 +16,7 @@ class FirebaseModel: ObservableObject {
     let db = Firestore.firestore()
     let storage = Storage.storage().reference()
     let file = FileManagerModel()
+    lazy var cd = Persistence()
     
     @Published var signedIn = false
     @Published var posts: [Post] = []
@@ -37,19 +38,39 @@ class FirebaseModel: ObservableObject {
     
     
     func loadUser(uid: String, completion:@escaping (User?) -> Void) {
-        //Load Firestore doc
-        getDoc(collection: "users", id: uid) { doc in
-            let username = doc?.get("username") as! String
-            let name = doc?.get("name") as! String
-            let following = doc?.get("following") as! [String]
-            let followers = doc?.get("followers") as! [String]
-            let posts = doc?.get("posts") as! [String]
+        
+        //Check if can load from Core Data
+        let users = cd.fetch()
+        if users?.count != 0 {
+            for user in users! {
+                print(user.username)
+                completion(User(id: "", username: user.username!, name: "", profileImage: nil, following: [], followers: [], posts: []))
+            }
             
-            //Load Profile Image
-            self.loadImage(path: "Profile Images", id: self.currentUser.id) { profileImage in
-                //Return User
-                let user = User(id: uid, username: username, name: name, profileImage: profileImage, following: following, followers: followers, posts: posts)
-                completion(user)
+        } else {
+            
+            //Load Firestore doc
+            getDoc(collection: "users", id: uid) { doc in
+                let username = doc?.get("username") as! String
+                let name = doc?.get("name") as! String
+                let following = doc?.get("following") as! [String]
+                let followers = doc?.get("followers") as! [String]
+                let posts = doc?.get("posts") as! [String]
+                
+                //Load Profile Image
+                self.loadImage(path: "Profile Images", id: self.currentUser.id) { profileImage in
+                    
+                    //Create User
+                    let user = User(id: uid, username: username, name: name, profileImage: profileImage, following: following, followers: followers, posts: posts)
+                    
+                    //Save to Core Data
+                    let currentUser = CurrentUser(context: self.cd.context)
+                    currentUser.username = user.username
+                    self.cd.save()
+                    
+                    //Return User
+                    completion(user)
+                }
             }
         }
     }
