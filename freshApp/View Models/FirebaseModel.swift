@@ -16,6 +16,7 @@ class FirebaseModel: ObservableObject {
     let db = Firestore.firestore()
     let storage = Storage.storage().reference()
     let file = FileManagerModel()
+    lazy var cd = Persistence()
     
     @Published var signedIn = false
     @Published var posts: [Post] = []
@@ -28,7 +29,7 @@ class FirebaseModel: ObservableObject {
         //Save who the user followed
         self.save(collection: "users", document: currentUser.id, field: "following", data: [followUser.id])
         
-        //Save that the followedUser got followed
+        //Save that the followed user got followed
         self.save(collection: "users", document: followUser.id, field: "followers", data: [currentUser.id])
         
         //Add to UserModel
@@ -37,63 +38,42 @@ class FirebaseModel: ObservableObject {
     
     
     func loadUser(uid: String, completion:@escaping (User?) -> Void) {
-        //Load Firestore doc
-        getDoc(collection: "users", id: uid) { doc in
-            let username = doc?.get("username") as! String
-            let name = doc?.get("name") as! String
-            let following = doc?.get("following") as! [String]
-            let followers = doc?.get("followers") as! [String]
-            let posts = doc?.get("posts") as! [String]
+        
+        //Check if can load from Core Data
+        let users = cd.fetch()
+        if users?.count != 0 {
+            for user in users! {
+                print(user.username)
+                completion(User(id: "", username: user.username!, name: "", profileImage: nil, following: [], followers: [], posts: []))
+            }
             
-            //Load Profile Image
-            self.loadImage(path: "Profile Images", id: self.currentUser.id) { image in
-                var profileImage: UIImage?
-                if image != nil {
-                    profileImage = image
-                } else {
-                    profileImage = nil
+        } else {
+            
+            //Load Firestore doc
+            getDoc(collection: "users", id: uid) { doc in
+                let username = doc?.get("username") as! String
+                let name = doc?.get("name") as! String
+                let following = doc?.get("following") as! [String]
+                let followers = doc?.get("followers") as! [String]
+                let posts = doc?.get("posts") as! [String]
+                
+                //Load Profile Image
+                self.loadImage(path: "Profile Images", id: self.currentUser.id) { profileImage in
+                    
+                    //Create User
+                    let user = User(id: uid, username: username, name: name, profileImage: profileImage, following: following, followers: followers, posts: posts)
+                    
+                    //Save to Core Data
+                    let currentUser = CurrentUser(context: self.cd.context)
+                    currentUser.username = user.username
+                    self.cd.save()
+                    
+                    //Return User
+                    completion(user)
                 }
-                //Return User
-                let user = User(id: uid, username: username, name: name, profileImage: profileImage, following: following, followers: followers, posts: posts)
-                completion(user)
             }
         }
     }
-    
-    
-    
-    func loadPost(user: User?, postId: String, completion:@escaping (Post?) -> Void) {
-        
-        //Load Firestore document
-        getDoc(collection: "posts", id: postId, completion: { doc in
-            let title = doc?.get("title") as! String
-            let subjects = doc?.get("subjects") as! [String]
-            let date = doc?.get("date") as! String
-            let uid = doc?.get("uid") as! String
-            
-            //Load Post Image
-            self.loadImage(path: "images", id: postId) { uiImage in
-                let image = uiImage!
-                
-                //Check if need to load user
-                if user == nil {
-                    self.loadUser(uid: uid) { loadedUser in
-                        // Return Post
-                        let post = Post(id: postId, image: image, title: title, subjects: subjects, date: date, user: loadedUser!)
-                        completion(post)
-                    }
-                } else {
-                    //Return Post
-                    let post = Post(id: postId, image: image, title: title, subjects: subjects, date: date, user: user!)
-                    completion(post)
-                }
-            }
-        })
-        
-        
-        
-    }
-    
     
     func loadPosts() {
         
@@ -114,21 +94,11 @@ class FirebaseModel: ObservableObject {
                     //Load user for post
                     self.loadUser(uid: uid) { user in
                         
-                    //Load from file manager
-                    let image = self.file.getFromFileManager(name: postId)
-                        
-                    if image != nil {
-                        self.posts.append(Post(id: postId, image: image, title: title, subjects: subjects, date: date, user: user!))
-                    } else {
+                        //Load image
                         self.loadImage(path: "images", id: post.documentID) { image in
                             
-                                //Add post to PostModel
-                                if image == nil {
-                                    self.posts.append(Post(id: postId, image: nil, title: title, subjects: subjects, date: date, user: user!))
-                                } else {
-                                    self.posts.append(Post(id: postId, image: image!, title: title, subjects: subjects, date: date, user: user!))
-                                }
-                            }
+                            //Add to view model
+                            self.posts.append(Post(id: postId, image: image, title: title, subjects: subjects, date: date, user: user!))
                         }
                     }
                 }
