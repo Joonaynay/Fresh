@@ -21,11 +21,6 @@ struct TrendingView: View {
             VStack(spacing: 0) {
                 TitleBarView(title: "Trending")
                 ScrollView {
-                    Button("Load Current User") {
-                        fb.loadUser(uid: "VylAa2IgsVQB9IuUs1XiIednSIB2") { user in
-                            print(user?.username)
-                        }
-                    }
                     Button(action: { fb.loadPosts() }, label: {
                         Text("Load")
                     })

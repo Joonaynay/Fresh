@@ -30,7 +30,16 @@ extension FirebaseModel {
         self.loading = true
         
         //Create User
-        self.auth.createUser(withEmail: email, password: password) { result, error in
+        self.auth.createUser(withEmail: email, password: password) { [self] result, error in
+            
+            //Save to Core Data
+            let currentUser = CurrentUser(context: self.cd.context)
+            currentUser.username = username
+            currentUser.id = self.auth.currentUser?.uid
+            currentUser.name = name
+            currentUser.followers = 0
+            currentUser.following = 0
+            self.cd.save()
             
             //Check for success
             if result != nil && error == nil {

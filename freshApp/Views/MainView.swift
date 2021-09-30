@@ -36,11 +36,11 @@ struct MainView: View {
     }
 }
 
-struct MainView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            MainView(tab: 1)
-            .environmentObject(FirebaseModel())
-        }
-    }
-}
+//struct MainView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        NavigationView {
+//            MainView(tab: 1)
+//            .environmentObject(FirebaseModel())
+//        }
+//    }
+//}

@@ -22,7 +22,7 @@ struct freshAppApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationView {
-                CoreDataRelationshipsBootcamp()
+                MainView()
                     .navigationBarHidden(true)
                     .onAppear() {
                         if Auth.auth().currentUser != nil {

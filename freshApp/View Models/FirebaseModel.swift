@@ -21,7 +21,7 @@ class FirebaseModel: ObservableObject {
     @Published var signedIn = false
     @Published var posts: [Post] = []
     @Published var loading = false
-    @Published var currentUser = User(id: "", username: "", name: "", profileImage: nil, following: [], followers: [], posts: [])    
+    @Published var currentUser = User(id: "", username: "", name: "", profileImage: nil, following: [], followers: [], numFollowers: 0, numFollowing: 0, posts: nil)
     
     
     func followUser(currentUser: User, followUser: User) {
@@ -40,12 +40,11 @@ class FirebaseModel: ObservableObject {
     func loadUser(uid: String, completion:@escaping (User?) -> Void) {
         
         //Check if can load from Core Data
-        let users = cd.fetch()
-        if users?.count != 0 {
-            for user in users! {
-                print(user.username)
-                completion(User(id: "", username: user.username!, name: "", profileImage: nil, following: [], followers: [], posts: []))
+        if let user = cd.fetchUser(uid: uid) {
+            if let profileImage = self.file.getFromFileManager(name: uid) {
+                completion(User(id: user.id!, username: user.username!, name: user.name!, profileImage: profileImage, following: [], followers: [], numFollowers: Int(user.followers), numFollowing: Int(user.following), posts: nil))
             }
+                completion(User(id: user.id!, username: user.username!, name: user.name!, profileImage: nil, following: [], followers: [], numFollowers: Int(user.followers), numFollowing: Int(user.following), posts: nil))
             
         } else {
             
@@ -61,12 +60,7 @@ class FirebaseModel: ObservableObject {
                 self.loadImage(path: "Profile Images", id: self.currentUser.id) { profileImage in
                     
                     //Create User
-                    let user = User(id: uid, username: username, name: name, profileImage: profileImage, following: following, followers: followers, posts: posts)
-                    
-                    //Save to Core Data
-                    let currentUser = CurrentUser(context: self.cd.context)
-                    currentUser.username = user.username
-                    self.cd.save()
+                    let user = User(id: uid, username: username, name: name, profileImage: profileImage, following: following, followers: followers, numFollowers: followers.count, numFollowing: following.count, posts: posts)
                     
                     //Return User
                     completion(user)

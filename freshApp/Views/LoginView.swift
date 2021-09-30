@@ -216,6 +216,7 @@ struct ProfilePictureView: View {
                 if image != nil {
                     fb.saveImage(path: "Profile Images", file: fb.currentUser.id, image: image!)
                     fb.signedIn = true
+                    fb.file.saveImage(image: image!, name: fb.currentUser.id)
                     fb.currentUser.profileImage = image
                 }
             }, label: {

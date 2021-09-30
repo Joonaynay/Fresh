@@ -29,10 +29,13 @@ struct Persistence {
         }
     }
     
-    func fetch() -> [CurrentUser]? {
+    func fetchUser(uid: String) -> CurrentUser? {
         do {
-            let currentUser = try context.fetch(CurrentUser.fetchRequest()) as! [CurrentUser]            
-            return currentUser
+            let request = CurrentUser.fetchRequest() as NSFetchRequest<CurrentUser>
+            let predicate = NSPredicate(format: "id CONTAINS '\(uid)'")
+            request.predicate = predicate
+            let currentUser = try context.fetch(request)
+            return currentUser.first
         } catch {
             
         }
