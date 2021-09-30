@@ -25,6 +25,7 @@ extension FirebaseModel {
     }
     
     func getDoc(collection: String, id: String, completion:@escaping (DocumentSnapshot?) -> Void) {
+        
         //Load Document
         db.collection(collection).document(id).getDocument { doc, error in
             

@@ -20,21 +20,26 @@ extension FirebaseModel {
     
     func loadImage(path: String, id: String, completion:@escaping (UIImage?) -> Void) {
         
-        //Load Image Data
-        storage.child(path).child(id).getData(maxSize: 20 * 1024 * 1024) { data, error in
+        //Check if image is already saved in filemanager
+        if let image = file.getFromFileManager(name: id) {
+            completion(image)
+        } else {
             
-            //Check for error
-            if error == nil {
+            //Load Image Data from Firebase
+            storage.child(path).child(id).getData(maxSize: 20 * 1024 * 1024) { data, error in
                 
-                //Convert data to UIImage then return the image
-                let image = UIImage(data: data!)
-                completion(image)
-            } else {
-                
-                //Return Nil
-                completion(nil)
+                //Check for error
+                if error == nil {
+                    
+                    //Convert data to UIImage then return the image
+                    let image = UIImage(data: data!)
+                    completion(image)
+                } else {
+                    
+                    //Return Nil
+                    completion(nil)
+                }
             }
         }
     }
-    
 }

@@ -22,6 +22,7 @@ struct MainView: View {
                 FollowingView().tabItem { tab == 3 ? Image(systemName: "person.2.fill") : Image(systemName: "person.2") }.tag(3)
             }
             .navigationBarHidden(true)
+            .navigationBarTitle("")
             .onAppear() {
                 if Auth.auth().currentUser?.uid != nil {
                     fb.loadUser(uid: Auth.auth().currentUser!.uid) { user in
