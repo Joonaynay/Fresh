@@ -160,7 +160,7 @@ struct WaitingForEmailVerification: View {
     var body: some View {
         VStack {
             Text("Waiting for email to be verified.")
-            LoadingView()
+            LoadingView(text: nil)
         }
     }
 }

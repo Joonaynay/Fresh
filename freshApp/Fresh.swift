@@ -22,14 +22,14 @@ struct freshAppApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationView {
-                MainView()
+                CoreDataRelationshipsBootcamp()
                     .navigationBarHidden(true)
-                    .onAppear() {                        
+                    .onAppear() {
                         if Auth.auth().currentUser != nil {
                             fb.signedIn = true
                         }
                     }
-                    
+
             }
             .environmentObject(fb)
             .environmentObject(vm)
