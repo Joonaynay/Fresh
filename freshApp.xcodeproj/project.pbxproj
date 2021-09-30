@@ -121,7 +121,7 @@
 			children = (
 				52AB403626FC05C300E343C9 /* Fresh.swift */,
 				52AB404726FC065500E343C9 /* Extras */,
-				52E7EBAA270416D700B7F3B6 /* Core Data */,
+				52E7EBAA270416D700B7F3B6 /* Testing Core Data */,
 				52AB404626FC064200E343C9 /* View Models */,
 				52AB404526FC063D00E343C9 /* Views */,
 				E0E4385026FCEF3F000C5738 /* Launch.storyboard */,
@@ -186,13 +186,13 @@
 			path = Extras;
 			sourceTree = "<group>";
 		};
-		52E7EBAA270416D700B7F3B6 /* Core Data */ = {
+		52E7EBAA270416D700B7F3B6 /* Testing Core Data */ = {
 			isa = PBXGroup;
 			children = (
 				52E7EBAE2704183600B7F3B6 /* CoreDataRelationshipsBootcamp.swift */,
 				52E7EBB427054E0D00B7F3B6 /* CoreDataContainer.xcdatamodeld */,
 			);
-			path = "Core Data";
+			path = "Testing Core Data";
 			sourceTree = "<group>";
 		};
 		6DB941AC855DC39CC4439D33 /* Pods */ = {
