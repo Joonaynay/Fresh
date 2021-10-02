@@ -23,7 +23,6 @@ class FirebaseModel: ObservableObject {
     @Published var loading = false
     @Published var currentUser = User(id: "", username: "", name: "", profileImage: nil, following: [], followers: [], numFollowers: 0, numFollowing: 0, posts: nil)
     
-    
     func followUser(currentUser: User, followUser: User) {
         
         //Save who the user followed
@@ -43,13 +42,15 @@ class FirebaseModel: ObservableObject {
         if let user = cd.fetchUser(uid: uid) {
             if let profileImage = self.file.getFromFileManager(name: uid) {
                 completion(User(id: user.id!, username: user.username!, name: user.name!, profileImage: profileImage, following: [], followers: [], numFollowers: Int(user.followers), numFollowing: Int(user.following), posts: nil))
-            }
+            } else {
                 completion(User(id: user.id!, username: user.username!, name: user.name!, profileImage: nil, following: [], followers: [], numFollowers: Int(user.followers), numFollowing: Int(user.following), posts: nil))
+            }
             
         } else {
             
             //Load Firestore doc
             getDoc(collection: "users", id: uid) { doc in
+                
                 let username = doc?.get("username") as! String
                 let name = doc?.get("name") as! String
                 let following = doc?.get("following") as! [String]

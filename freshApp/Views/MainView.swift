@@ -21,15 +21,15 @@ struct MainView: View {
                 HomeView().tabItem { Image(systemName: "list.dash") }.tag(2)
                 FollowingView().tabItem { tab == 3 ? Image(systemName: "person.2.fill") : Image(systemName: "person.2") }.tag(3)
             }
-            .navigationBarHidden(true)
-            .navigationBarTitle("")
             .onAppear() {
                 if Auth.auth().currentUser?.uid != nil {
-                    fb.loadUser(uid: Auth.auth().currentUser!.uid) { user in
+                    fb.loadUser(uid: UserDefaults.standard.value(forKey: "uid") as! String) { user in
                         fb.currentUser = user!
                     }
                 }
             }
+            .navigationBarHidden(true)
+            .navigationBarTitle("")
         } else {
             LoginView()
                 .environmentObject(fb)

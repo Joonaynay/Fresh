@@ -28,13 +28,12 @@ extension FirebaseModel {
         
         //Load Document
         db.collection(collection).document(id).getDocument { doc, error in
-            
-            //Check for error
             if error == nil {
-                //Return Doc
                 completion(doc)
+            } else {
+                completion(nil)
             }
-        }
+        }        
     }
     
     func getDocs(collection: String, completion:@escaping (QuerySnapshot?) -> Void) {

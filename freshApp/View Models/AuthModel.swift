@@ -18,6 +18,8 @@ extension FirebaseModel {
         self.loading = true
         self.auth.signIn(withEmail: email, password: password) { result, error in
             if result != nil && error == nil {
+                //Save uid to userdefaults
+                UserDefaults.standard.setValue(self.auth.currentUser?.uid, forKeyPath: "uid")
                 self.signedIn = true
                 self.loading = false
             }
@@ -44,6 +46,9 @@ extension FirebaseModel {
             //Check for success
             if result != nil && error == nil {
                 
+                //Save uid to userdefaults
+                UserDefaults.standard.setValue(self.auth.currentUser?.uid, forKeyPath: "uid")
+                
                 // Save data in Firestore
                 let dict = ["name": name, "username": username, "posts": [], "followers": [], "following": []] as [String : Any]
                 self.newDoc(collection: "users", document: self.auth.currentUser?.uid, data: dict) { uid in }
@@ -68,6 +73,8 @@ extension FirebaseModel {
     }
     
     func signOut() {
+        self.file.deleteAllImages()
+        self.cd.deleteAll()
         do {
             try auth.signOut()
         } catch let error {

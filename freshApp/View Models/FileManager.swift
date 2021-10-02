@@ -13,7 +13,7 @@ struct FileManagerModel{
         
         let imageData = image.jpegData(compressionQuality: 1.0)
         
-        guard let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("\(name).jpg") else { return }
+        guard let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("\(name).jpeg") else { return }
         do {
             try imageData?.write(to: path)
             
@@ -26,7 +26,7 @@ struct FileManagerModel{
     
     func getPath(name: String) -> URL? {
         
-        guard let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("\(name).jpg") else { return nil }
+        guard let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("\(name).jpeg") else { return nil }
         
         return path
 
@@ -36,9 +36,22 @@ struct FileManagerModel{
     
     func getFromFileManager(name: String) -> UIImage? {
         
-        guard let path = getPath(name: name)?.path else { return nil}
+        guard let path = getPath(name: name)?.path else { return nil }
         
         return UIImage(contentsOfFile: path)
+    }
+    
+    func deleteAllImages() {
+        let path =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+
+        do {
+            let urls = try FileManager.default.contentsOfDirectory(at: path, includingPropertiesForKeys: nil, options: .skipsHiddenFiles)
+            for url in urls {
+                if url.pathExtension == "jpeg" || url.pathExtension == "mp3" {
+                    try FileManager.default.removeItem(at: url)
+                }
+            }
+        } catch  { print(error) }
     }
     
 }

@@ -118,8 +118,8 @@ struct SignUpView: View {
                         TextField("Email", text: $email)
                     }
                     Section(header: Text("Password")) {
-                        TextField("Password", text: $password)
-                        TextField("Confirm Password", text: $confirmPassword)
+                        SecureField("Password", text: $password)
+                        SecureField("Confirm Password", text: $confirmPassword)
                     }
                 }
                 Button(action: {
@@ -241,11 +241,10 @@ struct ProfilePictureView: View {
             Spacer()
             
             Button(action: {
-                if image != nil {
-                    fb.saveImage(path: "Profile Images", file: fb.currentUser.id, image: image!)
+                if let image = image {
+                    fb.saveImage(path: "Profile Images", file: Auth.auth().currentUser!.uid, image: image)
                     fb.signedIn = true
-                    fb.file.saveImage(image: image!, name: fb.currentUser.name)
-                    fb.currentUser.profileImage = image
+                    fb.file.saveImage(image: image, name: Auth.auth().currentUser!.uid)
                 }
             }, label: {
                 Text("Done")

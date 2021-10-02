@@ -43,5 +43,13 @@ struct Persistence {
         return nil
     }
     
-    
+    func deleteAll() {
+        let storeContainer = container.persistentStoreCoordinator
+        for store in storeContainer.persistentStores {
+            do { try storeContainer.destroyPersistentStore(at: store.url!, ofType: store.type, options: nil) } catch let error {
+                fatalError(error.localizedDescription)
+            }
+        }
+        
+    }
 }
