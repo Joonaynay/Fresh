@@ -131,8 +131,6 @@ struct SignUpView: View {
                             emailVerifyWaiting = true
                         }
                     }
-                    
-                    
                 }, label: {
                     Text("Create Account")
                         .frame(maxWidth: .infinity)
@@ -142,11 +140,6 @@ struct SignUpView: View {
                 .alert(isPresented: $showAlert, content: {
                     Alert(title: Text(alertText))
                 })
-                NavigationLink(
-                    destination: WaitingForEmailVerification(),
-                    tag: emailVerificationTag,
-                    selection: $selection,
-                    label: {})
             }
             .fullScreenCover(isPresented: $emailVerifyWaiting, content: {
                 WaitingForEmailVerification(selection: $selection)
@@ -154,6 +147,7 @@ struct SignUpView: View {
             .navigationTitle("Create Account")
             .navigationBarTitleDisplayMode(.inline)
             .padding()
+            NavigationLink(destination: ProfilePictureView(), tag: profilePictureTag, selection: $selection, label: {})
         }
     }
 }
@@ -179,8 +173,8 @@ struct WaitingForEmailVerification: View {
                             fatalError(error.localizedDescription)
                         } else {
                             if Auth.auth().currentUser!.isEmailVerified {
-                                selection = profilePictureTag
                                 pres.wrappedValue.dismiss()
+                                selection = profilePictureTag
                             } else {
                                 showAlert = true
                             }
