@@ -96,7 +96,9 @@ struct SignUpView: View {
     @State private var alertText: String = ""
     
     @State private var selection: String? = ""
-    private let profilePictureTag = "i like pot"
+    private let profilePictureTag = "profilePicture"
+    
+    @State private var emailVerifyWaiting: Bool = false
     
     @EnvironmentObject private var fb: FirebaseModel
     
@@ -126,7 +128,7 @@ struct SignUpView: View {
                             alertText = errorMessage!
                             showAlert.toggle()
                         } else {
-                            selection = profilePictureTag
+                            emailVerifyWaiting = true
                         }
                     }
                     
@@ -146,6 +148,9 @@ struct SignUpView: View {
                     selection: $selection,
                     label: {})
             }
+            .fullScreenCover(isPresented: $emailVerifyWaiting, content: {
+                WaitingForEmailVerification(selection: $selection)
+            })
             .navigationTitle("Create Account")
             .navigationBarTitleDisplayMode(.inline)
             .padding()
@@ -157,10 +162,43 @@ struct SignUpView: View {
 }
 
 struct WaitingForEmailVerification: View {
+    
+    @Binding var selection: String?
+    private let profilePictureTag = "profilePicture"
+    
+    @State private var showAlert: Bool = false
+    @Environment(\.presentationMode) private var pres
+    
     var body: some View {
         VStack {
             Text("Waiting for email to be verified.")
-            LoadingView(text: nil)
+            Text("You should have recieved an email with a link to verify your account.")
+                .font(.caption2)
+            ProgressView()
+            Button(action: {
+                DispatchQueue.main.async {
+                    Auth.auth().currentUser?.reload(completion: { error in
+                        if let error = error {
+                            fatalError(error.localizedDescription)
+                        } else {
+                            if Auth.auth().currentUser!.isEmailVerified {
+                                selection = profilePictureTag
+                                pres.wrappedValue.dismiss()
+                            } else {
+                                showAlert = true
+                            }
+                        }
+                    })
+                }
+            }, label: {
+                Text("Done")
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 45)
+                    .background(Color.theme.pinkColor)
+            })
+        }
+        .alert(isPresented: $showAlert) {
+            Alert(title: Text("Please verify your email."))
         }
     }
 }

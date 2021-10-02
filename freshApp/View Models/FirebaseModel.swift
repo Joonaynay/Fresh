@@ -100,7 +100,7 @@ class FirebaseModel: ObservableObject {
                             //Add to view model
                             self.posts.append(Post(id: postId, image: image, title: title, subjects: subjects, date: date, user: user!))
                         }
-                    }
+                    }                    
                 }
             }
         }
