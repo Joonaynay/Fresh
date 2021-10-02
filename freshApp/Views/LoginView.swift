@@ -219,17 +219,17 @@ struct ProfilePictureView: View {
                             .font(.title)
                         Image(systemName: "person.circle.fill")
                             .resizable()
-                            .frame(width: 200, height: 200)
-                            .scaledToFit()
+                            .frame(width: 200, height: 200)                            
                             .padding()
                     } else {
                         Text("Select an Image...")
                             .font(.title)
                         Image(uiImage: image!)
                             .resizable()
-                            .clipShape(Circle())
+                            .scaledToFill()
                             .frame(width: 200, height: 200)
-                            .scaledToFit()
+                            .clipped()
+                            .clipShape(Circle())                            
                             .padding()
                     }
                 }

@@ -45,7 +45,10 @@ struct VideoView: View {
                                 if post.user.profileImage != nil {
                                     Image(uiImage: post.user.profileImage!)
                                         .resizable()
+                                        .scaledToFill()
                                         .frame(width: 30, height: 30)
+                                        .clipped()
+                                        .clipShape(Circle())                                        
                                 } else {
                                     Image(systemName: "person.circle.fill")
                                         .resizable()

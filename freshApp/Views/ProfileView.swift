@@ -38,8 +38,10 @@ struct ProfileView: View {
                 } else {
                     Image(uiImage: user.profileImage!)
                         .resizable()
-                        .clipShape(Circle())
+                        .scaledToFill()
                         .frame(width: 100, height: 100)
+                        .clipped()
+                        .clipShape(Circle())                        
                 }
                 Text(user.username)
                 Button(action: {

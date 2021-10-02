@@ -7,6 +7,7 @@
 
 import SwiftUI
 import FirebaseAuth
+import CoreData
 
 
 
@@ -18,10 +19,29 @@ extension FirebaseModel {
         self.loading = true
         self.auth.signIn(withEmail: email, password: password) { result, error in
             if result != nil && error == nil {
+                
+                
                 //Save uid to userdefaults
                 UserDefaults.standard.setValue(self.auth.currentUser?.uid, forKeyPath: "uid")
                 self.signedIn = true
                 self.loading = false
+                self.loadUser(uid: self.auth.currentUser!.uid) { user in
+                    self.currentUser = user!
+                    
+                    //Save to Core Data
+                    let currentUser = CurrentUser(context: self.cd.context)
+                    currentUser.username = user!.username
+                    currentUser.id = self.auth.currentUser?.uid
+                    currentUser.name = user!.name
+                    currentUser.followers = 0
+                    currentUser.following = 0
+                    self.cd.save()
+                    
+                    //Save ProfileImage to FileManager
+                    if let profileImage = user?.profileImage {
+                        self.file.saveImage(image: profileImage, name: user!.id)
+                    }
+                }
             }
         }
         
@@ -48,6 +68,7 @@ extension FirebaseModel {
                 
                 //Save uid to userdefaults
                 UserDefaults.standard.setValue(self.auth.currentUser?.uid, forKeyPath: "uid")
+                            
                 
                 // Save data in Firestore
                 let dict = ["name": name, "username": username, "posts": [], "followers": [], "following": []] as [String : Any]
@@ -59,6 +80,9 @@ extension FirebaseModel {
                         self.loading = false
                         completion(error?.localizedDescription)
                     } else {
+                        self.loadUser(uid: self.auth.currentUser!.uid) { user in
+                            self.currentUser = user!
+                        }
                         self.loading = false
                         completion(nil)
                     }
@@ -73,8 +97,16 @@ extension FirebaseModel {
     }
     
     func signOut() {
+        UserDefaults.standard.setValue(nil, forKeyPath: "uid")
         self.file.deleteAllImages()
         self.cd.deleteAll()
+        self.cd.container = NSPersistentContainer(name: "FreshModel")
+        self.cd.container.loadPersistentStores { desc, error in
+            if let error = error {
+                fatalError(error.localizedDescription)
+            }
+        }
+        self.cd.context = self.cd.container.viewContext
         do {
             try auth.signOut()
         } catch let error {

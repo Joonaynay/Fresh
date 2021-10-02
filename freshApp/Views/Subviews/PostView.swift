@@ -55,15 +55,16 @@ struct PostView: View {
                     if post.user.profileImage != nil {
                         Image(uiImage: post.user.profileImage!)
                             .resizable()
+                            .scaledToFill()
                             .frame(width: 35, height: 35)
+                            .clipped()
                             .clipShape(Circle())
                             .scaledToFill()
                     } else {
                         Image(systemName: "person.circle.fill")
                             .resizable()
                             .frame(width: 35, height: 35)
-                            .clipShape(Circle())
-                            .scaledToFill()
+                            
                     }
                     Text(post.user.username)
                         .multilineTextAlignment(.leading)

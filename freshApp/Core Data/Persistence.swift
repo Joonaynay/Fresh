@@ -8,8 +8,8 @@
 import CoreData
 
 struct Persistence {
-    let container: NSPersistentContainer
-    let context: NSManagedObjectContext
+    var container: NSPersistentContainer
+    var context: NSManagedObjectContext
     
     init() {
         container = NSPersistentContainer(name: "FreshModel")
@@ -49,7 +49,7 @@ struct Persistence {
             do { try storeContainer.destroyPersistentStore(at: store.url!, ofType: store.type, options: nil) } catch let error {
                 fatalError(error.localizedDescription)
             }
-        }
+        }            
         
     }
 }

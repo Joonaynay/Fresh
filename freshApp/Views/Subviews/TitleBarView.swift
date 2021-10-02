@@ -38,15 +38,16 @@ struct TitleBarView: View {
                     if fb.currentUser.profileImage != nil {
                         Image(uiImage: fb.currentUser.profileImage!)
                             .resizable()
-                            .frame(width: 30, height: 30)
+                            .scaledToFill()
+                            .frame(width: 45, height: 45)
+                            .clipped()
                             .clipShape(Circle())
                             .padding()
                             
                     } else {
-                    Image(systemName: "person.circle")
+                    Image(systemName: "person.circle.fill")
                         .resizable()
                         .frame(width: 30, height: 30)
-                        .scaledToFit()
                         .padding()
                     }
                 }

@@ -23,6 +23,16 @@ class FirebaseModel: ObservableObject {
     @Published var loading = false
     @Published var currentUser = User(id: "", username: "", name: "", profileImage: nil, following: [], followers: [], numFollowers: 0, numFollowing: 0, posts: nil)
     
+    init() {
+        if let uid = UserDefaults.standard.value(forKey: "uid") as? String {
+            self.loadUser(uid: uid) { user in
+                if let user = user {
+                    self.currentUser = user
+                }
+            }
+        }
+    }
+    
     func followUser(currentUser: User, followUser: User) {
         
         //Save who the user followed
@@ -38,8 +48,13 @@ class FirebaseModel: ObservableObject {
     
     func loadUser(uid: String, completion:@escaping (User?) -> Void) {
         
+        
         //Check if can load from Core Data
         if let user = cd.fetchUser(uid: uid) {
+            for _ in 1...10 {
+                print("Loaded User From Core Data")
+            }
+            
             if let profileImage = self.file.getFromFileManager(name: uid) {
                 completion(User(id: user.id!, username: user.username!, name: user.name!, profileImage: profileImage, following: [], followers: [], numFollowers: Int(user.followers), numFollowing: Int(user.following), posts: nil))
             } else {
@@ -50,6 +65,10 @@ class FirebaseModel: ObservableObject {
             
             //Load Firestore doc
             getDoc(collection: "users", id: uid) { doc in
+                
+                for _ in 1...10 {
+                    print("Loaded User From Firebase")
+                }
                 
                 let username = doc?.get("username") as! String
                 let name = doc?.get("name") as! String
