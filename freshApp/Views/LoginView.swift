@@ -96,7 +96,7 @@ struct SignUpView: View {
     @State private var alertText: String = ""
     
     @State private var selection: String? = ""
-    private let profilePictureTag = "i like pot"
+    private let emailVerificationTag = "i like pot"
     
     @EnvironmentObject private var fb: FirebaseModel
     
@@ -126,7 +126,7 @@ struct SignUpView: View {
                             alertText = errorMessage!
                             showAlert.toggle()
                         } else {
-                            selection = profilePictureTag
+                            selection = emailVerificationTag
                         }
                     }
                     
@@ -141,26 +141,52 @@ struct SignUpView: View {
                     Alert(title: Text(alertText))
                 })
                 NavigationLink(
-                    destination: ProfilePictureView(),
-                    tag: profilePictureTag,
+                    destination: WaitingForEmailVerification(),
+                    tag: emailVerificationTag,
                     selection: $selection,
                     label: {})
             }
             .navigationTitle("Create Account")
             .navigationBarTitleDisplayMode(.inline)
             .padding()
-            if fb.loading {
-                LoadingView(text: nil)
-            }
         }
     }
 }
 
 struct WaitingForEmailVerification: View {
+    
+    @State private var showAlert: Bool = false
+    @State private var selection: String? = ""
+    private let tag = "sick tag man"
+    
+    @EnvironmentObject private var fb: FirebaseModel
+    
     var body: some View {
         VStack {
-            Text("Waiting for email to be verified.")
-            LoadingView(text: nil)
+            if !Auth.auth().currentUser!.isEmailVerified {
+                Text("Waiting for email to be verified.")
+                //LoadingView(text: nil)
+                Button {
+                    DispatchQueue.main.async {
+                        Auth.auth().currentUser?.reload(completion: { error in
+                            if Auth.auth().currentUser?.isEmailVerified == true {
+                                selection = tag
+                            } else {
+                                showAlert = true
+                            }
+                        })
+                    }
+                } label: {
+                    Text("Email has been verified")
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 45)
+                        .background(Color.theme.pinkColor)
+                }.alert(isPresented: $showAlert) {
+                    Alert(title: Text("Please verify your email."))
+                }
+                
+            }
+            NavigationLink(destination: ProfilePictureView(), tag: tag, selection: $selection, label: {})
         }
     }
 }
@@ -185,7 +211,6 @@ struct ProfilePictureView: View {
                 imagePickerShowing = true
             }, label: {
                 VStack {
-                    
                     if image == nil {
                         Text("Select an Image...")
                             .font(.title)
@@ -216,7 +241,7 @@ struct ProfilePictureView: View {
                 if image != nil {
                     fb.saveImage(path: "Profile Images", file: fb.currentUser.id, image: image!)
                     fb.signedIn = true
-                    fb.file.saveImage(image: image!, name: fb.currentUser.id)
+                    fb.file.saveImage(image: image!, name: fb.currentUser.name)
                     fb.currentUser.profileImage = image
                 }
             }, label: {

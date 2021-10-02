@@ -32,6 +32,7 @@ struct MainView: View {
             }
         } else {
             LoginView()
+                .environmentObject(fb)
         }
     }
 }

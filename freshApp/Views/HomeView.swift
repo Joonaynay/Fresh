@@ -78,12 +78,14 @@ struct HomePostView: View {
             Color.theme.background
                 .ignoresSafeArea()
             VStack(alignment: .leading, spacing: 0) {
-                TitleBarView(title: subject.name)
-                Button(action: { subject.name = "" }, label: {
-                    Image(systemName: "chevron.left")
-                        .font(Font.headline.weight(.bold))
-                })
-                .padding()
+                HStack {
+                    Button(action: { subject.name = "" }, label: {
+                        Image(systemName: "chevron.left")
+                            .font(Font.headline.weight(.bold))
+                    })
+                    .padding(.leading)
+                    TitleBarView(title: subject.name)
+                }
                 
                 ScrollView {
                     Button(action: { fb.loadPosts() }, label: {

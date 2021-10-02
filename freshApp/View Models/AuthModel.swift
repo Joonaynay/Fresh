@@ -59,7 +59,6 @@ extension FirebaseModel {
                     }
                 })
                 
-                
             } else {
                 // Return Error
                 self.loading = false
@@ -76,4 +75,5 @@ extension FirebaseModel {
         }        
         self.signedIn = false
     }
+    
 }
