@@ -26,6 +26,8 @@
 		52E7EBA52702D63600B7F3B6 /* FirestoreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E7EBA42702D63600B7F3B6 /* FirestoreModel.swift */; };
 		52E7EBA72703D0FC00B7F3B6 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E7EBA62703D0FC00B7F3B6 /* SearchBar.swift */; };
 		52E7EBA9270404A000B7F3B6 /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E7EBA8270404A000B7F3B6 /* FileManager.swift */; };
+		52E7EBAF2704183600B7F3B6 /* CoreDataRelationshipsBootcamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E7EBAE2704183600B7F3B6 /* CoreDataRelationshipsBootcamp.swift */; };
+		52E7EBB627054E0D00B7F3B6 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		E00139F126FEC34D0036CD94 /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E00139F026FEC34D0036CD94 /* PostView.swift */; };
 		E01022A52702B30F003CB9CA /* AuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E01022A42702B30F003CB9CA /* AuthModel.swift */; };
 		E0A9392926FC07B800735C99 /* SubjectsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A9392826FC07B800735C99 /* SubjectsModel.swift */; };
@@ -41,8 +43,6 @@
 		E0E4389526FD5B2E000C5738 /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E4389426FD5B2E000C5738 /* Keyboard.swift */; };
 		E0E4DB202703D3A900131C6E /* StorageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E4DB1F2703D3A900131C6E /* StorageModel.swift */; };
 		E0E4DB6627055E6400131C6E /* FreshModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E0E4DB6427055E6400131C6E /* FreshModel.xcdatamodeld */; };
-		E0E4DB6927055F4D00131C6E /* CurrentUser+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E4DB6727055F4C00131C6E /* CurrentUser+CoreDataClass.swift */; };
-		E0E4DB6A27055F4D00131C6E /* CurrentUser+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E4DB6827055F4D00131C6E /* CurrentUser+CoreDataProperties.swift */; };
 		E0E4DB6C27055F9200131C6E /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E4DB6B27055F9200131C6E /* Persistence.swift */; };
 /* End PBXBuildFile section */
 
@@ -68,6 +68,7 @@
 		52E7EBA42702D63600B7F3B6 /* FirestoreModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreModel.swift; sourceTree = "<group>"; };
 		52E7EBA62703D0FC00B7F3B6 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		52E7EBA8270404A000B7F3B6 /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
+		52E7EBAE2704183600B7F3B6 /* CoreDataRelationshipsBootcamp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataRelationshipsBootcamp.swift; sourceTree = "<group>"; };
 		8F372103A81A4C451F224587 /* Pods_freshApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_freshApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B4CB17EBAEAB6C4F89A5490 /* Pods-freshApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-freshApp.debug.xcconfig"; path = "Target Support Files/Pods-freshApp/Pods-freshApp.debug.xcconfig"; sourceTree = "<group>"; };
 		E00139F026FEC34D0036CD94 /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
@@ -85,8 +86,6 @@
 		E0E4389426FD5B2E000C5738 /* Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keyboard.swift; sourceTree = "<group>"; };
 		E0E4DB1F2703D3A900131C6E /* StorageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageModel.swift; sourceTree = "<group>"; };
 		E0E4DB6527055E6400131C6E /* FreshModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FreshModel.xcdatamodel; sourceTree = "<group>"; };
-		E0E4DB6727055F4C00131C6E /* CurrentUser+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CurrentUser+CoreDataClass.swift"; sourceTree = "<group>"; };
-		E0E4DB6827055F4D00131C6E /* CurrentUser+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CurrentUser+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		E0E4DB6B27055F9200131C6E /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -125,6 +124,7 @@
 			children = (
 				52AB403626FC05C300E343C9 /* Fresh.swift */,
 				52AB404726FC065500E343C9 /* Extras */,
+				52E7EBAA270416D700B7F3B6 /* Testing Core Data */,
 				52AB404626FC064200E343C9 /* View Models */,
 				52AB404526FC063D00E343C9 /* Views */,
 				E0E4DB6327055E4700131C6E /* Core Data */,
@@ -190,6 +190,14 @@
 			path = Extras;
 			sourceTree = "<group>";
 		};
+		52E7EBAA270416D700B7F3B6 /* Testing Core Data */ = {
+			isa = PBXGroup;
+			children = (
+				52E7EBAE2704183600B7F3B6 /* CoreDataRelationshipsBootcamp.swift */,
+			);
+			path = "Testing Core Data";
+			sourceTree = "<group>";
+		};
 		6DB941AC855DC39CC4439D33 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -221,9 +229,7 @@
 		E0E4DB6327055E4700131C6E /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
-				E0E4DB6727055F4C00131C6E /* CurrentUser+CoreDataClass.swift */,
 				E0E4DB6B27055F9200131C6E /* Persistence.swift */,
-				E0E4DB6827055F4D00131C6E /* CurrentUser+CoreDataProperties.swift */,
 				E0E4DB6427055E6400131C6E /* FreshModel.xcdatamodeld */,
 			);
 			path = "Core Data";
@@ -345,7 +351,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E0E4DB6A27055F4D00131C6E /* CurrentUser+CoreDataProperties.swift in Sources */,
 				52AB405526FC074900E343C9 /* FirebaseModel.swift in Sources */,
 				E0A9392D26FC0E8400735C99 /* MainView.swift in Sources */,
 				E0E4385726FD1626000C5738 /* Bundle.swift in Sources */,
@@ -353,12 +358,14 @@
 				52AB405926FC076400E343C9 /* PostModel.swift in Sources */,
 				E0E4389526FD5B2E000C5738 /* Keyboard.swift in Sources */,
 				E0E4389326FD52F9000C5738 /* LoadingView.swift in Sources */,
+				52E7EBB627054E0D00B7F3B6 /* (null) in Sources */,
 				529349ED2702BA5500C9C634 /* UIApplicationExtension.swift in Sources */,
 				52AB405D26FC245000E343C9 /* AddPostView.swift in Sources */,
 				E01022A52702B30F003CB9CA /* AuthModel.swift in Sources */,
 				52AB405B26FC113D00E343C9 /* ProfileView.swift in Sources */,
 				E0E4DB202703D3A900131C6E /* StorageModel.swift in Sources */,
 				E0A9392926FC07B800735C99 /* SubjectsModel.swift in Sources */,
+				52E7EBAF2704183600B7F3B6 /* CoreDataRelationshipsBootcamp.swift in Sources */,
 				52E7EBA72703D0FC00B7F3B6 /* SearchBar.swift in Sources */,
 				E00139F126FEC34D0036CD94 /* PostView.swift in Sources */,
 				52E7EBA9270404A000B7F3B6 /* FileManager.swift in Sources */,
@@ -369,7 +376,6 @@
 				E0A9392F26FC0ECE00735C99 /* TrendingView.swift in Sources */,
 				52AB404D26FC066F00E343C9 /* HomeView.swift in Sources */,
 				E0A9393126FC11B800735C99 /* FollowingView.swift in Sources */,
-				E0E4DB6927055F4D00131C6E /* CurrentUser+CoreDataClass.swift in Sources */,
 				5290E24026FFF39B005DD737 /* VideoView.swift in Sources */,
 				E0E4DB6627055E6400131C6E /* FreshModel.xcdatamodeld in Sources */,
 				52AB405726FC075B00E343C9 /* UserModel.swift in Sources */,

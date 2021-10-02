@@ -32,15 +32,16 @@ struct MainView: View {
             }
         } else {
             LoginView()
+                .environmentObject(fb)
         }
     }
 }
 
-struct MainView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            MainView(tab: 1)
-            .environmentObject(FirebaseModel())
-        }
-    }
-}
+//struct MainView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        NavigationView {
+//            MainView(tab: 1)
+//            .environmentObject(FirebaseModel())
+//        }
+//    }
+//}

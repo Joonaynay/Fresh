@@ -85,6 +85,6 @@ struct VideoView: View {
 
 struct VideoView_Previews: PreviewProvider {
     static var previews: some View {
-        VideoView(post: Post(id: "ds", image: UIImage(systemName: "person")!, title: "ds", subjects: [], date: "ds", user: User(id: "ds", username: "fds", name: "dfs", profileImage: nil, following: [], followers: [], posts: [])))
+        VideoView(post: Post(id: "ds", image: UIImage(systemName: "person")!, title: "ds", subjects: [], date: "ds", user: User(id: "sa", username: "sd", name: "asdf", profileImage: nil, following: [], followers: [], numFollowers: 0, numFollowing: 0, posts: nil)))
     }
 }

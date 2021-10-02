@@ -143,8 +143,8 @@ struct SignUpView: View {
                     Alert(title: Text(alertText))
                 })
                 NavigationLink(
-                    destination: ProfilePictureView(),
-                    tag: profilePictureTag,
+                    destination: WaitingForEmailVerification(),
+                    tag: emailVerificationTag,
                     selection: $selection,
                     label: {})
             }
@@ -154,9 +154,6 @@ struct SignUpView: View {
             .navigationTitle("Create Account")
             .navigationBarTitleDisplayMode(.inline)
             .padding()
-            if fb.loading {
-                LoadingView(text: nil)
-            }
         }
     }
 }
@@ -223,7 +220,6 @@ struct ProfilePictureView: View {
                 imagePickerShowing = true
             }, label: {
                 VStack {
-                    
                     if image == nil {
                         Text("Select an Image...")
                             .font(.title)
@@ -254,6 +250,7 @@ struct ProfilePictureView: View {
                 if image != nil {
                     fb.saveImage(path: "Profile Images", file: fb.currentUser.id, image: image!)
                     fb.signedIn = true
+                    fb.file.saveImage(image: image!, name: fb.currentUser.name)
                     fb.currentUser.profileImage = image
                 }
             }, label: {
