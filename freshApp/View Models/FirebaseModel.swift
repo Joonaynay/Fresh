@@ -21,7 +21,7 @@ class FirebaseModel: ObservableObject {
     @Published var signedIn = false
     @Published var posts: [Post] = []
     @Published var loading = false
-    @Published var currentUser = User(id: "", username: "", name: "", profileImage: nil, following: [], followers: [], numFollowers: 0, numFollowing: 0, posts: nil)
+    @Published var currentUser = User(id: "", username: "", name: "", profileImage: nil, following: [], followers: [], posts: nil)
     
     init() {
         if let uid = UserDefaults.standard.value(forKey: "uid") as? String {
@@ -63,9 +63,9 @@ class FirebaseModel: ObservableObject {
             }
             
             if let profileImage = self.file.getFromFileManager(name: uid) {
-                completion(User(id: user.id!, username: user.username!, name: user.name!, profileImage: profileImage, following: [], followers: [], numFollowers: Int(user.followers), numFollowing: Int(user.following), posts: nil))
+                completion(User(id: user.id!, username: user.username!, name: user.name!, profileImage: profileImage, following: user.following!, followers: user.followers! ,posts: nil))
             } else {
-                completion(User(id: user.id!, username: user.username!, name: user.name!, profileImage: nil, following: [], followers: [], numFollowers: Int(user.followers), numFollowing: Int(user.following), posts: nil))
+                completion(User(id: user.id!, username: user.username!, name: user.name!, profileImage: nil, following: user.following!, followers: user.followers! ,posts: nil))
             }
             
         } else {
@@ -84,10 +84,10 @@ class FirebaseModel: ObservableObject {
                 let posts = doc?.get("posts") as! [String]
                 
                 //Load Profile Image
-                self.loadImage(path: "Profile Images", id: self.currentUser.id) { profileImage in
+                self.loadImage(path: "Profile Images", id: uid) { profileImage in
                     
                     //Create User
-                    let user = User(id: uid, username: username, name: name, profileImage: profileImage, following: following, followers: followers, numFollowers: followers.count, numFollowing: following.count, posts: posts)
+                    let user = User(id: uid, username: username, name: name, profileImage: profileImage, following: following, followers: followers, posts: posts)
                     
                     //Return User
                     completion(user)

@@ -9,6 +9,19 @@ import SwiftUI
 import Firebase
 
 struct ProfileView: View {
+    let user: User
+    @EnvironmentObject private var fb: FirebaseModel
+    
+    var body: some View {
+        if user.id == fb.currentUser.id {
+            CurrentProfileView()
+        } else {
+            PostProfileView(user: user)
+        }
+    }
+}
+
+struct PostProfileView: View {
     
     @EnvironmentObject private var fb: FirebaseModel
     @Environment(\.presentationMode) private var pres
@@ -80,7 +93,85 @@ struct ProfileView: View {
                 }
                 
                 NavigationLink(
-                    destination: inAppProfilePictureView(),
+                    destination: InAppProfilePictureView(),
+                    tag: profilePictureTag,
+                    selection: $selection,
+                    label: {})
+            }
+        }
+        .navigationBarHidden(true)
+        .foregroundColor(Color.theme.accent)
+    }
+}
+
+struct CurrentProfileView: View {
+    
+    @EnvironmentObject private var fb: FirebaseModel
+    @Environment(\.presentationMode) private var pres
+    
+    private let profilePictureTag: String = "profilePictureTag"
+    @State private var selection: String? = ""
+    
+    var body: some View {
+        ZStack {
+            Color.theme.background
+                .ignoresSafeArea()
+            VStack {
+                HStack {
+                    Button(action: { pres.wrappedValue.dismiss() }, label: {
+                        Image(systemName: "chevron.left")
+                            .font(Font.headline.weight(.bold))
+                            .padding()
+                    })
+                    Spacer()
+                }
+                Button(action: {
+                    selection = profilePictureTag
+                }, label: {
+                    if fb.currentUser.profileImage == nil {
+                        Image(systemName: "person.circle.fill")
+                            .resizable()
+                            .frame(width: 100, height: 100)
+                    } else {
+                        Image(uiImage: fb.currentUser.profileImage!)
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 100, height: 100)
+                            .clipped()
+                            .clipShape(Circle())
+                    }
+                })
+                
+                Text(fb.currentUser.username)
+                Button(action: {
+                    
+                }, label: {
+                    Text("Edit Profile")
+                        .frame(width: UIScreen.main.bounds.width / 3.5, height: 45)
+                        .background(Color.theme.pinkColor)
+                    
+                })
+                .padding()
+                HStack {
+                    VStack {
+                        Text("\(fb.currentUser.followers.count)")
+                        Text("Followers")
+                            .foregroundColor(Color.theme.secondaryText)
+                    }
+                    .padding()
+                    VStack {
+                        Text("\(fb.currentUser.following.count)")
+                        Text("Following")
+                            .foregroundColor(Color.theme.secondaryText)
+                    }
+                    .padding()
+                }
+                ScrollView {
+                    
+                }
+                
+                NavigationLink(
+                    destination: InAppProfilePictureView(),
                     tag: profilePictureTag,
                     selection: $selection,
                     label: {})
@@ -92,100 +183,4 @@ struct ProfileView: View {
 }
 
 
-struct ProfileView_Previews: PreviewProvider {
-    static var previews: some View {
-        ProfileView(user: User(id: "asd", username: "ds", name: "ds", profileImage: nil, following: [], followers: [], numFollowers: 0, numFollowing: 0, posts: nil))
-            .preferredColorScheme(.dark)
-            .environmentObject(FirebaseModel())
-    }
-}
 
-
-struct inAppProfilePictureView: View {
-    
-    @EnvironmentObject var fb: FirebaseModel
-    @Environment(\.presentationMode) private var pres
-    
-    @State private var imagePickerShowing: Bool = false
-    @State private var image: UIImage?
-    private let mainViewTag: String = "trendingViewTag"
-    @State private var selection: String? = ""
-    
-    
-    var body: some View {
-        ZStack {
-            Color.theme.background.ignoresSafeArea()
-            VStack {
-                HStack {
-                    Button(action: {
-                        pres.wrappedValue.dismiss()
-                    }, label: {
-                        Image(systemName: "chevron.left")
-                            .font(Font.headline.weight(.bold))
-                            .padding()
-                    })
-                    Spacer()
-                }
-                
-                Text("Choose Profile Picture")
-                    .multilineTextAlignment(.center)
-                    .font(.largeTitle)
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                Spacer()
-                Button(action: {
-                    imagePickerShowing = true
-                }, label: {
-                    VStack {
-                        if image == nil {
-                            Text("Select an Image...")
-                                .font(.title)
-                            Image(systemName: "person.circle.fill")
-                                .resizable()
-                                .frame(width: 200, height: 200)
-                                .padding()
-                        } else {
-                            Text("Select an Image...")
-                                .font(.title)
-                            Image(uiImage: image!)
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 200, height: 200)
-                                .clipped()
-                                .clipShape(Circle())
-                                .padding()
-                        }
-                    }
-                })
-                .sheet(isPresented: $imagePickerShowing, content: {
-                    ImagePickerView(image: $image)
-                })
-                
-                Spacer()
-                
-                Button(action: {
-                    if let image = image {
-                        fb.saveImage(path: "Profile Images", file: Auth.auth().currentUser!.uid, image: image)
-                        fb.file.saveImage(image: image, name: Auth.auth().currentUser!.uid)
-                        fb.currentUser.profileImage = image
-                        selection = mainViewTag
-                    }
-                }, label: {
-                    Text("Done")
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 45)
-                        .background(Color.theme.pinkColor)
-                })
-                .padding(.horizontal)
-                
-            }
-            .navigationBarHidden(true)
-            NavigationLink(
-                destination: MainView(),
-                tag: mainViewTag,
-                selection: $selection,
-                label: {})
-                .navigationBarHidden(true)
-        }
-    }
-}

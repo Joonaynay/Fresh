@@ -29,6 +29,7 @@
 		52E7EBB627054E0D00B7F3B6 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		E00139F126FEC34D0036CD94 /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E00139F026FEC34D0036CD94 /* PostView.swift */; };
 		E01022A52702B30F003CB9CA /* AuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E01022A42702B30F003CB9CA /* AuthModel.swift */; };
+		E0207646270941E00066092C /* ProfilePictureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0207645270941E00066092C /* ProfilePictureView.swift */; };
 		E0A9392926FC07B800735C99 /* SubjectsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A9392826FC07B800735C99 /* SubjectsModel.swift */; };
 		E0A9392D26FC0E8400735C99 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A9392C26FC0E8400735C99 /* MainView.swift */; };
 		E0A9392F26FC0ECE00735C99 /* TrendingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A9392E26FC0ECE00735C99 /* TrendingView.swift */; };
@@ -71,6 +72,7 @@
 		9B4CB17EBAEAB6C4F89A5490 /* Pods-freshApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-freshApp.debug.xcconfig"; path = "Target Support Files/Pods-freshApp/Pods-freshApp.debug.xcconfig"; sourceTree = "<group>"; };
 		E00139F026FEC34D0036CD94 /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
 		E01022A42702B30F003CB9CA /* AuthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthModel.swift; sourceTree = "<group>"; };
+		E0207645270941E00066092C /* ProfilePictureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePictureView.swift; sourceTree = "<group>"; };
 		E0A9392826FC07B800735C99 /* SubjectsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectsModel.swift; sourceTree = "<group>"; };
 		E0A9392C26FC0E8400735C99 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		E0A9392E26FC0ECE00735C99 /* TrendingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingView.swift; sourceTree = "<group>"; };
@@ -211,6 +213,7 @@
 				E0E4389026FD33FD000C5738 /* TitleBarView.swift */,
 				E0E4389226FD52F9000C5738 /* LoadingView.swift */,
 				529349EA2702B9EF00C9C634 /* SearchBarView.swift */,
+				E0207645270941E00066092C /* ProfilePictureView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -354,6 +357,7 @@
 				52AB405B26FC113D00E343C9 /* ProfileView.swift in Sources */,
 				E0E4DB202703D3A900131C6E /* StorageModel.swift in Sources */,
 				E0A9392926FC07B800735C99 /* SubjectsModel.swift in Sources */,
+				E0207646270941E00066092C /* ProfilePictureView.swift in Sources */,
 				52E7EBA72703D0FC00B7F3B6 /* SearchBar.swift in Sources */,
 				E00139F126FEC34D0036CD94 /* PostView.swift in Sources */,
 				52E7EBA9270404A000B7F3B6 /* FileManager.swift in Sources */,
