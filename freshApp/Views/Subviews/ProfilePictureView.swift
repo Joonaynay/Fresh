@@ -15,8 +15,7 @@ struct InAppProfilePictureView: View {
     
     @State private var imagePickerShowing: Bool = false
     @State private var image: UIImage?
-    private let mainViewTag: String = "trendingViewTag"
-    @State private var selection: String? = ""
+    
     
     
     var body: some View {
@@ -75,7 +74,7 @@ struct InAppProfilePictureView: View {
                         fb.saveImage(path: "Profile Images", file: Auth.auth().currentUser!.uid, image: image)
                         fb.file.saveImage(image: image, name: Auth.auth().currentUser!.uid)
                         fb.currentUser.profileImage = image
-                        selection = mainViewTag
+                        pres.wrappedValue.dismiss()
                     }
                 }, label: {
                     Text("Done")
@@ -87,12 +86,6 @@ struct InAppProfilePictureView: View {
                 
             }
             .navigationBarHidden(true)
-            NavigationLink(
-                destination: MainView(),
-                tag: mainViewTag,
-                selection: $selection,
-                label: {})
-                .navigationBarHidden(true)
         }
     }
 }
@@ -102,6 +95,7 @@ struct ProfilePictureView: View {
     @EnvironmentObject var fb: FirebaseModel
     @State private var imagePickerShowing: Bool = false
     @State private var image: UIImage?
+    @Environment(\.presentationMode) var pres
     
     
     var body: some View {
@@ -147,6 +141,8 @@ struct ProfilePictureView: View {
                 if let image = image {
                     fb.saveImage(path: "Profile Images", file: Auth.auth().currentUser!.uid, image: image)
                     fb.signedIn = true
+                    fb.currentUser.profileImage = image
+                    pres.wrappedValue.dismiss()
                     fb.file.saveImage(image: image, name: Auth.auth().currentUser!.uid)
                 }
             }, label: {
