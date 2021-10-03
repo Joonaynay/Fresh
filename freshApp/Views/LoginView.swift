@@ -162,10 +162,13 @@ struct WaitingForEmailVerification: View {
     
     var body: some View {
         VStack {
-            Text("Waiting for email to be verified.")
-            Text("You should have recieved an email with a link to verify your account.")
+            Text("Waiting for email to be verified...")
+                .multilineTextAlignment(.center)
+                .font(.title)
+            Spacer()
                 .font(.caption2)
             ProgressView()
+            Spacer()
             Button(action: {
                 DispatchQueue.main.async {
                     Auth.auth().currentUser?.reload(completion: { error in
@@ -186,8 +189,10 @@ struct WaitingForEmailVerification: View {
                     .frame(maxWidth: .infinity)
                     .frame(height: 45)
                     .background(Color.theme.pinkColor)
+                Text("You should have recieved an email with a link to verify your account.").multilineTextAlignment(.center)
             })
         }
+        .padding()
         .alert(isPresented: $showAlert) {
             Alert(title: Text("Please verify your email."))
         }
@@ -219,7 +224,7 @@ struct ProfilePictureView: View {
                             .font(.title)
                         Image(systemName: "person.circle.fill")
                             .resizable()
-                            .frame(width: 200, height: 200)                            
+                            .frame(width: 200, height: 200)
                             .padding()
                     } else {
                         Text("Select an Image...")
