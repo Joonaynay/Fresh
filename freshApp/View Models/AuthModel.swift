@@ -26,20 +26,22 @@ extension FirebaseModel {
                 self.signedIn = true
                 self.loading = false
                 self.loadUser(uid: self.auth.currentUser!.uid) { user in
-                    self.currentUser = user!
-                    
-                    //Save to Core Data
-                    let currentUser = CurrentUser(context: self.cd.context)
-                    currentUser.username = user!.username
-                    currentUser.id = self.auth.currentUser?.uid
-                    currentUser.name = user!.name
-                    currentUser.followers = 0
-                    currentUser.following = 0
-                    self.cd.save()
-                    
-                    //Save ProfileImage to FileManager
-                    if let profileImage = user?.profileImage {
-                        self.file.saveImage(image: profileImage, name: user!.id)
+                    if let user = user {
+                        self.currentUser = user
+                        
+                        //Save to Core Data
+                        let currentUser = CurrentUser(context: self.cd.context)
+                        currentUser.username = user.username
+                        currentUser.id = self.auth.currentUser?.uid
+                        currentUser.name = user.name
+                        currentUser.followers = 0
+                        currentUser.following = 0
+                        self.cd.save()
+                        
+                        //Save ProfileImage to FileManager
+                        if let profileImage = user.profileImage {
+                            self.file.saveImage(image: profileImage, name: user.id)
+                        }
                     }
                 }
             }
@@ -68,7 +70,7 @@ extension FirebaseModel {
                 
                 //Save uid to userdefaults
                 UserDefaults.standard.setValue(self.auth.currentUser?.uid, forKeyPath: "uid")
-                            
+                
                 
                 // Save data in Firestore
                 let dict = ["name": name, "username": username, "posts": [], "followers": [], "following": []] as [String : Any]
