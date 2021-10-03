@@ -34,8 +34,8 @@ extension FirebaseModel {
                         currentUser.username = user.username
                         currentUser.id = self.auth.currentUser?.uid
                         currentUser.name = user.name
-                        currentUser.followers = 0
-                        currentUser.following = 0
+                        currentUser.followers = user.followers
+                        currentUser.following = user.following
                         self.cd.save()
                         
                         //Save ProfileImage to FileManager
@@ -61,8 +61,8 @@ extension FirebaseModel {
             currentUser.username = username
             currentUser.id = self.auth.currentUser?.uid
             currentUser.name = name
-            currentUser.followers = 0
-            currentUser.following = 0
+            currentUser.followers = []
+            currentUser.following = []
             self.cd.save()
             
             //Check for success

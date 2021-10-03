@@ -19,8 +19,8 @@ struct VideoView: View {
         VStack(alignment: .leading, spacing: 0) {
             Button(action: { pres.wrappedValue.dismiss() }, label: {
                 HStack {
-                Image(systemName: "chevron.left")
-                    .font(Font.headline.weight(.bold))
+                    Image(systemName: "chevron.left")
+                        .font(Font.headline.weight(.bold))
                 }
             })
             .padding()
@@ -59,19 +59,21 @@ struct VideoView: View {
                             Text("Followers: \(post.user.followers.count)")
                                 .foregroundColor(Color.theme.secondaryText)
                         }
-
+                        
                     })
                 Spacer()
-                Button(action: {
-                    withAnimation(.spring()) {
-                        animate.toggle()
-                    }
-                    fb.followUser(currentUser: fb.currentUser, followUser: post.user)
-                }, label: {
-                    Text(animate ? "Unfollow" : "Follow")
-                        .frame(width: animate ? UIScreen.main.bounds.width / 2.5 : UIScreen.main.bounds.width / 3.0, height: 45)
-                        .background(Color.theme.pinkColor)
-                })
+                if post.user.id != fb.currentUser.id {
+                    Button(action: {
+                        withAnimation(.spring()) {
+                            animate.toggle()
+                        }
+                        fb.followUser(currentUser: fb.currentUser, followUser: post.user)
+                    }, label: {
+                        Text(animate ? "Unfollow" : "Follow")
+                            .frame(width: animate ? UIScreen.main.bounds.width / 2.5 : UIScreen.main.bounds.width / 3.0, height: 45)
+                            .background(Color.theme.pinkColor)
+                    })
+                }
             }
             .padding(.horizontal)
             .padding(.bottom)
@@ -87,8 +89,3 @@ struct VideoView: View {
     }
 }
 
-struct VideoView_Previews: PreviewProvider {
-    static var previews: some View {
-        VideoView(post: Post(id: "ds", image: UIImage(systemName: "person")!, title: "ds", subjects: [], date: "ds", user: User(id: "sa", username: "sd", name: "asdf", profileImage: nil, following: [], followers: [], numFollowers: 0, numFollowing: 0, posts: nil)))
-    }
-}
