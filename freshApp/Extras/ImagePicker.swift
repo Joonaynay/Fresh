@@ -31,9 +31,10 @@ struct ImagePickerView: UIViewControllerRepresentable {
             
             if let uiImage = info[.originalImage] as? UIImage {
                 
-                let jpegData = uiImage.jpegData(compressionQuality: 0.25)
-                let jpegImage = UIImage(data: jpegData!)
-                parent.image = jpegImage
+                if let jpegData = uiImage.jpegData(compressionQuality: 0.25) {
+                    let jpegImage = UIImage(data: jpegData)
+                    parent.image = jpegImage
+                }
                 
             }
             
