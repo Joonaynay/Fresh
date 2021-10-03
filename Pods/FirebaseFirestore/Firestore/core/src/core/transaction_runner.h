@@ -67,7 +67,7 @@ class TransactionRunner
   core::TransactionUpdateCallback update_callback_;
   core::TransactionResultCallback result_callback_;
   remote::ExponentialBackoff backoff_;
-  int attempts_remaining_;
+  int retries_left_;
 };
 
 }  // namespace core

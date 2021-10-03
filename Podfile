@@ -6,9 +6,9 @@ target 'freshApp' do
   use_frameworks!
 
   # Pods for freshApp
-pod 'Firebase/Analytics'
-pod 'Firebase/Auth'
-pod 'Firebase/Firestore'
-pod 'Firebase/Storage'
+  pod 'Firebase/Auth'
+  pod 'Firebase/Analytics'
+  pod 'Firebase/Storage'
+  pod 'Firebase/Firestore'
 
 end
