@@ -14,4 +14,5 @@ struct Post: Identifiable {
     var subjects: [String]
     var date: String
     var user: User
+    var likes: [String]
 }

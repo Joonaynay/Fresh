@@ -33,7 +33,14 @@ class FirebaseModel: ObservableObject {
         }
     }
     
-    func followUser(currentUser: User, followUser: User) {
+    func likePost(currentPost: Post) {
+        
+        //Save the users current ID to the likes on the post, so we can later get the number of people who have liked the post.
+        self.save(collection: "posts", document: currentPost.id, field: "likes", data: [self.currentUser.id])
+        
+    }
+    
+    func followUser(followUser: User) {
         
         //Save who the user followed
         self.save(collection: "users", document: currentUser.id, field: "following", data: [followUser.id])
@@ -104,6 +111,7 @@ class FirebaseModel: ObservableObject {
                     let subjects = post.get("subjects") as! [String]
                     let date = post.get("date") as! String
                     let uid = post.get("uid") as! String
+                    let likes = post.get("likes") as! [String]
                     
                     //Load user for post
                     self.loadUser(uid: uid) { user in
@@ -112,7 +120,7 @@ class FirebaseModel: ObservableObject {
                         self.loadImage(path: "images", id: post.documentID) { image in
                             
                             //Add to view model
-                            self.posts.append(Post(id: postId, image: image, title: title, subjects: subjects, date: date, user: user!))
+                            self.posts.append(Post(id: postId, image: image, title: title, subjects: subjects, date: date, user: user!, likes: likes))
                         }
                     }                    
                 }
@@ -130,7 +138,7 @@ class FirebaseModel: ObservableObject {
         
         
         //Save Post to Firestore
-        let dict = ["title": title, "subjects": subjects, "uid": currentUser.id, "date": dateString] as [String : Any]
+        let dict = ["title": title, "subjects": subjects, "uid": currentUser.id, "date": dateString, "likes": []] as [String : Any]
         newDoc(collection: "posts", document: nil, data: dict) { postId in
             
             //Save postId to User

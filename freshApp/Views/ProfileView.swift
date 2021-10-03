@@ -53,7 +53,7 @@ struct ProfileView: View {
                     withAnimation(.spring()) {
                         animate.toggle()
                     }
-                    fb.followUser(currentUser: fb.currentUser, followUser: user)
+                    fb.followUser(followUser: user)
                 }, label: {
                     Text(animate ? "Unfollow" : "Follow")
                         .frame(width: animate ? (UIScreen.main.bounds.width / 2.5) : (UIScreen.main.bounds.width / 3.5), height: 45)
