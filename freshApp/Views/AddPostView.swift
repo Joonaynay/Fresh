@@ -83,6 +83,7 @@ struct AddPostView: View {
             }
         }
         .navigationBarHidden(true)
+        .foregroundColor(Color.theme.accent)
         .onAppear() {
             if dissmissView {
                 pres.wrappedValue.dismiss()
@@ -133,6 +134,7 @@ struct SelectSubjectView: View {
             }
             .padding()
         }
+        .foregroundColor(Color.theme.accent)
     }
 }
 
@@ -153,6 +155,7 @@ struct checkMarkSubjects : View {
         .frame(height: 75)
         .padding(.horizontal, 35)
         .background(Color.theme.sheetColor)
+        .foregroundColor(Color.theme.accent)
         .onTapGesture {
             if list.count != 3 {
                 if !checkMark {

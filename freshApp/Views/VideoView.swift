@@ -82,6 +82,7 @@ struct VideoView: View {
                 .padding()
             Spacer()
         }
+        .foregroundColor(Color.theme.accent)
         .navigationBarHidden(true)
     }
 }

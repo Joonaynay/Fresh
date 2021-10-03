@@ -22,7 +22,6 @@ struct MainView: View {
                 FollowingView().tabItem { tab == 3 ? Image(systemName: "person.2.fill") : Image(systemName: "person.2") }.tag(3)
             }
             .navigationBarHidden(true)
-            .navigationBarTitle("")
         } else {
             LoginView()
                 .environmentObject(fb)
