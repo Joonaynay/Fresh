@@ -14,8 +14,8 @@
             filePath = "freshApp/Extras/SearchBar.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "28"
-            endingLineNumber = "28"
+            startingLineNumber = "27"
+            endingLineNumber = "27"
             landmarkName = "addSubscriberToAllData()"
             landmarkType = "7">
          </BreakpointContent>

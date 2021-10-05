@@ -20,7 +20,6 @@ class SearchBar: ObservableObject {
         self.allData = Bundle.main.decode([SubjectsModel].self, from: "subjects.json")
         self.filteredData = allData
         addSubscriberToAllData()
-        
     }
     
     func addSubscriberToAllData() {
@@ -41,6 +40,10 @@ class SearchBar: ObservableObject {
                 self?.filteredData = returnedSubjects
             }
             .store(in: &cancellables)
+    }
+    
+    func addSubscriberToAllVideos() {
+        
     }
     
     

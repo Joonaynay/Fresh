@@ -14,6 +14,8 @@ struct freshAppApp: App {
     
     @StateObject var fb = FirebaseModel()
     @StateObject var vm = SearchBar()
+    @StateObject var searchTest = SearchBar2Test(post: Post(id: "id", image: nil, title: "title", subjects: [], date: "date", user: User(id: "id", username: "username", name: "name", profileImage: nil, following: [], followers: [], posts: nil), likes: [], comments: []))
+    
     
     init() {
         FirebaseApp.configure()
@@ -34,6 +36,7 @@ struct freshAppApp: App {
             }
             .environmentObject(fb)
             .environmentObject(vm)
+            .environmentObject(searchTest)
         }
     }
 }

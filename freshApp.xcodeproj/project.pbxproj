@@ -9,10 +9,11 @@
 /* Begin PBXBuildFile section */
 		1600AF20FF33B341803F37C4 /* Pods_freshApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F372103A81A4C451F224587 /* Pods_freshApp.framework */; };
 		528F8EC6270BE74B00EC166C /* VideosTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528F8EC5270BE74B00EC166C /* VideosTest.swift */; };
+		528F8EC9270BFBEC00EC166C /* SearchBar2Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528F8EC8270BFBEC00EC166C /* SearchBar2Test.swift */; };
+		528F8ECB270C01C900EC166C /* VideoSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528F8ECA270C01C900EC166C /* VideoSubview.swift */; };
 		5290E24026FFF39B005DD737 /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5290E23F26FFF39B005DD737 /* VideoView.swift */; };
 		529349EB2702B9EF00C9C634 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529349EA2702B9EF00C9C634 /* SearchBarView.swift */; };
 		529349ED2702BA5500C9C634 /* UIApplicationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529349EC2702BA5500C9C634 /* UIApplicationExtension.swift */; };
-		529C32F6270BCE3A00D92A3A /* VideoSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529C32F5270BCE3A00D92A3A /* VideoSubview.swift */; };
 		529C32F8270BDB3200D92A3A /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529C32F7270BDB3200D92A3A /* SearchView.swift */; };
 		52AB403726FC05C300E343C9 /* Fresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AB403626FC05C300E343C9 /* Fresh.swift */; };
 		52AB403B26FC05C600E343C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52AB403A26FC05C600E343C9 /* Assets.xcassets */; };
@@ -53,10 +54,11 @@
 		3DD5CE6420CDD96374E09335 /* Pods-freshApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-freshApp.release.xcconfig"; path = "Target Support Files/Pods-freshApp/Pods-freshApp.release.xcconfig"; sourceTree = "<group>"; };
 		528F8EC5270BE74B00EC166C /* VideosTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideosTest.swift; sourceTree = "<group>"; };
 		528F8EC7270BEAD000EC166C /* train.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = train.m4v; sourceTree = "<group>"; };
+		528F8EC8270BFBEC00EC166C /* SearchBar2Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar2Test.swift; sourceTree = "<group>"; };
+		528F8ECA270C01C900EC166C /* VideoSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoSubview.swift; sourceTree = "<group>"; };
 		5290E23F26FFF39B005DD737 /* VideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
 		529349EA2702B9EF00C9C634 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		529349EC2702BA5500C9C634 /* UIApplicationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationExtension.swift; sourceTree = "<group>"; };
-		529C32F5270BCE3A00D92A3A /* VideoSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoSubview.swift; sourceTree = "<group>"; };
 		529C32F7270BDB3200D92A3A /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		52AB403326FC05C300E343C9 /* freshApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = freshApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52AB403626FC05C300E343C9 /* Fresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fresh.swift; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 				528F8EC7270BEAD000EC166C /* train.m4v */,
 				529349EC2702BA5500C9C634 /* UIApplicationExtension.swift */,
 				52E7EBA62703D0FC00B7F3B6 /* SearchBar.swift */,
+				528F8EC8270BFBEC00EC166C /* SearchBar2Test.swift */,
 				E0E4385626FD1626000C5738 /* Bundle.swift */,
 				E0E4385426FD1484000C5738 /* subjects.json */,
 				E0E4389426FD5B2E000C5738 /* Keyboard.swift */,
@@ -220,7 +223,7 @@
 			isa = PBXGroup;
 			children = (
 				E00139F026FEC34D0036CD94 /* PostView.swift */,
-				529C32F5270BCE3A00D92A3A /* VideoSubview.swift */,
+				528F8ECA270C01C900EC166C /* VideoSubview.swift */,
 				E0E4389026FD33FD000C5738 /* TitleBarView.swift */,
 				E0E4389226FD52F9000C5738 /* LoadingView.swift */,
 				529349EA2702B9EF00C9C634 /* SearchBarView.swift */,
@@ -357,13 +360,14 @@
 				52AB405526FC074900E343C9 /* FirebaseModel.swift in Sources */,
 				E0A9392D26FC0E8400735C99 /* MainView.swift in Sources */,
 				E0E4385726FD1626000C5738 /* Bundle.swift in Sources */,
+				528F8EC9270BFBEC00EC166C /* SearchBar2Test.swift in Sources */,
 				52E7EBA52702D63600B7F3B6 /* FirestoreModel.swift in Sources */,
 				52AB405926FC076400E343C9 /* PostModel.swift in Sources */,
 				E0E4389526FD5B2E000C5738 /* Keyboard.swift in Sources */,
+				528F8ECB270C01C900EC166C /* VideoSubview.swift in Sources */,
 				E0E4389326FD52F9000C5738 /* LoadingView.swift in Sources */,
 				52E7EBB627054E0D00B7F3B6 /* (null) in Sources */,
 				529349ED2702BA5500C9C634 /* UIApplicationExtension.swift in Sources */,
-				529C32F6270BCE3A00D92A3A /* VideoSubview.swift in Sources */,
 				529C32F8270BDB3200D92A3A /* SearchView.swift in Sources */,
 				52AB405D26FC245000E343C9 /* AddPostView.swift in Sources */,
 				E01022A52702B30F003CB9CA /* AuthModel.swift in Sources */,
