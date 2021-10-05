@@ -18,7 +18,7 @@ class FirebaseModel: ObservableObject {
     let storage = Storage.storage().reference()
     let file = FileManagerModel()
     lazy var cd = Persistence()
-    
+        
     @Published var signedIn = false
     @Published var posts: [Post] = []
     @Published var loading = false

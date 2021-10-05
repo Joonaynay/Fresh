@@ -21,7 +21,9 @@ struct TrendingView: View {
             VStack(spacing: 0) {
                 TitleBarView(title: "Trending")
                 ScrollView(showsIndicators: false) {
-                    Button(action: { fb.loadPosts() }, label: {
+                    Button(action: {
+                        fb.loadPosts()
+                    }, label: {
                         Text("Load")
                     })
                     VStack {

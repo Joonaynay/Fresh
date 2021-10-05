@@ -71,7 +71,7 @@ struct commentsView: View {
                         ,alignment: .trailing
                     )
                 Button(action: {
-                    fb.commentOnPost(currentPost: post, comment: "This is my comment.")
+                    fb.commentOnPost(currentPost: post, comment: text)
                     pres.wrappedValue.dismiss()
                 }, label: {
                     Text("Post")

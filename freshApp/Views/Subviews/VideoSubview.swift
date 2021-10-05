@@ -14,19 +14,7 @@ struct VideoSubview: View {
     @EnvironmentObject private var fb: FirebaseModel
     
     var body: some View {
-        VStack {
-            Image(uiImage: post.image!)
-                .resizable()
-                .frame(width: UIScreen.main.bounds.width / 1.05, height: UIScreen.main.bounds.width / 1.05)
-            Text(post.title)
-            HStack {
-                Image(systemName: "person.circle.fill")
-                    .resizable()
-                    .frame(width: 30, height: 30)
-                Text(post.user.username)
-            }
-            
-        }
+        PostView(post: post)
     }
 }
 

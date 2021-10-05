@@ -15,11 +15,10 @@ class SearchBar2Test: ObservableObject {
     var filteredVideos: [Post] = []
     private var cancellables = Set<AnyCancellable>()
     
-    @EnvironmentObject private var fb: FirebaseModel
     
-    init(post: Post) {
+    init() {
         // The problem is that this is getting inited only one time. Posts is empty before we load.
-        self.allVideos = [Post(id: post.id, image: post.image, title: post.title, subjects: post.subjects, date: post.date, user: post.user, likes: post.likes, comments: post.comments)]
+        self.allVideos = []
         self.filteredVideos = allVideos
         addSubscriberToAllVideos()
     }
@@ -35,9 +34,10 @@ class SearchBar2Test: ObservableObject {
                 }
                 let lowercasedText = text.lowercased()
                 
-                return posts.filter { user in
+                return posts.filter { post in
                     return
-                        user.title.lowercased().contains(lowercasedText)
+                        post.title.lowercased().contains(lowercasedText) ||
+                        post.user.username.lowercased().contains(lowercasedText)
                 }
             }
             .sink { [weak self] returnedPosts in
