@@ -37,7 +37,7 @@ struct SubjectSelectView: View {
                 .ignoresSafeArea()
             VStack(alignment: .leading, spacing: 0) {
                 TitleBarView(title: "Subjects")
-                SearchBarView(textFieldText: $vm.searchText)
+                SearchBarView(textFieldText: $vm.AllDataSearchText)
                 ScrollView() {
                     LazyVGrid(columns: [GridItem(spacing: 10), GridItem(spacing: 10)], spacing: 10, content: {
                         ForEach(vm.filteredData) { subject in

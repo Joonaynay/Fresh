@@ -116,58 +116,68 @@ struct CurrentProfileView: View {
         ZStack {
             Color.theme.background
                 .ignoresSafeArea()
-            VStack {
-                HStack {
-                    Button(action: { pres.wrappedValue.dismiss() }, label: {
-                        Image(systemName: "chevron.left")
-                            .font(Font.headline.weight(.bold))
-                            .padding()
-                    })
-                    Spacer()
-                }
-                Button(action: {
-                    selection = profilePictureTag
-                }, label: {
-                    if fb.currentUser.profileImage == nil {
-                        Image(systemName: "person.circle.fill")
-                            .resizable()
-                            .frame(width: 100, height: 100)
-                    } else {
-                        Image(uiImage: fb.currentUser.profileImage!)
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 100, height: 100)
-                            .clipped()
-                            .clipShape(Circle())
-                    }
-                })
+            ScrollView {
                 
-                Text(fb.currentUser.username)
-                Button(action: {
-                    
-                }, label: {
-                    Text("Edit Profile")
-                        .frame(width: UIScreen.main.bounds.width / 3.5, height: 45)
-                        .background(Color.theme.pinkColor)
-                    
-                })
-                .padding()
-                HStack {
-                    VStack {
-                        Text("\(fb.currentUser.followers.count)")
-                        Text("Followers")
-                            .foregroundColor(Color.theme.secondaryText)
+                VStack {
+                    HStack {
+                        Button(action: { pres.wrappedValue.dismiss() }, label: {
+                            Image(systemName: "chevron.left")
+                                .font(Font.headline.weight(.bold))
+                                .padding()
+                        })
+                        Spacer()
                     }
-                    .padding()
-                    VStack {
-                        Text("\(fb.currentUser.following.count)")
-                        Text("Following")
-                            .foregroundColor(Color.theme.secondaryText)
-                    }
-                    .padding()
-                }
-                ScrollView {
+                    Button(action: {
+                        selection = profilePictureTag
+                    }, label: {
+                        if fb.currentUser.profileImage == nil {
+                            Image(systemName: "person.circle.fill")
+                                .resizable()
+                                .frame(width: 100, height: 100)
+                        } else {
+                            Image(uiImage: fb.currentUser.profileImage!)
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 100, height: 100)
+                                .clipped()
+                                .clipShape(Circle())
+                        }
+                    })
                     
+                    Text(fb.currentUser.username)
+                    Button(action: {
+                        
+                    }, label: {
+                        Text("Edit Profile")
+                            .frame(width: UIScreen.main.bounds.width / 3.5, height: 45)
+                            .background(Color.theme.pinkColor)
+                        
+                    })
+                    .padding()
+                    HStack {
+                        VStack {
+                            Text("\(fb.currentUser.followers.count)")
+                            Text("Followers")
+                                .foregroundColor(Color.theme.secondaryText)
+                        }
+                        .padding()
+                        VStack {
+                            Text("\(fb.currentUser.following.count)")
+                            Text("Following")
+                                .foregroundColor(Color.theme.secondaryText)
+                        }
+                        .padding()
+                    }
+                    ForEach(fb.posts) { post in
+                        NavigationLink(
+                            destination: VideoView(post: post),
+                            label: {
+                                Image(uiImage: post.image!)
+                                    .resizable()
+                                    .frame(width: UIScreen.main.bounds.width / 1.10, height: UIScreen.main.bounds.width / 1.10)
+                            })
+                    }
+
                 }
                 
                 NavigationLink(
@@ -181,6 +191,7 @@ struct CurrentProfileView: View {
         .foregroundColor(Color.theme.accent)
     }
 }
+
 
 
 

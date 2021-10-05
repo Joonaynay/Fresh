@@ -15,7 +15,6 @@ struct PostView: View {
     @State private var selection: String? = ""
     private let VideoViewTag = "VideoViewTag"
     private let ProfileViewTag = "ProfileView"
-    @State private var liked: Bool = false
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -52,13 +51,12 @@ struct PostView: View {
                 label: {})
             HStack {
                 Spacer()
+                
                 Image(systemName: "hand.thumbsup")
                     .resizable()
                     .frame(width: 25, height: 25)
-                    .onTapGesture {
-                        liked = true
-                    }
-                Text(liked ? "\(post.likes.count + 1)" : "\(post.likes.count)")
+
+                Text("\(post.likes.count)")
                     .font(Font.headline.weight(.bold))
             }
             .padding(.horizontal)

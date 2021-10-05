@@ -41,6 +41,13 @@ class FirebaseModel: ObservableObject {
         
     }
     
+    func commentOnPost(currentPost: Post, comment: String) {
+        
+        //Save comments when someone comments on a post
+        save(collection: "posts", document: currentPost.id, field: "comments", data: [comment])
+        
+    }
+    
     func followUser(followUser: User) {
         
         //Save who the user followed
@@ -113,6 +120,7 @@ class FirebaseModel: ObservableObject {
                     let date = post.get("date") as! String
                     let uid = post.get("uid") as! String
                     let likes = post.get("likes") as! [String]
+                    let comments = post.get("comments") as! [String]
                     
                     //Load user for post
                     self.loadUser(uid: uid) { user in
@@ -121,7 +129,7 @@ class FirebaseModel: ObservableObject {
                         self.loadImage(path: "images", id: post.documentID) { image in
                             
                             //Add to view model
-                            self.posts.append(Post(id: postId, image: image, title: title, subjects: subjects, date: date, user: user!, likes: likes))
+                            self.posts.append(Post(id: postId, image: image, title: title, subjects: subjects, date: date, user: user!, likes: likes, comments: comments))
                         }
                     }                    
                 }
@@ -139,7 +147,7 @@ class FirebaseModel: ObservableObject {
         
         
         //Save Post to Firestore
-        let dict = ["title": title, "subjects": subjects, "uid": currentUser.id, "date": dateString, "likes": []] as [String : Any]
+        let dict = ["title": title, "subjects": subjects, "uid": currentUser.id, "date": dateString, "likes": [], "comments": []] as [String : Any]
         newDoc(collection: "posts", document: nil, data: dict) { postId in
             
             //Save postId to User

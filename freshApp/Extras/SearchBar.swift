@@ -10,8 +10,7 @@ import Combine
 
 class SearchBar: ObservableObject {
     
-    @Published var searchText = ""
-    
+    @Published var AllDataSearchText = ""
     @Published var allData: [SubjectsModel]
     var filteredData: [SubjectsModel] = []
     private var cancellables = Set<AnyCancellable>()
@@ -20,12 +19,12 @@ class SearchBar: ObservableObject {
         
         self.allData = Bundle.main.decode([SubjectsModel].self, from: "subjects.json")
         self.filteredData = allData
-        addSubscriber()
-                
+        addSubscriberToAllData()
+        
     }
     
-    func addSubscriber() {
-        $searchText
+    func addSubscriberToAllData() {
+        $AllDataSearchText
             .combineLatest($allData)
             .map { (text, subjects) -> [SubjectsModel] in
                 guard !text.isEmpty else {
@@ -43,5 +42,6 @@ class SearchBar: ObservableObject {
             }
             .store(in: &cancellables)
     }
+    
     
 }

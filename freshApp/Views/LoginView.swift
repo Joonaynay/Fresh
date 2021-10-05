@@ -185,11 +185,13 @@ struct WaitingForEmailVerification: View {
                     })
                 }
             }, label: {
-                Text("Done")
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 45)
-                    .background(Color.theme.pinkColor)
-                Text("You should have recieved an email with a link to verify your account.").multilineTextAlignment(.center)
+                VStack {
+                    Text("Done")
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 45)
+                        .background(Color.theme.pinkColor)
+                    Text("You should have recieved an email with a link to verify your account.").multilineTextAlignment(.center)
+                }
             })
         }
         .padding()

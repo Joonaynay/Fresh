@@ -48,10 +48,10 @@ struct AddPostView: View {
                                 Text("Select an image...")
                                     .font(.headline)
                                     .foregroundColor(.white)
-                                                                )
+                            )
                     })
                     .padding(.top)
-
+                    
                     if image != nil {
                         Image(uiImage: image!)
                             .resizable()

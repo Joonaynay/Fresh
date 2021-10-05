@@ -17,9 +17,10 @@ struct MainView: View {
         
         if fb.signedIn {
             TabView(selection: $tab) {
-                TrendingView().tabItem { Image(systemName: "network") }.tag(1)
+                TrendingView().tag(1)
                 HomeView().tabItem { Image(systemName: "list.dash") }.tag(2)
                 FollowingView().tabItem { tab == 3 ? Image(systemName: "person.2.fill") : Image(systemName: "person.2") }.tag(3)
+                SearchView().tabItem { Image(systemName: "magnifyingglass") }.tag(4)
             }
             .navigationBarHidden(true)
         } else {
@@ -29,11 +30,3 @@ struct MainView: View {
     }
 }
 
-//struct MainView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        NavigationView {
-//            MainView(tab: 1)
-//            .environmentObject(FirebaseModel())
-//        }
-//    }
-//}

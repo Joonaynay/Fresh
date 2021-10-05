@@ -13,7 +13,7 @@ struct TrendingView: View {
     @State var profileView = "profileView"
     
     @EnvironmentObject private var fb: FirebaseModel
-    
+        
     var body: some View {
         ZStack(alignment: .topLeading) {
             Color.theme.background
