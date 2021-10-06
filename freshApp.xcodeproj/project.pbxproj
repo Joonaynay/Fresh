@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1600AF20FF33B341803F37C4 /* Pods_freshApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F372103A81A4C451F224587 /* Pods_freshApp.framework */; };
+		5202F53C270D361A007DC81D /* CustomVideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5202F53B270D361A007DC81D /* CustomVideoPlayer.swift */; };
 		528F8EC6270BE74B00EC166C /* VideosTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528F8EC5270BE74B00EC166C /* VideosTest.swift */; };
 		528F8EC9270BFBEC00EC166C /* SearchBar2Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528F8EC8270BFBEC00EC166C /* SearchBar2Test.swift */; };
 		528F8ECB270C01C900EC166C /* VideoSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528F8ECA270C01C900EC166C /* VideoSubview.swift */; };
@@ -53,6 +54,7 @@
 
 /* Begin PBXFileReference section */
 		3DD5CE6420CDD96374E09335 /* Pods-freshApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-freshApp.release.xcconfig"; path = "Target Support Files/Pods-freshApp/Pods-freshApp.release.xcconfig"; sourceTree = "<group>"; };
+		5202F53B270D361A007DC81D /* CustomVideoPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomVideoPlayer.swift; sourceTree = "<group>"; };
 		528F8EC5270BE74B00EC166C /* VideosTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideosTest.swift; sourceTree = "<group>"; };
 		528F8EC7270BEAD000EC166C /* train.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = train.m4v; sourceTree = "<group>"; };
 		528F8EC8270BFBEC00EC166C /* SearchBar2Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar2Test.swift; sourceTree = "<group>"; };
@@ -209,6 +211,7 @@
 				E0E4385626FD1626000C5738 /* Bundle.swift */,
 				E0E4385426FD1484000C5738 /* subjects.json */,
 				E0E4389426FD5B2E000C5738 /* Keyboard.swift */,
+				5202F53B270D361A007DC81D /* CustomVideoPlayer.swift */,
 			);
 			path = Extras;
 			sourceTree = "<group>";
@@ -382,6 +385,7 @@
 				529349ED2702BA5500C9C634 /* UIApplicationExtension.swift in Sources */,
 				529C32F8270BDB3200D92A3A /* SearchView.swift in Sources */,
 				52AB405D26FC245000E343C9 /* AddPostView.swift in Sources */,
+				5202F53C270D361A007DC81D /* CustomVideoPlayer.swift in Sources */,
 				E01022A52702B30F003CB9CA /* AuthModel.swift in Sources */,
 				52AB405B26FC113D00E343C9 /* ProfileView.swift in Sources */,
 				E0E4DB202703D3A900131C6E /* StorageModel.swift in Sources */,

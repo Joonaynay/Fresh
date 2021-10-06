@@ -29,6 +29,7 @@ struct VideoView: View {
                     Text("comments")
                 })
             }
+            .navigationBarHidden(true)
         }
         .sheet(isPresented: $showComments, content: {
             commentsView(post: post)
