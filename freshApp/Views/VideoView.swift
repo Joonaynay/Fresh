@@ -16,7 +16,7 @@ struct VideoView: View {
     @Environment(\.presentationMode) private var pres
     
     var body: some View {
-        ZStack {
+        ZStack(alignment: .topLeading) {
             Color.theme.background
                 .ignoresSafeArea()
             VStack(alignment: .leading) {

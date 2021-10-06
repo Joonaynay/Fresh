@@ -19,7 +19,7 @@ struct VideoPlayerView: View {
 //        present(vc, animated: true)
         
         VStack {
-            
+
         }
     }
 }
