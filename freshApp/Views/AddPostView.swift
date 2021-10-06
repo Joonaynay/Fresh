@@ -12,6 +12,8 @@ struct AddPostView: View {
     
     @State private var title: String = ""
     @State private var showImages: Bool = false
+    @State private var showVideos: Bool = false
+    
     @State var image: UIImage?
     @State var movie: URL?
     
@@ -41,18 +43,27 @@ struct AddPostView: View {
                     .foregroundColor(Color.theme.secondaryText)
                 
                 ScrollView() {
-                    Button(action: { showImages.toggle() }, label: {
-                        Rectangle()
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 50)
-                            .foregroundColor(Color.theme.pinkColor)
-                            .overlay(
-                                Text("Select an image...")
-                                    .font(.headline)
-                                    .foregroundColor(.white)
-                            )
-                    })
-                    .padding(.top)
+                    VStack {
+                        Button(action: { showImages.toggle() }, label: {
+                            Text("Select a thumbnail...")
+                                .font(.headline)
+                                .foregroundColor(.white)
+                                .frame(maxWidth: .infinity)
+                                .frame(height: 50)
+                                .background(Color.theme.pinkColor)
+                            
+                        })
+                        Button(action: { showVideos.toggle() }, label: {
+                            Text("Select a video...")
+                                .font(.headline)
+                                .foregroundColor(.white)
+                                .frame(maxWidth: .infinity)
+                                .frame(height: 50)
+                                .background(Color.theme.pinkColor)
+                            
+                        })
+                        .padding(.top)
+                    }
                     
                     if image != nil {
                         Image(uiImage: image!)
@@ -64,7 +75,7 @@ struct AddPostView: View {
                         VideoPlayer(player: AVPlayer(url: movie!))
                             .frame(width: UIScreen.main.bounds.width / 1.05, height: UIScreen.main.bounds.width / 1.05)
                         
-                            
+                        
                     }
                     TextEditor(text: $title)
                         .frame(maxWidth: .infinity)
@@ -72,22 +83,22 @@ struct AddPostView: View {
                         .background(Color.theme.secondaryText)
                         .foregroundColor(Color.theme.accent)
                     
-                    if image != nil || movie != nil {
-                        NavigationLink(destination: SelectSubjectView(image: image!, title: title, dissmissView: $dissmissView), label: {
-                            Rectangle()
+                    if let image = image, let movie = movie {
+                        NavigationLink(destination: SelectSubjectView(image: image, movie: movie, title: title, dissmissView: $dissmissView), label: {
+                            Text("Next")
+                                .font(.headline)
+                                .foregroundColor(.white)
                                 .frame(maxWidth: .infinity)
                                 .frame(height: 50)
-                                .foregroundColor(Color.theme.pinkColor)
-                                .overlay(
-                                    Text("Next")
-                                        .font(.headline)
-                                        .foregroundColor(.white)
-                                )
+                                .background(Color.theme.pinkColor)
                         })
                     }
                 }
                 .sheet(isPresented: $showImages, content: {
-                    ImagePickerView(image: $image, movie: $movie)
+                    ImagePickerView(image: $image, movie: .constant(nil), mediaTypes: ["public.image"])
+                })
+                .sheet(isPresented: $showVideos, content: {
+                    ImagePickerView(image: .constant(nil), movie: $movie, mediaTypes: ["public.movie"])
                 })
             }
         }
@@ -104,6 +115,7 @@ struct AddPostView: View {
 struct SelectSubjectView: View {
     
     let image: UIImage
+    let movie: URL
     private let subjects = Bundle.main.decode([SubjectsModel].self, from: "subjects.json")
     @State var list: [String] = []
     private let trendingViewTag = "profileView"
@@ -130,7 +142,7 @@ struct SelectSubjectView: View {
                     }
                 }
                 Button(action: {
-                    fb.addPost(image: image, title: title, subjects: list)
+                    fb.addPost(image: image, title: title, subjects: list, movie: movie)
                     dissmissView = true
                     pres.wrappedValue.dismiss()
                 }, label: {
@@ -188,7 +200,7 @@ struct checkMarkSubjects : View {
 
 struct AddPostView_Previews: PreviewProvider {
     static var previews: some View {
-        SelectSubjectView(image: UIImage(contentsOfFile: "Logo.png")!, title: "Sup", dissmissView: .constant(false))
+        SelectSubjectView(image: UIImage(contentsOfFile: "Logo.png")!, movie: URL(fileURLWithPath: ""), title: "Sup", dissmissView: .constant(false))
             .preferredColorScheme(.dark)
             .environmentObject(FirebaseModel())
     }

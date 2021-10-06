@@ -52,33 +52,36 @@ struct commentsView: View {
     
     var body: some View {
         ScrollView(showsIndicators: false) {
-            HStack {
-                TextField("Comment", text: $text)
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 50)
-                    .background(Color.theme.secondaryText)
-                    .overlay(
-                        Image(systemName: "xmark.circle.fill")
-                            .padding()
-                            .offset(x: -20)
-                            .foregroundColor(Color.theme.accent)
-                            .opacity(text.isEmpty ? 0.0 : 1.0)
-                            .onTapGesture {
-                                UIApplication.shared.endEditing()
-                                text = ""
-                            }
-                        ,alignment: .trailing
-                    )
-                Button(action: {
-                    fb.commentOnPost(currentPost: post, comment: text)
-                    pres.wrappedValue.dismiss()
-                }, label: {
-                    Text("Post")
-                        .padding(.horizontal)
-                })
+            
+            VStack {
+                HStack {
+                    TextField("Comment", text: $text)
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 50)
+                        .background(Color.theme.secondaryText)
+                        .overlay(
+                            Image(systemName: "xmark.circle.fill")
+                                .padding()
+                                .offset(x: -20)
+                                .foregroundColor(Color.theme.accent)
+                                .opacity(text.isEmpty ? 0.0 : 1.0)
+                                .onTapGesture {
+                                    UIApplication.shared.endEditing()
+                                    text = ""
+                                }
+                            ,alignment: .trailing
+                        )
+                    Button(action: {
+                        fb.commentOnPost(currentPost: post, comment: text)
+                        pres.wrappedValue.dismiss()
+                    }, label: {
+                        Text("Post")
+                            .padding(.horizontal)
+                    })
+                }
+                .background(Color.theme.secondaryText)
             }
-            .background(Color.theme.secondaryText)
             ForEach(post.comments, id: \.self, content: { comment in
                 HStack {
                     if post.user.profileImage == nil {

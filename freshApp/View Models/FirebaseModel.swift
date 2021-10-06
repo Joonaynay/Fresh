@@ -128,8 +128,11 @@ class FirebaseModel: ObservableObject {
                         //Load image
                         self.loadImage(path: "images", id: post.documentID) { image in
                             
-                            //Add to view model
-                            self.posts.append(Post(id: postId, image: image, title: title, subjects: subjects, date: date, user: user!, likes: likes, comments: comments))
+                            //Load Movie
+                            self.loadMovie(path: "videos", file: "\(post.documentID).m4v") { url in
+                                //Add to view model
+                                self.posts.append(Post(id: postId, image: image, title: title, subjects: subjects, date: date, user: user!, likes: likes, comments: comments, movie: url))
+                            }
                         }
                     }                    
                 }
@@ -137,15 +140,14 @@ class FirebaseModel: ObservableObject {
         }
     }
     
-    func addPost(image: UIImage, title: String, subjects: [String]) {
+    func addPost(image: UIImage, title: String, subjects: [String], movie: URL) {
         
         //Find Date
         let dateFormat = DateFormatter()
         dateFormat.dateStyle = .long
         dateFormat.timeStyle = .none
         let dateString = dateFormat.string(from: Date())
-        
-        
+                
         //Save Post to Firestore
         let dict = ["title": title, "subjects": subjects, "uid": currentUser.id, "date": dateString, "likes": [], "comments": []] as [String : Any]
         newDoc(collection: "posts", document: nil, data: dict) { postId in
@@ -158,6 +160,9 @@ class FirebaseModel: ObservableObject {
             
             //Save Image to Firebase Storage
             self.saveImage(path: "images", file: postId!, image: image)
+            
+            //Save movie to Firestore
+            self.saveMovie(path: "videos", file: postId!, url: movie)
         }
     }    
 }

@@ -10,6 +10,25 @@ import FirebaseStorage
 
 extension FirebaseModel {
     
+    func saveMovie(path: String, file: String, url: URL) {
+        //Convert url to Data
+        do {
+            let movieData = try Data(contentsOf: url)
+            storage.child(path).child("\(file).m4v").putData(movieData)
+        } catch let error {
+            fatalError(error.localizedDescription)
+        }
+        
+    }
+    
+    func loadMovie(path: String, file: String, completion:@escaping (URL?) -> Void) {
+        storage.child(path).child(file).downloadURL { url, error in
+            if error == nil {
+                completion(url)
+            }
+        }
+    }
+    
     func saveImage(path: String, file: String, image: UIImage) {
         //Convert UIImage to Data
         let imageData = image.jpegData(compressionQuality: 1)

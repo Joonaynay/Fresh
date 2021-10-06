@@ -28,11 +28,13 @@ struct PostView: View {
                 VStack(alignment: .leading, spacing: 0) {
                     if post.image == nil {
                         Rectangle()
-                            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width)
+                            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width * 9/16)
                     } else {
                         Image(uiImage: post.image!)
                             .resizable()
-                            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width)
+                            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width * 9/16)
+                            .scaledToFill()
+                            .clipped()
                     }
 
                     Text(post.title)

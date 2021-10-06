@@ -16,4 +16,5 @@ struct Post: Identifiable {
     var user: User
     var likes: [String]
     var comments: [String]
+    var movie: URL?
 }
