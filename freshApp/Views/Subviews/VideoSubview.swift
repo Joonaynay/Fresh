@@ -19,12 +19,10 @@ struct VideoSubview: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            
-            
             VStack(alignment: .leading, spacing: 0) {
                 
                 if let url = post.movie {
-                    VideoPlayer(player: AVPlayer(url: url))
+                    CustomVideoPlayer(url: url)
                         .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width * 9/16)
                 }
                 
