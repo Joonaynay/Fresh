@@ -64,7 +64,7 @@ struct InAppProfilePictureView: View {
                     }
                 })
                 .sheet(isPresented: $imagePickerShowing, content: {
-                    ImagePickerView(image: $image)
+                    ImagePickerView(image: $image, movie: .constant(nil))
                 })
                 
                 Spacer()
@@ -132,7 +132,7 @@ struct ProfilePictureView: View {
                 }
             })
             .sheet(isPresented: $imagePickerShowing, content: {
-                ImagePickerView(image: $image)
+                ImagePickerView(image: $image, movie: .constant(nil))
             })
             
             Spacer()

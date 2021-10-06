@@ -11,6 +11,8 @@ import MobileCoreServices
 struct ImagePickerView: UIViewControllerRepresentable {
     
     @Binding var image: UIImage?
+    @Binding var movie: URL?
+    let file = FileManagerModel()
     
     @Environment(\.presentationMode) var pres
     
@@ -22,6 +24,7 @@ struct ImagePickerView: UIViewControllerRepresentable {
     
     func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {
         uiViewController.sourceType = .photoLibrary
+        uiViewController.mediaTypes = ["public.movie", "public.image"]
     }
     
     class Coordinator: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -36,6 +39,8 @@ struct ImagePickerView: UIViewControllerRepresentable {
                     parent.image = jpegImage
                 }
                 
+            } else if let movieURL = info[.mediaURL] as? URL {
+                parent.movie = movieURL
             }
             
             parent.pres.wrappedValue.dismiss()

@@ -54,4 +54,13 @@ struct FileManagerModel{
         } catch  { print(error) }
     }
     
+//    func getMovie(url: URL) -> Data {
+//        do {
+//            let movie = try Data(contentsOf: url)
+//            return movie
+//        } catch let error {
+//            fatalError(error.localizedDescription)
+//        }
+//    }
+    
 }

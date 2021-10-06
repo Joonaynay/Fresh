@@ -112,6 +112,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5202F53A270D1BB8007DC81D /* testing */ = {
+			isa = PBXGroup;
+			children = (
+				52F453FA270D15BE004CBD88 /* VideoPlayerView.swift */,
+				528F8EC5270BE74B00EC166C /* VideosTest.swift */,
+			);
+			path = testing;
+			sourceTree = "<group>";
+		};
 		52AB402A26FC05C300E343C9 = {
 			isa = PBXGroup;
 			children = (
@@ -183,8 +192,7 @@
 				52AB405626FC075B00E343C9 /* UserModel.swift */,
 				52AB405826FC076400E343C9 /* PostModel.swift */,
 				E0A9392826FC07B800735C99 /* SubjectsModel.swift */,
-				528F8EC5270BE74B00EC166C /* VideosTest.swift */,
-				52F453FA270D15BE004CBD88 /* VideoPlayerView.swift */,
+				5202F53A270D1BB8007DC81D /* testing */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";

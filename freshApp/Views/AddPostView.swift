@@ -6,12 +6,14 @@
 //
 
 import SwiftUI
+import AVKit
 
 struct AddPostView: View {
     
     @State private var title: String = ""
     @State private var showImages: Bool = false
     @State var image: UIImage?
+    @State var movie: URL?
     
     @State var dissmissView: Bool = false
     @Environment(\.presentationMode) var pres
@@ -57,13 +59,20 @@ struct AddPostView: View {
                             .resizable()
                             .frame(width: UIScreen.main.bounds.width / 1.05, height: UIScreen.main.bounds.width / 1.05)
                     }
+                    
+                    if movie != nil {
+                        VideoPlayer(player: AVPlayer(url: movie!))
+                            .frame(width: UIScreen.main.bounds.width / 1.05, height: UIScreen.main.bounds.width / 1.05)
+                        
+                            
+                    }
                     TextEditor(text: $title)
                         .frame(maxWidth: .infinity)
                         .frame(height: 45)
                         .background(Color.theme.secondaryText)
                         .foregroundColor(Color.theme.accent)
                     
-                    if image != nil {
+                    if image != nil || movie != nil {
                         NavigationLink(destination: SelectSubjectView(image: image!, title: title, dissmissView: $dissmissView), label: {
                             Rectangle()
                                 .frame(maxWidth: .infinity)
@@ -78,7 +87,7 @@ struct AddPostView: View {
                     }
                 }
                 .sheet(isPresented: $showImages, content: {
-                    ImagePickerView(image: $image)
+                    ImagePickerView(image: $image, movie: $movie)
                 })
             }
         }

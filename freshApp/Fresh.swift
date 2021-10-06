@@ -25,7 +25,7 @@ struct freshAppApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationView {
-                VideoPlayerView()
+                MainView()
                     .navigationBarHidden(true)
                     .foregroundColor(Color.theme.accent)
                     .onAppear() {
