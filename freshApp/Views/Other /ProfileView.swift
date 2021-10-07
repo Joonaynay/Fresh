@@ -172,7 +172,7 @@ struct CurrentProfileView: View {
                         NavigationLink(
                             destination: VideoView(post: post),
                             label: {
-                                Image(uiImage: post.image!)
+                                Image(uiImage: post.image)
                                     .resizable()
                                     .frame(width: UIScreen.main.bounds.width / 1.10, height: UIScreen.main.bounds.width / 1.10)
                             })

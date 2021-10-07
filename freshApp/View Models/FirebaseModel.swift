@@ -18,7 +18,7 @@ class FirebaseModel: ObservableObject {
     let storage = Storage.storage().reference()
     let file = FileManagerModel()
     lazy var cd = Persistence()
-        
+    
     @Published var signedIn = false
     @Published var posts: [Post] = []
     @Published var loading = false
@@ -44,8 +44,28 @@ class FirebaseModel: ObservableObject {
     func commentOnPost(currentPost: Post, comment: String) {
         
         //Save comments when someone comments on a post
-        save(collection: "posts", document: currentPost.id, field: "comments", data: [comment])
+        self.saveDeep(collection: "posts", collection2: "comments", document: currentPost.id, document2: currentUser.id, field: "comments", data: [comment])
         
+    }
+    
+    func loadComments(currentPost: Post, completion:@escaping ([Comment]) -> Void) {
+        self.getDocsDeep(collection: "posts", document: currentPost.id, collection2: "comments") { documents in
+            
+            if let documents = documents {
+                var list: [Comment] = []
+                for doc in documents.documents {
+                    let comments = doc.get("comments") as! [String]
+                    self.loadUser(uid: doc.documentID) { user in
+                        if let user = user {
+                            for comment in comments {
+                                list.append(Comment(text: comment, user: user))
+                            }
+                        }
+                    }
+                }
+                completion(list)
+            }
+        }
     }
     
     func followUser(followUser: User) {
@@ -94,6 +114,9 @@ class FirebaseModel: ObservableObject {
                 //Load Profile Image
                 self.loadImage(path: "Profile Images", id: uid) { profileImage in
                     
+                    //Core Data
+                    
+                    
                     //Create User
                     let user = User(id: uid, username: username, name: name, profileImage: profileImage, following: following, followers: followers, posts: posts)
                     
@@ -120,7 +143,6 @@ class FirebaseModel: ObservableObject {
                     let date = post.get("date") as! String
                     let uid = post.get("uid") as! String
                     let likes = post.get("likes") as! [String]
-                    let comments = post.get("comments") as! [String]
                     
                     //Load user for post
                     self.loadUser(uid: uid) { user in
@@ -131,7 +153,10 @@ class FirebaseModel: ObservableObject {
                             //Load Movie
                             self.loadMovie(path: "videos", file: "\(post.documentID).m4v") { url in
                                 //Add to view model
-                                self.posts.append(Post(id: postId, image: image, title: title, subjects: subjects, date: date, user: user!, likes: likes, comments: comments, movie: url))
+                                
+                                if let image = image, let url = url {                                    
+                                    self.posts.append(Post(id: postId, image: image, title: title, subjects: subjects, date: date, user: user!, likes: likes, movie: url))
+                                }
                             }
                         }
                     }                    
@@ -147,9 +172,9 @@ class FirebaseModel: ObservableObject {
         dateFormat.dateStyle = .long
         dateFormat.timeStyle = .none
         let dateString = dateFormat.string(from: Date())
-                
+        
         //Save Post to Firestore
-        let dict = ["title": title, "subjects": subjects, "uid": currentUser.id, "date": dateString, "likes": [], "comments": []] as [String : Any]
+        let dict = ["title": title, "subjects": subjects, "uid": currentUser.id, "date": dateString, "likes": []] as [String : Any]
         newDoc(collection: "posts", document: nil, data: dict) { postId in
             
             //Save postId to User

@@ -17,7 +17,7 @@ struct SearchView: View {
             Color.theme.background
                 .ignoresSafeArea()
             VStack {
-                TitleBarView(title: "Search Any Video")
+                TitleBarView(title: "Searchc")
                 SearchBarView(textFieldText: $vm.AllVideosSearchText)
                 Spacer()
                 ScrollView {
