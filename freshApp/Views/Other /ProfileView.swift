@@ -169,15 +169,13 @@ struct CurrentProfileView: View {
                         .padding()
                     }
                     ForEach(fb.posts) { post in
-                        NavigationLink(
-                            destination: VideoView(post: post),
-                            label: {
-                                Image(uiImage: post.image)
-                                    .resizable()
-                                    .frame(width: UIScreen.main.bounds.width / 1.10, height: UIScreen.main.bounds.width / 1.10)
-                            })
+                        
+                        Image(uiImage: post.image)
+                            .resizable()
+                            .frame(width: UIScreen.main.bounds.width / 1.10, height: UIScreen.main.bounds.width / 1.10)
+                        
                     }
-
+                    
                 }
                 
                 NavigationLink(

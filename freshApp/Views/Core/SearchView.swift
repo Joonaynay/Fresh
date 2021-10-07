@@ -17,12 +17,12 @@ struct SearchView: View {
             Color.theme.background
                 .ignoresSafeArea()
             VStack {
-                TitleBarView(title: "Searchc")
+                TitleBarView(title: "Search")
                 SearchBarView(textFieldText: $vm.AllVideosSearchText)
                 Spacer()
                 ScrollView {
                     ForEach(vm.filteredVideos) { video in
-                        VideoView(post: video)
+                        PostView(post: video)
                     }
                 }
             }

@@ -28,8 +28,9 @@ struct VideoView: View {
                 VideoSubview(post: post)
                 Button(action: {
                     fb.loadComments(currentPost: post) { comments in
-                        post.comments = comments
-                        guard post.comments?.count == comments.count else { return }
+                        if let comments = comments {
+                            post.comments = comments
+                        }
                         showComments = true
                     }
                     

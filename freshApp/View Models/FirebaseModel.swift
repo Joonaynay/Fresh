@@ -48,16 +48,18 @@ class FirebaseModel: ObservableObject {
         
     }
     
-
     
-    func loadComments(currentPost: Post, completion:@escaping ([Comment]) -> Void) {
+    
+    func loadComments(currentPost: Post, completion:@escaping ([Comment]?) -> Void) {
         self.getDocsDeep(collection: "posts", document: currentPost.id, collection2: "comments") { documents in
+            
             
             if let documents = documents {
                 var list: [Comment] = []
+                
                 for doc in documents.documents {
                     let comments = doc.get("comments") as! [String]
-                    self.loadUser(uid: doc.documentID) { user in
+                    self.loadConservativeUser(uid: doc.documentID) { user in
                         if let user = user {
                             for comment in comments {
                                 list.append(Comment(text: comment, user: user))
