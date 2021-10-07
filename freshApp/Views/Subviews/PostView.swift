@@ -26,17 +26,14 @@ struct PostView: View {
             
             Button(action: { selection = VideoViewTag }, label: {
                 VStack(alignment: .leading, spacing: 0) {
-                    if post.image == nil {
-                        Rectangle()
-                            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width * 9/16)
-                    } else {
-                        Image(uiImage: post.image!)
-                            .resizable()
-                            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width * 9/16)
-                            .scaledToFill()
-                            .clipped()
-                    }
-
+                    
+                    Image(uiImage: post.image)
+                        .resizable()
+                        .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width * 9/16)
+                        .scaledToFill()
+                        .clipped()
+                    
+                    
                     Text(post.title)
                         .font(.title2)
                         .multilineTextAlignment(.leading)
@@ -57,7 +54,7 @@ struct PostView: View {
                 Image(systemName: "hand.thumbsup")
                     .resizable()
                     .frame(width: 25, height: 25)
-
+                
                 Text("\(post.likes.count)")
                     .font(Font.headline.weight(.bold))
             }

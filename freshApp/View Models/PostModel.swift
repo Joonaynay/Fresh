@@ -9,12 +9,12 @@ import SwiftUI
 
 struct Post: Identifiable {
     var id: String
-    var image: UIImage?
+    var image: UIImage
     var title: String
     var subjects: [String]
     var date: String
     var user: User
     var likes: [String]
-    var comments: [String]
-    var movie: URL?
+    var comments: [Comment]?
+    var movie: URL
 }

@@ -10,18 +10,10 @@ import AVKit
 
 struct CustomVideoPlayer: UIViewControllerRepresentable {
     let controller = AVPlayerViewController()
-    let url: URL
-    let player1: AVPlayer
-    
-    init(url: URL) {
-        self.url = url
-        self.player1 = AVPlayer(url: url)
-    }
+    @Binding var player: AVPlayer?
 
   func makeUIViewController(context: Context) -> AVPlayerViewController {
-
-    
-    controller.player = player1
+    controller.player = player
     return controller
   }
   
