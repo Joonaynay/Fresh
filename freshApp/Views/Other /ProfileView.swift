@@ -76,13 +76,13 @@ struct PostProfileView: View {
                 .padding()
                 HStack {
                     VStack {
-                        Text("\(user.followers.count)")
+                        Text("\(user.followers!.count)")
                         Text("Followers")
                             .foregroundColor(Color.theme.secondaryText)
                     }
                     .padding()
                     VStack {
-                        Text("\(user.following.count)")
+                        Text("\(user.following!.count)")
                         Text("Following")
                             .foregroundColor(Color.theme.secondaryText)
                     }
@@ -156,13 +156,13 @@ struct CurrentProfileView: View {
                     .padding()
                     HStack {
                         VStack {
-                            Text("\(fb.currentUser.followers.count)")
+                            Text("\(fb.currentUser.followers!.count)")
                             Text("Followers")
                                 .foregroundColor(Color.theme.secondaryText)
                         }
                         .padding()
                         VStack {
-                            Text("\(fb.currentUser.following.count)")
+                            Text("\(fb.currentUser.following!.count)")
                             Text("Following")
                                 .foregroundColor(Color.theme.secondaryText)
                         }

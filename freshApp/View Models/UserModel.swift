@@ -10,9 +10,9 @@ import SwiftUI
 struct User: Identifiable {
     let id: String
     let username: String
-    let name: String
+    let name: String?
     var profileImage: UIImage?
-    var following: [String]
-    var followers: [String]
+    var following: [String]?
+    var followers: [String]?
     let posts: [String]?
 }
