@@ -48,17 +48,6 @@ struct PostView: View {
                 tag: ProfileViewTag,
                 selection: $selection,
                 label: {})
-            HStack {
-                Spacer()
-                
-                Image(systemName: "hand.thumbsup")
-                    .resizable()
-                    .frame(width: 25, height: 25)
-                
-                Text("\(post.likes.count)")
-                    .font(Font.headline.weight(.bold))
-            }
-            .padding(.horizontal)
             
             Button(action: { selection = ProfileViewTag}, label: {
                 HStack {
