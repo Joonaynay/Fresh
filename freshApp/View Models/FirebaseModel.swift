@@ -79,16 +79,22 @@ class FirebaseModel: ObservableObject {
     }
     
     func followUser(followUser: User) {
+        if !followUser.followers!.contains(currentUser.id) {
+            //Save who the user followed
+            self.save(collection: "users", document: currentUser.id, field: "following", data: [followUser.id])
+            
+            //Save that the followed user got followed
+            self.save(collection: "users", document: followUser.id, field: "followers", data: [currentUser.id])
+            
+            //Add to UserModel
+            
+            self.currentUser.following!.append(followUser.id)
+        } else {
+            db.collection("users").document(followUser.id).updateData(["followers": FieldValue.arrayRemove([currentUser.id])])
+            db.collection("users").document(currentUser.id).updateData(["following": FieldValue.arrayRemove([followUser.id])])
+
+        }
         
-        //Save who the user followed
-        self.save(collection: "users", document: currentUser.id, field: "following", data: [followUser.id])
-        
-        //Save that the followed user got followed
-        self.save(collection: "users", document: followUser.id, field: "followers", data: [currentUser.id])
-        
-        //Add to UserModel
-        
-        self.currentUser.following!.append(followUser.id)
     }
     
     func loadConservativeUser(uid: String, completion:@escaping (User?) -> Void) {

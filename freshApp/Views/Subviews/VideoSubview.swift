@@ -21,6 +21,8 @@ struct VideoSubview: View {
     
     @State var player: AVPlayer?
     
+    @State private var liked: Bool = false
+    
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -69,15 +71,29 @@ struct VideoSubview: View {
                 Button(action: {
                     fb.likePost(currentPost: post)
                 }, label: {
-                    Image(systemName: "hand.thumbsup")
-                        .resizable()
-                        .frame(width: 25, height: 25)
+                    if liked {
+                        Image(systemName: "hand.thumbsup.fill")
+                            .resizable()
+                            .frame(width: 25, height: 25)
+                            .foregroundColor(Color.theme.pinkColor)
+                    } else {
+                        
+                        Image(systemName: "hand.thumbsup")
+                            .resizable()
+                            .frame(width: 25, height: 25)
+                    }
+
                 })
                 .onAppear() {
                     let db = Firestore.firestore()
                     db.collection("posts").document(post.id).addSnapshotListener { doc, error in
                         if error == nil {
                             self.post.likes = doc?.get("likes") as! [String]
+                            if self.post.likes.contains(fb.currentUser.id) {
+                                self.liked = true
+                            } else {
+                                self.liked = false
+                            }
                         }
                     }
                     
