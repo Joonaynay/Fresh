@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import Firebase
+import FirebaseFirestore
 
 struct ProfileView: View {
     let user: User
@@ -27,7 +27,7 @@ struct PostProfileView: View {
     @Environment(\.presentationMode) private var pres
     
     @State private var animate: Bool = false
-    let user: User
+    @State var user: User
     private let profilePictureTag: String = "profilePictureTag"
     @State private var selection: String? = ""
     
@@ -74,6 +74,17 @@ struct PostProfileView: View {
                     
                 })
                 .padding()
+                .onAppear() {
+                    let db = Firestore.firestore()
+
+                    db.collection("users").document(user.id).addSnapshotListener { doc, error in
+                        
+                        self.user.followers = doc?.get("followers") as? [String]
+                        if self.user.followers!.contains(fb.currentUser.id) {
+                            animate = true
+                        }
+                    }
+                }
                 HStack {
                     VStack {
                         Text("\(user.followers!.count)")
