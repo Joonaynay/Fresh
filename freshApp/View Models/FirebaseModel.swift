@@ -36,10 +36,14 @@ class FirebaseModel: ObservableObject {
     
     func likePost(currentPost: Post) {
         
-        //Save the users current ID to the likes on the post, so we can later get the number of people who have liked the post.
-        self.save(collection: "posts", document: currentPost.id, field: "likes", data: [self.currentUser.id])
-        
+        if !currentPost.likes.contains(currentUser.id) {
+            //Save the users current ID to the likes on the post, so we can later get the number of people who have liked the post.
+            self.save(collection: "posts", document: currentPost.id, field: "likes", data: [self.currentUser.id])
+        } else {
+            db.collection("posts").document(currentPost.id).updateData(["likes": FieldValue.arrayRemove([currentUser.id])])
+        }
     }
+    
     
     func commentOnPost(currentPost: Post, comment: String) {
         

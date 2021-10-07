@@ -6,11 +6,12 @@
 //
 
 import SwiftUI
+import FirebaseFirestore
 import AVKit
 
 struct VideoSubview: View {
     
-    let post: Post
+    @State var post: Post
     
     @EnvironmentObject private var fb: FirebaseModel
     
@@ -65,9 +66,22 @@ struct VideoSubview: View {
             HStack {
                 Spacer()
                 
-                Image(systemName: "hand.thumbsup")
-                    .resizable()
-                    .frame(width: 25, height: 25)
+                Button(action: {
+                    fb.likePost(currentPost: post)
+                }, label: {
+                    Image(systemName: "hand.thumbsup")
+                        .resizable()
+                        .frame(width: 25, height: 25)
+                })
+                .onAppear() {
+                    let db = Firestore.firestore()
+                    db.collection("posts").document(post.id).addSnapshotListener { doc, error in
+                        if error == nil {
+                            self.post.likes = doc?.get("likes") as! [String]
+                        }
+                    }
+                    
+                }
                 
                 Text("\(post.likes.count)")
                     .font(Font.headline.weight(.bold))
