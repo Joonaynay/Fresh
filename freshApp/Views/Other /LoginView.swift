@@ -148,6 +148,9 @@ struct SignUpView: View {
             .navigationBarTitleDisplayMode(.inline)
             .padding()
             NavigationLink(destination: ProfilePictureView(), tag: profilePictureTag, selection: $selection, label: {})
+            if fb.loading {
+                LoadingView(text: nil)
+            }
         }
     }
 }
