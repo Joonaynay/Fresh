@@ -48,6 +48,8 @@ class FirebaseModel: ObservableObject {
         
     }
     
+
+    
     func loadComments(currentPost: Post, completion:@escaping ([Comment]) -> Void) {
         self.getDocsDeep(collection: "posts", document: currentPost.id, collection2: "comments") { documents in
             
@@ -59,11 +61,13 @@ class FirebaseModel: ObservableObject {
                         if let user = user {
                             for comment in comments {
                                 list.append(Comment(text: comment, user: user))
+                                if comment == comments.last {
+                                    completion(list)
+                                }
                             }
                         }
                     }
                 }
-                completion(list)
             }
         }
     }
@@ -77,9 +81,51 @@ class FirebaseModel: ObservableObject {
         self.save(collection: "users", document: followUser.id, field: "followers", data: [currentUser.id])
         
         //Add to UserModel
-        self.currentUser.following.append(followUser.id)
+        
+        self.currentUser.following!.append(followUser.id)
     }
     
+    func loadConservativeUser(uid: String, completion:@escaping (User?) -> Void) {
+        
+        //Check if can load from Core Data
+        if let user = cd.fetchUser(uid: uid) {
+            for _ in 1...10 {
+                print("Loaded User From Core Data")
+            }
+            
+            if let profileImage = self.file.getFromFileManager(name: uid) {
+                completion(User(id: user.id!, username: user.username!, name: user.name!, profileImage: profileImage, following: user.following!, followers: user.followers!, posts: nil))
+            } else {
+                completion(User(id: user.id!, username: user.username!, name: user.name!, profileImage: nil, following: user.following!, followers: user.followers!, posts: nil))
+            }
+            
+        } else {
+            
+            //Load Firestore doc
+            getDoc(collection: "users", id: uid) { doc in
+                
+                for _ in 1...10 {
+                    print("Loaded User From Firebase")
+                }
+                
+                let username = doc?.get("username") as! String
+                
+                //Load Profile Image
+                self.loadImage(path: "Profile Images", id: uid) { profileImage in
+                    
+                    //Core Data
+                    
+                    
+                    //Create User
+                    let user = User(id: uid, username: username, name: nil, profileImage: profileImage, following: nil, followers: nil, posts: nil)
+                    
+                    //Return User
+                    completion(user)
+                }
+            }
+        }
+        
+    }
     
     func loadUser(uid: String, completion:@escaping (User?) -> Void) {
         

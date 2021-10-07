@@ -53,47 +53,64 @@ extension FirebaseModel {
         //Set loading to true
         self.loading = true
         
-        //Create User
-        self.auth.createUser(withEmail: email, password: password) { [self] result, error in
-            
-            //Save to Core Data
-            let currentUser = CurrentUser(context: self.cd.context)
-            currentUser.username = username
-            currentUser.id = self.auth.currentUser?.uid
-            currentUser.name = name
-            currentUser.followers = []
-            currentUser.following = []
-            self.cd.save()
-            
-            //Check for success
-            if result != nil && error == nil {
+        //Check if username is available
+        var usernameAvailable: Bool = false
+        
+        self.getDocs(collection: "users") { query in
+            for doc in query!.documents {
+                let otherUsername = doc.get("username") as! String
+                if otherUsername == username {
+                    self.loading = false
+                    completion("That username is already taken.")
+                } else if doc == query!.documents.last {
+                    usernameAvailable = true
+                }
+            }
+        }
+        
+        if usernameAvailable {
+            //Create User
+            self.auth.createUser(withEmail: email, password: password) { [self] result, error in
                 
-                //Save uid to userdefaults
-                UserDefaults.standard.setValue(self.auth.currentUser?.uid, forKeyPath: "uid")
+                //Save to Core Data
+                let currentUser = CurrentUser(context: self.cd.context)
+                currentUser.username = username
+                currentUser.id = self.auth.currentUser?.uid
+                currentUser.name = name
+                currentUser.followers = []
+                currentUser.following = []
+                self.cd.save()
                 
-                
-                // Save data in Firestore
-                let dict = ["name": name, "username": username, "posts": [], "followers": [], "following": []] as [String : Any]
-                self.newDoc(collection: "users", document: self.auth.currentUser?.uid, data: dict) { uid in }
-                
-                //Send Email Verification
-                self.auth.currentUser!.sendEmailVerification(completion: { error in
-                    if error != nil {
-                        self.loading = false
-                        completion(error?.localizedDescription)
-                    } else {
-                        self.loadUser(uid: self.auth.currentUser!.uid) { user in
-                            self.currentUser = user!
+                //Check for success
+                if result != nil && error == nil {
+                    
+                    //Save uid to userdefaults
+                    UserDefaults.standard.setValue(self.auth.currentUser?.uid, forKeyPath: "uid")
+                    
+                    
+                    // Save data in Firestore
+                    let dict = ["name": name, "username": username, "posts": [], "followers": [], "following": []] as [String : Any]
+                    self.newDoc(collection: "users", document: self.auth.currentUser?.uid, data: dict) { uid in }
+                    
+                    //Send Email Verification
+                    self.auth.currentUser!.sendEmailVerification(completion: { error in
+                        if error != nil {
+                            self.loading = false
+                            completion(error?.localizedDescription)
+                        } else {
+                            self.loadUser(uid: self.auth.currentUser!.uid) { user in
+                                self.currentUser = user!
+                            }
+                            self.loading = false
+                            completion(nil)
                         }
-                        self.loading = false
-                        completion(nil)
-                    }
-                })
-                
-            } else {
-                // Return Error
-                self.loading = false
-                completion(error?.localizedDescription)
+                    })
+                    
+                } else {
+                    // Return Error
+                    self.loading = false
+                    completion(error?.localizedDescription)
+                }
             }
         }
     }

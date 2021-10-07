@@ -30,11 +30,17 @@ extension FirebaseModel {
     }
     
     func saveImage(path: String, file: String, image: UIImage) {
-        //Convert UIImage to Data
-        let imageData = image.jpegData(compressionQuality: 1)
-        
-        //Save data to FirebaseStorage
-        storage.child(path).child(file).putData(imageData!)
+        if path == "Profile Images" {
+            //Convert UIImage to Data
+            let imageData = image.jpegData(compressionQuality: 0.25)
+            //Save data to FirebaseStorage
+            storage.child(path).child(file).putData(imageData!)
+        } else {
+            //Convert UIImage to Data
+            let imageData = image.jpegData(compressionQuality: 1)
+            //Save data to FirebaseStorage
+            storage.child(path).child(file).putData(imageData!)
+        }
     }
     
     func loadImage(path: String, id: String, completion:@escaping (UIImage?) -> Void) {
