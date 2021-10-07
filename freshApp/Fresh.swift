@@ -29,7 +29,7 @@ struct freshAppApp: App {
                     .navigationBarHidden(true)
                     .foregroundColor(Color.theme.accent)
                     .onAppear() {
-                        if Auth.auth().currentUser != nil {
+                        if (Auth.auth().currentUser != nil) && (Auth.auth().currentUser?.isEmailVerified != nil) {
                             fb.signedIn = true
                         }
                     }

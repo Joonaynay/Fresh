@@ -20,7 +20,6 @@ extension FirebaseModel {
         self.auth.signIn(withEmail: email, password: password) { result, error in
             if result != nil && error == nil {
                 
-                
                 //Save uid to userdefaults
                 UserDefaults.standard.setValue(self.auth.currentUser?.uid, forKeyPath: "uid")
                 self.signedIn = true
