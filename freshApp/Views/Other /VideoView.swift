@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+
 struct VideoView: View {
     
     @State var post: Post
