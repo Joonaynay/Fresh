@@ -77,11 +77,13 @@ struct AddPostView: View {
                         
                         
                     }
+                    Section(header: Text("Add a title")) {
                     TextEditor(text: $title)
                         .frame(maxWidth: .infinity)
                         .frame(height: 45)
                         .background(Color.theme.secondaryText)
                         .foregroundColor(Color.theme.accent)
+                    }
                     
                     if let image = image, let movie = movie {
                         NavigationLink(destination: SelectSubjectView(image: image, movie: movie, title: title, dissmissView: $dissmissView), label: {

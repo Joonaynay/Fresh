@@ -174,7 +174,6 @@
 				52E7EBA42702D63600B7F3B6 /* FirestoreModel.swift */,
 				E0E4DB1F2703D3A900131C6E /* StorageModel.swift */,
 				52E7EBA8270404A000B7F3B6 /* FileManager.swift */,
-				52AB405626FC075B00E343C9 /* UserModel.swift */,
 				52AB405826FC076400E343C9 /* PostModel.swift */,
 				E07C388E270D4A1400B87DCA /* CommentModel.swift */,
 				E0A9392826FC07B800735C99 /* SubjectsModel.swift */,
@@ -189,6 +188,7 @@
 				52AB404E26FC06DB00E343C9 /* ImagePicker.swift */,
 				529349EC2702BA5500C9C634 /* UIApplicationExtension.swift */,
 				52E7EBA62703D0FC00B7F3B6 /* SearchBar.swift */,
+				52AB405626FC075B00E343C9 /* UserModel.swift */,
 				528F8EC8270BFBEC00EC166C /* SearchBar2Test.swift */,
 				E0E4385626FD1626000C5738 /* Bundle.swift */,
 				E0E4385426FD1484000C5738 /* subjects.json */,
@@ -220,9 +220,9 @@
 			children = (
 				E0A9392C26FC0E8400735C99 /* MainView.swift */,
 				E0A9392E26FC0ECE00735C99 /* TrendingView.swift */,
-				529C32F7270BDB3200D92A3A /* SearchView.swift */,
-				E0A9393026FC11B800735C99 /* FollowingView.swift */,
 				52AB404C26FC066F00E343C9 /* HomeView.swift */,
+				E0A9393026FC11B800735C99 /* FollowingView.swift */,
+				529C32F7270BDB3200D92A3A /* SearchView.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";

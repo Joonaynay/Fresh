@@ -76,7 +76,7 @@ struct PostProfileView: View {
                 .padding()
                 .onAppear() {
                     let db = Firestore.firestore()
-
+                    
                     db.collection("users").document(user.id).addSnapshotListener { doc, error in
                         
                         self.user.followers = doc?.get("followers") as? [String]
@@ -179,14 +179,18 @@ struct CurrentProfileView: View {
                         }
                         .padding()
                     }
+                    // Why does this not work???
                     ForEach(fb.posts) { post in
-                        
-                        Image(uiImage: post.image)
-                            .resizable()
-                            .frame(width: UIScreen.main.bounds.width / 1.10, height: UIScreen.main.bounds.width / 1.10)
-                        
+                        if post.user.id == fb.currentUser.id {
+                            Image(uiImage: post.image)
+                                .resizable()
+                                .frame(width: UIScreen.main.bounds.width / 1.10, height: UIScreen.main.bounds.width / 1.10)
+                        } else {
+                            Image(uiImage: post.image)
+                                .resizable()
+                                .frame(width: UIScreen.main.bounds.width / 1.10, height: UIScreen.main.bounds.width / 1.1)
+                        }
                     }
-                    
                 }
                 
                 NavigationLink(
