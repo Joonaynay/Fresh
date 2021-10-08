@@ -105,7 +105,6 @@ struct AddPostView: View {
             }
         }
         .navigationBarHidden(true)
-        .foregroundColor(Color.theme.accent)
         .onAppear() {
             if dissmissView {
                 pres.wrappedValue.dismiss()
@@ -157,7 +156,6 @@ struct SelectSubjectView: View {
             }
             .padding()
         }
-        .foregroundColor(Color.theme.accent)
     }
 }
 

@@ -22,8 +22,9 @@ struct SearchView: View {
                 Spacer()
                 ScrollView {
                     ForEach(vm.filteredVideos) { video in
-                        PostView(post: video)
-                        
+                        if !vm.AllVideosSearchText.isEmpty {
+                            PostView(post: video)
+                        }
                     }
                 }
             }

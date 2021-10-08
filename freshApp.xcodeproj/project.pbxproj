@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1600AF20FF33B341803F37C4 /* Pods_freshApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F372103A81A4C451F224587 /* Pods_freshApp.framework */; };
 		5202F53C270D361A007DC81D /* CustomVideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5202F53B270D361A007DC81D /* CustomVideoPlayer.swift */; };
+		521DA71E270FFF4700E88DC8 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521DA71D270FFF4700E88DC8 /* EditProfileView.swift */; };
 		528F8EC9270BFBEC00EC166C /* SearchBar2Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528F8EC8270BFBEC00EC166C /* SearchBar2Test.swift */; };
 		528F8ECB270C01C900EC166C /* VideoSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528F8ECA270C01C900EC166C /* VideoSubview.swift */; };
 		5290E24026FFF39B005DD737 /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5290E23F26FFF39B005DD737 /* VideoView.swift */; };
@@ -55,6 +56,7 @@
 /* Begin PBXFileReference section */
 		3DD5CE6420CDD96374E09335 /* Pods-freshApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-freshApp.release.xcconfig"; path = "Target Support Files/Pods-freshApp/Pods-freshApp.release.xcconfig"; sourceTree = "<group>"; };
 		5202F53B270D361A007DC81D /* CustomVideoPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomVideoPlayer.swift; sourceTree = "<group>"; };
+		521DA71D270FFF4700E88DC8 /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
 		528F8EC8270BFBEC00EC166C /* SearchBar2Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar2Test.swift; sourceTree = "<group>"; };
 		528F8ECA270C01C900EC166C /* VideoSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoSubview.swift; sourceTree = "<group>"; };
 		5290E23F26FFF39B005DD737 /* VideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
@@ -232,6 +234,7 @@
 			children = (
 				52AB404826FC066100E343C9 /* LoginView.swift */,
 				52AB405A26FC113D00E343C9 /* ProfileView.swift */,
+				521DA71D270FFF4700E88DC8 /* EditProfileView.swift */,
 				52AB405C26FC245000E343C9 /* AddPostView.swift */,
 				5290E23F26FFF39B005DD737 /* VideoView.swift */,
 				E07C3892270D4DD700B87DCA /* CommentView.swift */,
@@ -409,6 +412,7 @@
 				52AB404D26FC066F00E343C9 /* HomeView.swift in Sources */,
 				E0A9393126FC11B800735C99 /* FollowingView.swift in Sources */,
 				5290E24026FFF39B005DD737 /* VideoView.swift in Sources */,
+				521DA71E270FFF4700E88DC8 /* EditProfileView.swift in Sources */,
 				E0E4DB6627055E6400131C6E /* FreshModel.xcdatamodeld in Sources */,
 				52AB405726FC075B00E343C9 /* UserModel.swift in Sources */,
 				52AB403726FC05C300E343C9 /* Fresh.swift in Sources */,

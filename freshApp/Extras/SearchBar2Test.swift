@@ -37,12 +37,13 @@ class SearchBar2Test: ObservableObject {
                     return
                         post.title.lowercased().contains(lowercasedText) ||
                         post.user.username.lowercased().contains(lowercasedText)
+                        
                 }
             }
             .sink { [weak self] returnedPosts in
                 self?.filteredVideos = returnedPosts
             }
             .store(in: &cancellables)
-        
+            
     }
 }

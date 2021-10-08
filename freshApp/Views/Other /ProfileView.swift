@@ -113,7 +113,6 @@ struct PostProfileView: View {
             }
         }
         .navigationBarHidden(true)
-        .foregroundColor(Color.theme.accent)
     }
 }
 
@@ -122,9 +121,11 @@ struct CurrentProfileView: View {
     
     @EnvironmentObject private var fb: FirebaseModel
     @Environment(\.presentationMode) private var pres
+    @State private var showSheet: Bool = false
     
     private let profilePictureTag: String = "profilePictureTag"
     @State private var selection: String? = ""
+    @State var dismissView: Bool = false
     
     var body: some View {
         ZStack {
@@ -160,7 +161,7 @@ struct CurrentProfileView: View {
                     
                     Text(fb.currentUser.username)
                     Button(action: {
-                        
+                        showSheet = true
                     }, label: {
                         Text("Edit Profile")
                             .frame(width: UIScreen.main.bounds.width / 3.5, height: 45)
@@ -199,8 +200,15 @@ struct CurrentProfileView: View {
                     label: {})
             }
         }
+        .onChange(of: dismissView, perform: { _ in
+            if dismissView {
+                pres.wrappedValue.dismiss()
+            }
+        })
         .navigationBarHidden(true)
-        .foregroundColor(Color.theme.accent)
+        .sheet(isPresented: $showSheet, content: {
+            EditProfileView(dismissView: $dismissView)
+        })
     }
 }
 
