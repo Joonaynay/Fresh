@@ -175,6 +175,14 @@ struct CurrentProfileView: View {
                             Text("Followers")
                                 .foregroundColor(Color.theme.secondaryText)
                         }
+                        .onAppear() {
+                            let db = Firestore.firestore()
+                            db.collection("users").document(fb.currentUser.id).addSnapshotListener { doc, error in
+                                if error == nil {
+                                    fb.currentUser.followers = doc?.get("followers") as? [String]
+                                }
+                            }
+                        }
                         .padding()
                         VStack {
                             Text("\(fb.currentUser.following!.count)")
