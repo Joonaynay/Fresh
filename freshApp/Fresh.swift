@@ -27,12 +27,14 @@ struct freshAppApp: App {
             NavigationView {
                 MainView()
                     .navigationBarHidden(true)
+                    .accentColor(Color.theme.accent)
                     .onAppear() {
                         if (Auth.auth().currentUser != nil) && (Auth.auth().currentUser?.isEmailVerified != nil) {
                             fb.signedIn = true
                         }
+                        let color = Color.theme.accent
+                        UIView.appearance(whenContainedInInstancesOf: [UIAlertController.self]).tintColor = UIColor(color)
                     }
-
             }
             .environmentObject(fb)
             .environmentObject(vm)

@@ -82,7 +82,6 @@ struct AddPostView: View {
                         .frame(maxWidth: .infinity)
                         .frame(height: 45)
                         .background(Color.theme.secondaryText)
-                        .foregroundColor(Color.theme.accent)
                     }
                     
                     if let image = image, let movie = movie {
