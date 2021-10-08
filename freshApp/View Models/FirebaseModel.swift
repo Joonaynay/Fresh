@@ -89,10 +89,26 @@ class FirebaseModel: ObservableObject {
             //Add to UserModel
             
             self.currentUser.following!.append(followUser.id)
+            
+            //Save to core data
+            let coreUser = cd.fetchUser(uid: currentUser.id)
+            coreUser?.following?.append(followUser.id)
+            cd.save()
+            
         } else {
             db.collection("users").document(followUser.id).updateData(["followers": FieldValue.arrayRemove([currentUser.id])])
             db.collection("users").document(currentUser.id).updateData(["following": FieldValue.arrayRemove([followUser.id])])
-
+            
+            // Delete from UserModel
+            let index = currentUser.following?.firstIndex(of: followUser.id)
+            currentUser.following?.remove(at: index!)
+            
+            //Save to core data
+            let deleteCoreUser = cd.fetchUser(uid: currentUser.id)
+            let newIndex = deleteCoreUser?.following?.firstIndex(of: followUser.id)
+            deleteCoreUser?.following?.remove(at: newIndex!)
+            cd.save()
+            
         }
         
     }

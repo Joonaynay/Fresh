@@ -230,8 +230,8 @@
 		E07C3891270D4DC200B87DCA /* Other  */ = {
 			isa = PBXGroup;
 			children = (
-				52AB405A26FC113D00E343C9 /* ProfileView.swift */,
 				52AB404826FC066100E343C9 /* LoginView.swift */,
+				52AB405A26FC113D00E343C9 /* ProfileView.swift */,
 				52AB405C26FC245000E343C9 /* AddPostView.swift */,
 				5290E23F26FFF39B005DD737 /* VideoView.swift */,
 				E07C3892270D4DD700B87DCA /* CommentView.swift */,

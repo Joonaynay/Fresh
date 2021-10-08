@@ -23,6 +23,7 @@ struct SearchView: View {
                 ScrollView {
                     ForEach(vm.filteredVideos) { video in
                         PostView(post: video)
+                        
                     }
                 }
             }

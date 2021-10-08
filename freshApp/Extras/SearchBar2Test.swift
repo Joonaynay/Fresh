@@ -17,7 +17,6 @@ class SearchBar2Test: ObservableObject {
     
     
     init() {
-        // The problem is that this is getting inited only one time. Posts is empty before we load.
         self.allVideos = []
         self.filteredVideos = allVideos
         addSubscriberToAllVideos()
@@ -44,23 +43,6 @@ class SearchBar2Test: ObservableObject {
                 self?.filteredVideos = returnedPosts
             }
             .store(in: &cancellables)
-        
-        
-//            .map { (text, subjects) -> [SubjectsModel] in
-//                guard !text.isEmpty else {
-//                    return subjects
-//                }
-//
-//                let lowercasedText = text.lowercased()
-//
-//                return subjects.filter { user in
-//                    return user.name.lowercased().contains(lowercasedText)
-//                }
-//            }
-//            .sink { [weak self] returnedSubjects in
-//                self?.filteredData = returnedSubjects
-//            }
-//            .store(in: &cancellables)
         
     }
 }
