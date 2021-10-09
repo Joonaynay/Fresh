@@ -13,7 +13,6 @@ struct AddPostView: View {
     @State private var title: String = ""
     @State private var showImages: Bool = false
     @State private var showVideos: Bool = false
-    
     @State var image: UIImage?
     @State var movie: URL?
     
@@ -77,12 +76,12 @@ struct AddPostView: View {
                         
                         
                     }
-                    Section(header: Text("Add a title")) {
-                    TextEditor(text: $title)
+                    TextField("Add a title.", text: $title)
+                        .padding()
                         .frame(maxWidth: .infinity)
                         .frame(height: 45)
+                        .padding(.horizontal)
                         .background(Color.theme.secondaryText)
-                    }
                     
                     if let image = image, let movie = movie {
                         NavigationLink(destination: SelectSubjectView(image: image, movie: movie, title: title, dissmissView: $dissmissView), label: {
