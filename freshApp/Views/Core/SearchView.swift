@@ -12,10 +12,10 @@ struct SearchView: View {
     @EnvironmentObject private var vm: SearchBar2Test
     @EnvironmentObject private var fb: FirebaseModel
     
+    @Environment(\.colorScheme) var colorScheme
+    
     var body: some View {
         ZStack {
-            Color.theme.background
-                .ignoresSafeArea()
             VStack {
                 TitleBarView(title: "Search")
                 SearchBarView(textFieldText: $vm.AllVideosSearchText)
@@ -29,6 +29,13 @@ struct SearchView: View {
                 }
             }
         }
+        .background(
+            Image(colorScheme == .dark ? "darkmode" : "lightmode")
+                .resizable()
+                .ignoresSafeArea()
+                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+        )
+
         .onAppear {
             vm.allVideos = fb.posts
         }

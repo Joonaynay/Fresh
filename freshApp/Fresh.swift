@@ -15,7 +15,7 @@ struct freshAppApp: App {
     @StateObject var fb = FirebaseModel()
     @StateObject var vm = SearchBar()
     @StateObject var searchTest = SearchBar2Test()
-
+    
     
     
     init() {
@@ -27,15 +27,24 @@ struct freshAppApp: App {
             NavigationView {
                 MainView()
                     .navigationBarHidden(true)
-                    .accentColor(Color.theme.accent)
                     .onAppear() {
-                        if (Auth.auth().currentUser != nil) && (Auth.auth().currentUser?.isEmailVerified != nil) {
-                            fb.signedIn = true
+                        if let user = Auth.auth().currentUser {
+                            if user.isEmailVerified {
+                                print("Signed In")
+                                fb.signedIn = true
+                            }
                         }
-                        let color = Color.theme.accent
-                        UIView.appearance(whenContainedInInstancesOf: [UIAlertController.self]).tintColor = UIColor(color)
+                        
+                        UIView.appearance(whenContainedInInstancesOf: [UIAlertController.self]).tintColor = UIColor(Color.theme.accentColor)
+                        
+                        let tab = UITabBar.appearance()
+                        tab.backgroundImage = UIImage()
+                        tab.backgroundColor = UIColor(Color.theme.tabBarColor)
+                        tab.shadowImage = UIImage()
+                                                    
                     }
             }
+            .navigationViewStyle(StackNavigationViewStyle())
             .environmentObject(fb)
             .environmentObject(vm)
             .environmentObject(searchTest)

@@ -31,6 +31,7 @@ struct PostProfileView: View {
     @State var user: User
     private let profilePictureTag: String = "profilePictureTag"
     @State private var selection: String? = ""
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         ZStack {
@@ -72,21 +73,22 @@ struct PostProfileView: View {
                     }, label: {
                         Text(animate ? "Unfollow" : "Follow")
                             .frame(width: animate ? (UIScreen.main.bounds.width / 2.5) : (UIScreen.main.bounds.width / 3.5), height: 45)
-                            .background(Color.theme.pinkColor)
+                            .foregroundColor(Color.theme.blueTextColor)
+                            .background(Color.theme.blueColor)
                         
                     })
-                    .padding()
-                    .onAppear() {
-                        let db = Firestore.firestore()
-                        
-                        db.collection("users").document(user.id).addSnapshotListener { doc, error in
+                        .padding()
+                        .onAppear() {
+                            let db = Firestore.firestore()
                             
-                            self.user.followers = doc?.get("followers") as? [String]
-                            if self.user.followers!.contains(fb.currentUser.id) {
-                                animate = true
+                            db.collection("users").document(user.id).addSnapshotListener { doc, error in
+                                
+                                self.user.followers = doc?.get("followers") as? [String]
+                                if self.user.followers!.contains(fb.currentUser.id) {
+                                    animate = true
+                                }
                             }
                         }
-                    }
                     HStack {
                         VStack {
                             Text("\(user.followers!.count)")
@@ -112,6 +114,12 @@ struct PostProfileView: View {
                 }
             }
         }
+        .background(
+            Image(colorScheme == .dark ? "darkmode" : "lightmode")
+                .resizable()
+                .ignoresSafeArea()
+                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+        )
         .navigationBarHidden(true)
     }
 }
@@ -121,6 +129,7 @@ struct CurrentProfileView: View {
     
     @EnvironmentObject private var fb: FirebaseModel
     @Environment(\.presentationMode) private var pres
+    @Environment(\.colorScheme) var colorScheme
     @State private var showSheet: Bool = false
     
     private let profilePictureTag: String = "profilePictureTag"
@@ -129,8 +138,6 @@ struct CurrentProfileView: View {
     
     var body: some View {
         ZStack {
-            Color.theme.background
-                .ignoresSafeArea()
             
             VStack {
                 HStack {
@@ -164,11 +171,12 @@ struct CurrentProfileView: View {
                         showSheet = true
                     }, label: {
                         Text("Edit Profile")
-                            .frame(width: UIScreen.main.bounds.width / 3.5, height: 45)
-                            .background(Color.theme.pinkColor)
+                            .frame(width: UIScreen.main.bounds.width / 2.5, height: 45)
+                            .foregroundColor(Color.theme.blueTextColor)
+                            .background(Color.theme.blueColor)
                         
                     })
-                    .padding()
+                        .padding()
                     HStack {
                         VStack {
                             Text("\(fb.currentUser.followers!.count)")
@@ -177,9 +185,11 @@ struct CurrentProfileView: View {
                         }
                         .onAppear() {
                             let db = Firestore.firestore()
-                            db.collection("users").document(fb.currentUser.id).addSnapshotListener { doc, error in
-                                if error == nil {
-                                    fb.currentUser.followers = doc?.get("followers") as? [String]
+                            if !fb.currentUser.id.isEmpty {
+                                db.collection("users").document(fb.currentUser.id).addSnapshotListener { doc, error in
+                                    if error == nil {
+                                        fb.currentUser.followers = doc?.get("followers") as? [String]
+                                    }
                                 }
                             }
                         }
@@ -208,6 +218,12 @@ struct CurrentProfileView: View {
                     label: {})
             }
         }
+        .background(
+            Image(colorScheme == .dark ? "darkmode" : "lightmode")
+                .resizable()
+                .ignoresSafeArea()
+                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+        )
         .onChange(of: dismissView, perform: { _ in
             if dismissView {
                 pres.wrappedValue.dismiss()

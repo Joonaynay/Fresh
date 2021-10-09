@@ -11,10 +11,10 @@ struct FollowingView: View {
     
     @EnvironmentObject var fb: FirebaseModel
     
+    @Environment(\.colorScheme) var colorScheme
+    
     var body: some View {
         ZStack(alignment: .topLeading) {
-            Color.theme.background
-                .ignoresSafeArea()
             VStack(spacing: 0) {
                 TitleBarView(title: "Following")
                 ScrollView(showsIndicators: false) {
@@ -31,6 +31,12 @@ struct FollowingView: View {
                 }
             }
         }
+        .background(
+            Image(colorScheme == .dark ? "darkmode" : "lightmode")
+                .resizable()
+                .ignoresSafeArea()
+                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+        )
         .navigationBarHidden(true)
     }
 }

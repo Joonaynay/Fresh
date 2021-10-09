@@ -28,7 +28,7 @@ struct CommentsView: View {
                             Image(systemName: "xmark.circle.fill")
                                 .padding()
                                 .offset(x: -20)
-                                .foregroundColor(Color.theme.accent)
+                                .foregroundColor(Color.theme.accentColor)
                                 .opacity(text.isEmpty ? 0.0 : 1.0)
                                 .onTapGesture {
                                     UIApplication.shared.endEditing()
@@ -54,7 +54,7 @@ struct CommentsView: View {
 
             Rectangle()
                 .frame(maxWidth: .infinity, maxHeight: 1)
-                .foregroundColor(Color.theme.secondaryText)
+                .foregroundColor(Color.theme.lineColor)
         }
         .padding()
     }

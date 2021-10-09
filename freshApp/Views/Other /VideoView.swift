@@ -16,11 +16,10 @@ struct VideoView: View {
     
     @EnvironmentObject private var fb: FirebaseModel
     @Environment(\.presentationMode) private var pres
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         ZStack(alignment: .topLeading) {
-            Color.theme.background
-                .ignoresSafeArea()
             VStack(alignment: .leading) {
                 Button(action: { pres.wrappedValue.dismiss() }, label: {
                     Image(systemName: "chevron.left")
@@ -42,6 +41,13 @@ struct VideoView: View {
             }
             .navigationBarHidden(true)
         }
+        .background(
+            Image(colorScheme == .dark ? "darkmode" : "lightmode")
+                .resizable()
+                .ignoresSafeArea()
+                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+        )
+        
         .sheet(isPresented: $showComments, content: {
             CommentsView(post: post)
         })

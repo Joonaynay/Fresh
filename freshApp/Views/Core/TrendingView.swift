@@ -13,19 +13,14 @@ struct TrendingView: View {
     @State var profileView = "profileView"
     
     @EnvironmentObject private var fb: FirebaseModel
+    
+    @Environment(\.colorScheme) var colorScheme
         
     var body: some View {
         ZStack(alignment: .topLeading) {
-            Color.theme.background
-                .ignoresSafeArea()
             VStack(spacing: 0) {
                 TitleBarView(title: "Trending")
                 ScrollView(showsIndicators: false) {
-                    Button(action: {
-                        fb.loadPosts()
-                    }, label: {
-                        Text("Load")
-                    })
                     VStack {
                         ForEach(fb.posts) { post in
                             PostView(post: post)
@@ -34,6 +29,17 @@ struct TrendingView: View {
                 }
             }
         }
+        .onAppear() {
+            fb.loadPosts()
+        }
+        .background(
+            Image(colorScheme == .dark ? "darkmode" : "lightmode")
+                .resizable()
+                .ignoresSafeArea()
+                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+        )
+
+        
         .navigationBarHidden(true)
     }
 }

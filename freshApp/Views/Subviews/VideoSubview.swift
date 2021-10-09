@@ -75,7 +75,7 @@ struct VideoSubview: View {
                         Image(systemName: "hand.thumbsup.fill")
                             .resizable()
                             .frame(width: 25, height: 25)
-                            .foregroundColor(Color.theme.pinkColor)
+                            .foregroundColor(Color.theme.blueColor)
                     } else {
                         
                         Image(systemName: "hand.thumbsup")
@@ -131,7 +131,7 @@ struct VideoSubview: View {
                 .padding(10)
             Rectangle()
                 .frame(maxWidth: .infinity, maxHeight: 1)
-                .foregroundColor(Color.theme.secondaryText)
+                .foregroundColor(Color.theme.lineColor)
         }
     }
 }

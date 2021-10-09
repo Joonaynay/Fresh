@@ -22,26 +22,26 @@ struct EditProfileView: View {
                     Text("Change Username")
                     Spacer()
                     Image(systemName: "chevron.right")
-                        .foregroundColor(Color.theme.accent)
+                        .foregroundColor(Color.theme.accentColor)
                 }
                 .padding(10)
                 HStack {
                     Text("Change Password")
                     Spacer()
                     Image(systemName: "chevron.right")
-                        .foregroundColor(Color.theme.accent)
+                        .foregroundColor(Color.theme.accentColor)
                 }
                 .padding(10)
                 HStack {
                     Text("Change Email")
                     Spacer()
                     Image(systemName: "chevron.right")
-                        .foregroundColor(Color.theme.accent)
+                        .foregroundColor(Color.theme.accentColor)
                 }
                 .padding(10)
                 Button(action: { showAlert = true }, label: {
                     Text("Sign Out")
-                .foregroundColor(Color.theme.pinkColor)
+                .foregroundColor(Color.theme.accentColor)
                 .padding(10)
                 })
             }

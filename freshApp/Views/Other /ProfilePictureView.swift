@@ -80,7 +80,8 @@ struct InAppProfilePictureView: View {
                     Text("Done")
                         .frame(maxWidth: .infinity)
                         .frame(height: 45)
-                        .background(Color.theme.pinkColor)
+                        .foregroundColor(Color.theme.blueTextColor)
+                        .background(Color.theme.blueColor)
                 })
                 .padding(.horizontal)
                 
@@ -149,7 +150,8 @@ struct ProfilePictureView: View {
                 Text("Done")
                     .frame(maxWidth: .infinity)
                     .frame(height: 45)
-                    .background(Color.theme.pinkColor)
+                    .foregroundColor(Color.theme.blueTextColor)
+                    .background(Color.theme.blueColor)
             })
             .padding(.horizontal)
             Button(action: { fb.signedIn = true }, label: {
