@@ -16,10 +16,11 @@ extension Color {
 
 struct ColorTheme {
     
-    let accent = Color("AccentColor")
     let background = Color("BackgroundColor")
     let secondaryText = Color("SecondaryTextColor")
-    let pinkColor = Color("PinkColor")
-    let sheetColor = Color("SheetColor")
-    
+    let blueColor = Color("BlueColor")
+    let tabBarColor = Color("TabBarColor")
+    let accentColor = Color("AccentColor")
+    let lineColor = Color("LineColor")
+    let blueTextColor = Color("BlueTextColor")
 }

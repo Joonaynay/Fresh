@@ -51,14 +51,14 @@ struct TitleBarView: View {
             }
             Rectangle()
                 .frame(maxWidth: .infinity, maxHeight: 1)
-                .foregroundColor(Color.theme.secondaryText)
+                .foregroundColor(Color.theme.lineColor)
             NavigationLink(destination: ProfileView(user: fb.currentUser), tag: profileViewTag, selection: $selection, label: {})
             
             NavigationLink(destination: AddPostView(), tag: addPostViewTag, selection: $selection, label: {})
 
         }
         .alert(isPresented: $showAlert, content: {
-            Alert(title: Text("Are you sure you want to sign out?"), primaryButton: Alert.Button.cancel(Text("Cancel").foregroundColor(Color.blue)), secondaryButton: Alert.Button.default(Text("Sign Out").foregroundColor(Color.theme.pinkColor), action: {
+            Alert(title: Text("Are you sure you want to sign out?"), primaryButton: Alert.Button.cancel(Text("Cancel").foregroundColor(Color.blue)), secondaryButton: Alert.Button.default(Text("Sign Out").foregroundColor(Color.theme.blueColor), action: {
                 fb.signOut()
             }))
         })

@@ -17,10 +17,10 @@ struct LoginView: View {
     private let tag = "SignUp"
     @EnvironmentObject var fb: FirebaseModel
     
+    @Environment(\.colorScheme) var colorScheme
+    
     var body: some View {
         ZStack {
-            Color.theme.background
-                .ignoresSafeArea()
             VStack {
                 Image("Logo")
                     .resizable()
@@ -56,7 +56,8 @@ struct LoginView: View {
                         Text("Login")
                             .frame(maxWidth: .infinity)
                             .frame(height: 45)
-                            .background(Color.theme.pinkColor)
+                            .foregroundColor(Color.theme.blueTextColor)
+                            .background(Color.theme.blueColor)
                     })
                     .padding(.horizontal)
                     Button(action: { selection = tag}, label: {
@@ -79,6 +80,12 @@ struct LoginView: View {
                 LoadingView(text: nil)
             }
         }
+        .background(
+            Image(colorScheme == .dark ? "darkmode" : "lightmode")
+                .resizable()
+                .ignoresSafeArea()
+                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+        )
         .navigationBarHidden(true)
     }
 }
@@ -102,10 +109,11 @@ struct SignUpView: View {
     
     @EnvironmentObject private var fb: FirebaseModel
     
+    @Environment(\.colorScheme) var colorScheme
+    
     var body: some View {
         ZStack {
             VStack(alignment: .leading) {
-                
                 Form {
                     Section(header: Text("Name")) {
                         TextField("First Name", text: $firstName)
@@ -135,7 +143,8 @@ struct SignUpView: View {
                     Text("Create Account")
                         .frame(maxWidth: .infinity)
                         .frame(height: 45)
-                        .background(Color.theme.pinkColor)
+                        .foregroundColor(Color.theme.blueTextColor)
+                        .background(Color.theme.blueColor)
                 })
                 .alert(isPresented: $showAlert, content: {
                     Alert(title: Text(alertText))
@@ -152,6 +161,12 @@ struct SignUpView: View {
                 LoadingView(text: nil)
             }
         }
+        .background(
+            Image(colorScheme == .dark ? "darkmode" : "lightmode")
+                .resizable()
+                .ignoresSafeArea()
+                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+        )
     }
 }
 
@@ -192,7 +207,8 @@ struct WaitingForEmailVerification: View {
                     Text("Done")
                         .frame(maxWidth: .infinity)
                         .frame(height: 45)
-                        .background(Color.theme.pinkColor)
+                        .foregroundColor(Color.theme.blueTextColor)
+                        .background(Color.theme.blueColor)
                     Text("You should have recieved an email with a link to verify your account.").multilineTextAlignment(.center)
                 }
             })

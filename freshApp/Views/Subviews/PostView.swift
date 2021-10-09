@@ -76,7 +76,7 @@ struct PostView: View {
                 .padding(10)
             Rectangle()
                 .frame(maxWidth: .infinity, maxHeight: 1)
-                .foregroundColor(Color.theme.secondaryText)
+                .foregroundColor(Color.theme.lineColor)
         }
         
     }

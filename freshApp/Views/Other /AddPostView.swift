@@ -18,6 +18,7 @@ struct AddPostView: View {
     
     @State var dissmissView: Bool = false
     @Environment(\.presentationMode) var pres
+    @Environment(\.colorScheme) var colorScheme
     
     init() {
         UITextView.appearance().backgroundColor = .clear
@@ -25,8 +26,6 @@ struct AddPostView: View {
     
     var body: some View {
         ZStack(alignment: .topLeading) {
-            Color.theme.background
-                .ignoresSafeArea()
             VStack(spacing: 0) {
                 
                 HStack {
@@ -39,26 +38,26 @@ struct AddPostView: View {
                 }
                 Rectangle()
                     .frame(maxWidth: .infinity, maxHeight: 1)
-                    .foregroundColor(Color.theme.secondaryText)
+                    .foregroundColor(Color.theme.lineColor)
                 
                 ScrollView(showsIndicators: false) {
                     VStack {
                         Button(action: { showImages.toggle() }, label: {
                             Text("Select a thumbnail...")
                                 .font(.headline)
-                                .foregroundColor(.white)
+                                .foregroundColor(Color.theme.blueTextColor)
                                 .frame(maxWidth: .infinity)
                                 .frame(height: 50)
-                                .background(Color.theme.pinkColor)
+                                .background(Color.theme.blueColor)
                             
                         })
                         Button(action: { showVideos.toggle() }, label: {
                             Text("Select a video...")
                                 .font(.headline)
-                                .foregroundColor(.white)
+                                .foregroundColor(Color.theme.blueTextColor)
                                 .frame(maxWidth: .infinity)
                                 .frame(height: 50)
-                                .background(Color.theme.pinkColor)
+                                .background(Color.theme.blueColor)
                             
                         })
                         .padding(.top)
@@ -87,10 +86,10 @@ struct AddPostView: View {
                         NavigationLink(destination: SelectSubjectView(image: image, movie: movie, title: title, dissmissView: $dissmissView), label: {
                             Text("Next")
                                 .font(.headline)
-                                .foregroundColor(.white)
+                                .foregroundColor(Color.theme.blueTextColor)
                                 .frame(maxWidth: .infinity)
                                 .frame(height: 50)
-                                .background(Color.theme.pinkColor)
+                                .background(Color.theme.blueColor)
                         })
                     }
                 }
@@ -102,6 +101,12 @@ struct AddPostView: View {
                 })
             }
         }
+        .background(
+            Image(colorScheme == .dark ? "darkmode" : "lightmode")
+                .resizable()
+                .ignoresSafeArea()
+                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+        )
         .navigationBarHidden(true)
         .onAppear() {
             if dissmissView {
@@ -126,11 +131,10 @@ struct SelectSubjectView: View {
     @Environment(\.presentationMode) var pres
     
     @EnvironmentObject private var fb: FirebaseModel
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         ZStack(alignment: .topLeading) {
-            Color.theme.background
-                .ignoresSafeArea()
             VStack {
                 Text("Select up to 3 subjects that your post corresponds with.")
                     .multilineTextAlignment(.center)
@@ -148,12 +152,19 @@ struct SelectSubjectView: View {
                     Text("Post")
                         .frame(maxWidth: .infinity)
                         .frame(height: 50)
-                        .background(Color.theme.pinkColor)
+                        .foregroundColor(Color.theme.blueTextColor)
+                        .background(Color.theme.blueColor)
                 })
                 .disabled(buttonDisabled)
             }
             .padding()
         }
+        .background(
+            Image(colorScheme == .dark ? "darkmode" : "lightmode")
+                .resizable()
+                .ignoresSafeArea()
+                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+        )
     }
 }
 
@@ -173,8 +184,8 @@ struct checkMarkSubjects : View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .frame(height: 75)
         .padding(.horizontal, 35)
-        .background(Color.theme.sheetColor)
-        .foregroundColor(Color.theme.accent)
+        .background(Color.theme.background)
+        .foregroundColor(Color.theme.accentColor)
         .onTapGesture {
             if list.count != 3 {
                 if !checkMark {

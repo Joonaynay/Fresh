@@ -14,6 +14,7 @@ struct HomeView: View {
     
     @EnvironmentObject private var vm: SearchBar
     
+    
     var body: some View {
         if subject.name == "" {
             SubjectSelectView(subject: $subject)
@@ -31,13 +32,14 @@ struct SubjectSelectView: View {
     
     @EnvironmentObject private var vm: SearchBar
     
+    @Environment(\.colorScheme) var colorScheme
+
+    
     var body: some View {
         ZStack(alignment: .topLeading) {
-            Color.theme.background
-                .ignoresSafeArea()
             VStack(alignment: .leading, spacing: 0) {
                 TitleBarView(title: "Subjects")
-                SearchBarView(textFieldText: $vm.AllDataSearchText)
+                SearchBarView(textFieldText: $vm.AllDataSearchText)              
                 ScrollView() {
                     LazyVGrid(columns: [GridItem(spacing: 10), GridItem(spacing: 10)], spacing: 10, content: {
                         ForEach(vm.filteredData) { subject in
@@ -47,19 +49,27 @@ struct SubjectSelectView: View {
                                 ZStack {
                                     Rectangle()
                                         .frame(height: 75)
-                                        .foregroundColor(Color.theme.pinkColor)
+                                        .foregroundColor(Color.theme.blueColor)
                                     VStack {
                                         Image(systemName: subject.image)
                                         Text(subject.name)
                                     }
+                                    .foregroundColor(Color.theme.blueTextColor)
                                 }
                             })
                         }
                     })
-                    .padding(.horizontal, 10)
+                    .padding(.horizontal, 15)
                 }
             }
         }
+        .background(
+            Image(colorScheme == .dark ? "darkmode" : "lightmode")
+                .resizable()
+                .ignoresSafeArea()
+                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+        )
+
         .navigationBarHidden(true)
     }
 }
@@ -72,11 +82,10 @@ struct HomePostView: View {
     @State var profileView = "profileView"
     
     @EnvironmentObject private var fb: FirebaseModel
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         ZStack(alignment: .topLeading) {
-            Color.theme.background
-                .ignoresSafeArea()
             VStack(alignment: .leading, spacing: 0) {
                 HStack {
                     Button(action: { subject.name = "" }, label: {
@@ -101,6 +110,12 @@ struct HomePostView: View {
                 }
             }
         }
+        .background(
+            Image(colorScheme == .dark ? "darkmode" : "lightmode")
+                .resizable()
+                .ignoresSafeArea()
+                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+        )
         .navigationBarHidden(true)
     }
 }

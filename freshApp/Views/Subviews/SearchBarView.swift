@@ -26,13 +26,13 @@ struct SearchBarView: View {
         .frame(maxWidth: .infinity)
         .frame(height: 45)
         .background(Color.theme.secondaryText)
-        .foregroundColor(Color.theme.accent)
+        .foregroundColor(Color(.systemGray))
         .padding()
         .overlay(
             Image(systemName: "xmark.circle.fill")
                 .padding()
                 .offset(x: -20)
-                .foregroundColor(Color.theme.accent)
+                .foregroundColor(Color(.systemGray))
                 .opacity(textFieldText.isEmpty ? 0.0 : 1.0)
                 .onTapGesture {
                     UIApplication.shared.endEditing()
