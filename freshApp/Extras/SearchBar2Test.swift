@@ -12,6 +12,7 @@ class SearchBar2Test: ObservableObject {
     
     @Published var AllVideosSearchText = ""
     @Published var allVideos: [Post]
+    @Published var searchButton: Bool = false
     var filteredVideos: [Post] = []
     private var cancellables = Set<AnyCancellable>()
     
@@ -37,11 +38,12 @@ class SearchBar2Test: ObservableObject {
                     return
                         post.title.lowercased().contains(lowercasedText) ||
                         post.user.username.lowercased().contains(lowercasedText)
-                        
                 }
             }
             .sink { [weak self] returnedPosts in
-                self?.filteredVideos = returnedPosts
+                if self?.searchButton == true {
+                    self?.filteredVideos = returnedPosts
+                }
             }
             .store(in: &cancellables)
             

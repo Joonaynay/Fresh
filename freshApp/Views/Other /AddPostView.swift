@@ -41,7 +41,7 @@ struct AddPostView: View {
                     .frame(maxWidth: .infinity, maxHeight: 1)
                     .foregroundColor(Color.theme.secondaryText)
                 
-                ScrollView() {
+                ScrollView(showsIndicators: false) {
                     VStack {
                         Button(action: { showImages.toggle() }, label: {
                             Text("Select a thumbnail...")
@@ -83,7 +83,7 @@ struct AddPostView: View {
                         .padding(.horizontal)
                         .background(Color.theme.secondaryText)
                     
-                    if let image = image, let movie = movie {
+                    if let image = image, let movie = movie, !title.isEmpty {
                         NavigationLink(destination: SelectSubjectView(image: image, movie: movie, title: title, dissmissView: $dissmissView), label: {
                             Text("Next")
                                 .font(.headline)

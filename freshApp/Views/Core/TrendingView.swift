@@ -9,11 +9,9 @@ import SwiftUI
 
 struct TrendingView: View {
     
-    @State var selection: String? = ""
-    @State var profileView = "profileView"
     
     @EnvironmentObject private var fb: FirebaseModel
-        
+    
     var body: some View {
         ZStack(alignment: .topLeading) {
             Color.theme.background
@@ -21,17 +19,14 @@ struct TrendingView: View {
             VStack(spacing: 0) {
                 TitleBarView(title: "Trending")
                 ScrollView(showsIndicators: false) {
-                    Button(action: {
-                        fb.loadPosts()
-                    }, label: {
-                        Text("Load")
-                    })
-                    VStack {
-                        ForEach(fb.posts) { post in
-                            PostView(post: post)
-                        }
+                    ForEach(fb.posts) { post in
+                        PostView(post: post)
+                        
                     }
                 }
+            }
+            .onAppear() {
+                
             }
         }
         .navigationBarHidden(true)

@@ -228,8 +228,10 @@ class FirebaseModel: ObservableObject {
                             self.loadMovie(path: "videos", file: "\(post.documentID).m4v") { url in
                                 //Add to view model
                                 
-                                if let image = image, let url = url {                                    
+                                if let image = image, let url = url {
                                     self.posts.append(Post(id: postId, image: image, title: title, subjects: subjects, date: date, user: user!, likes: likes, movie: url))
+                                    
+                                    
                                 }
                             }
                         }
