@@ -51,15 +51,18 @@ extension FirebaseModel {
     }
     
     func getDoc(collection: String, id: String, completion:@escaping (DocumentSnapshot?) -> Void) {
-        
-        //Load Document
-        db.collection(collection).document(id).getDocument { doc, error in
-            if error == nil {
-                completion(doc)
-            } else {
-                completion(nil)
+        if !id.isEmpty {
+            //Load Document
+            db.collection(collection).document(id).getDocument { doc, error in
+                if error == nil {
+                    completion(doc)
+                } else {
+                    completion(nil)
+                }
             }
-        }        
+        } else {
+            completion(nil)
+        }
     }
     
     func getDocs(collection: String, completion:@escaping (QuerySnapshot?) -> Void) {

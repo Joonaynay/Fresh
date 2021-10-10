@@ -39,7 +39,7 @@ struct SubjectSelectView: View {
         ZStack(alignment: .topLeading) {
             VStack(alignment: .leading, spacing: 0) {
                 TitleBarView(title: "Subjects")
-                SearchBarView(textFieldText: $vm.AllDataSearchText)              
+                SearchBarView(textFieldText: $vm.AllDataSearchText, posts: .constant(nil))              
                 ScrollView() {
                     LazyVGrid(columns: [GridItem(spacing: 10), GridItem(spacing: 10)], spacing: 10, content: {
                         ForEach(vm.filteredData) { subject in
