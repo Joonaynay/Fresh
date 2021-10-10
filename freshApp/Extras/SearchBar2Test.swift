@@ -12,7 +12,6 @@ class SearchBar2Test: ObservableObject {
     
     @Published var AllVideosSearchText = ""
     @Published var allVideos: [Post]
-    @Published var searchButton: Bool = false
     var filteredVideos: [Post] = []
     private var cancellables = Set<AnyCancellable>()
     
@@ -23,12 +22,11 @@ class SearchBar2Test: ObservableObject {
         addSubscriberToAllVideos()
     }
     
-    
     func addSubscriberToAllVideos() {
         
         $AllVideosSearchText
             .combineLatest($allVideos)
-            .map { (text, posts) -> [Post] in
+            .map { (text, posts) -> ([Post]) in
                 guard !text.isEmpty else {
                     return posts
                 }
@@ -41,9 +39,7 @@ class SearchBar2Test: ObservableObject {
                 }
             }
             .sink { [weak self] returnedPosts in
-                if self?.searchButton == true {
-                    self?.filteredVideos = returnedPosts
-                }
+                self?.filteredVideos = returnedPosts
             }
             .store(in: &cancellables)
             
