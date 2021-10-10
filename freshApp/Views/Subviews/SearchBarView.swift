@@ -17,10 +17,6 @@ struct SearchBarView: View {
         HStack {
             Image(systemName: "magnifyingglass")
             TextField("Search...", text: $textFieldText)
-            Button(action: { vm.searchButton = true }, label: {
-                Text("Search")
-                    .background(Color.blue)
-            })
         }
         .padding(.horizontal)
         .frame(maxWidth: .infinity)

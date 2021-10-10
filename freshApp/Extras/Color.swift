@@ -21,6 +21,6 @@ struct ColorTheme {
     let blueColor = Color("BlueColor")
     let tabBarColor = Color("TabBarColor")
     let accentColor = Color("AccentColor")
-    let lineColor = Color("LineColor")
+    let lineColor = Color("lineColor")
     let blueTextColor = Color("BlueTextColor")
 }

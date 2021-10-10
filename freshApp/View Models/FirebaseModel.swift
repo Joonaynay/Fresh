@@ -202,12 +202,13 @@ class FirebaseModel: ObservableObject {
     }
     
     func loadPosts() {
+        self.loading = true
         
         //Load all Post Firestore Documents
         getDocs(collection: "posts") { query in
             
             //Check if local loaded posts is equal to firebase docs
-            if self.posts.count != query?.count {
+            if self.posts.count != query?.documents.count {
                 
                 //Loop through each document and get data
                 for post in query!.documents {
@@ -223,20 +224,18 @@ class FirebaseModel: ObservableObject {
                         
                         //Load image
                         self.loadImage(path: "images", id: post.documentID) { image in
-                            
                             //Load Movie
                             self.loadMovie(path: "videos", file: "\(post.documentID).m4v") { url in
                                 //Add to view model
                                 
                                 if let image = image, let url = url {
                                     self.posts.append(Post(id: postId, image: image, title: title, subjects: subjects, date: date, user: user!, likes: likes, movie: url))
-                                    
-                                    
                                 }
                             }
                         }
-                    }                    
+                    }
                 }
+                self.loading = false
             }
         }
     }
@@ -265,6 +264,6 @@ class FirebaseModel: ObservableObject {
             //Save movie to Firestore
             self.saveMovie(path: "videos", file: postId!, url: movie)
         }
-    }    
+    }
 }
 
