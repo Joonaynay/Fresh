@@ -42,8 +42,9 @@ struct ImagePickerView: UIViewControllerRepresentable {
                 }
                 
             } else if info[.mediaType] as! String == "public.movie" {
-                let movieURL = info[.mediaURL] as! URL
-                parent.movie = movieURL
+                if let movieURL = info[.mediaURL] as? URL {
+                    parent.movie = movieURL
+                }
             }
             
             parent.pres.wrappedValue.dismiss()

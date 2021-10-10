@@ -77,9 +77,7 @@ extension FirebaseModel {
                 let username = doc?.get("username") as! String
                 
                 //Load Profile Image
-                self.loadImage(path: "Profile Images", id: uid) { profileImage in
-                    
-                    //Core Data
+                self.loadImage(path: "Profile Images", id: uid) { profileImage in                
                     
                     
                     //Create User

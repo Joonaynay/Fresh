@@ -17,8 +17,7 @@ struct TrendingView: View {
     
     var body: some View {
         ZStack(alignment: .topLeading) {
-            VStack(spacing: 0) {
-                Text("\(offSetY)")
+            VStack(spacing: 0) {                
                 TitleBarView(title: "Trending")
                 if fb.loading {
                     ProgressView()
@@ -39,11 +38,15 @@ struct TrendingView: View {
                 .gesture(
                     DragGesture()
                         .onChanged({ value in
-                            offSetY = value.translation.height
-                            if offSetY >= 10 && fb.loading == false {
+                            if value.translation.height > 0 {
+                                offSetY = value.translation.height
+                            }
+
+                            if offSetY >= 15 && fb.loading == false {
                                 fb.loadPosts()
                                 offSetY = 0
                             }
+                            offSetY = 0
                         })
                         .onEnded({ value in
                             offSetY = 0

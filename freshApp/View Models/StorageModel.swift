@@ -25,7 +25,10 @@ extension FirebaseModel {
         storage.child(path).child(file).downloadURL { url, error in
             if error == nil {
                 completion(url)
+            } else {
+                completion(nil)
             }
+            
         }
     }
     

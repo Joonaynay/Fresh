@@ -39,7 +39,7 @@ struct SubjectSelectView: View {
         ZStack(alignment: .topLeading) {
             VStack(alignment: .leading, spacing: 0) {
                 TitleBarView(title: "Subjects")
-                SearchBarView(textFieldText: $vm.AllDataSearchText, posts: .constant(nil))              
+                SearchBarView(textFieldText: $vm.AllDataSearchText)              
                 ScrollView() {
                     LazyVGrid(columns: [GridItem(spacing: 10), GridItem(spacing: 10)], spacing: 10, content: {
                         ForEach(vm.filteredData) { subject in
@@ -84,6 +84,8 @@ struct HomePostView: View {
     @EnvironmentObject private var fb: FirebaseModel
     @Environment(\.colorScheme) var colorScheme
     
+    @State private var offSetY: CGFloat = 0
+    
     var body: some View {
         ZStack(alignment: .topLeading) {
             VStack(alignment: .leading, spacing: 0) {
@@ -97,9 +99,6 @@ struct HomePostView: View {
                 }
                 
                 ScrollView {
-                    Button(action: { fb.loadPosts() }, label: {
-                        Text("Load")
-                    })
                     VStack {
                         ForEach(fb.posts) { post in
                             if post.subjects.contains(subject.name) {
@@ -108,6 +107,24 @@ struct HomePostView: View {
                         }
                     }
                 }
+                .offset(y: offSetY)
+                .gesture(
+                    DragGesture()
+                        .onChanged({ value in
+                            if value.translation.height > 0 {
+                                offSetY = value.translation.height
+                            }
+
+                            if offSetY >= 15 && fb.loading == false {
+                                fb.loadPosts()
+                                offSetY = 0
+                            }
+                            offSetY = 0
+                        })
+                        .onEnded({ value in
+                            offSetY = 0
+                        })
+                )
             }
         }
         .background(

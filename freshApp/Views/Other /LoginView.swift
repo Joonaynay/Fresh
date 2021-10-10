@@ -179,7 +179,7 @@ struct WaitingForEmailVerification: View {
     @Environment(\.presentationMode) private var pres
     
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             Text("Waiting for email to be verified...")
                 .multilineTextAlignment(.center)
                 .font(.title)
@@ -203,15 +203,13 @@ struct WaitingForEmailVerification: View {
                     })
                 }
             }, label: {
-                VStack {
-                    Text("Done")
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 45)
-                        .foregroundColor(Color.theme.blueTextColor)
-                        .background(Color.theme.blueColor)
-                    Text("You should have recieved an email with a link to verify your account.").multilineTextAlignment(.center)
-                }
+                Text("Done")
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 45)
+                    .foregroundColor(Color.theme.blueTextColor)
+                    .background(Color.theme.blueColor)
             })
+            Text("You should have recieved an email with a link to verify your account.").multilineTextAlignment(.center)
         }
         .padding()
         .alert(isPresented: $showAlert) {
