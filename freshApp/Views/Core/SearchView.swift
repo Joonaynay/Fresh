@@ -12,18 +12,29 @@ struct SearchView: View {
     @EnvironmentObject private var vm: SearchBar2Test
     @EnvironmentObject private var fb: FirebaseModel
     
+    @State private var searchResults: [Post]?
+    
+    @State private var searchText = ""
+    
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         ZStack {
             VStack {
                 TitleBarView(title: "Search")
-                SearchBarView(textFieldText: $vm.AllVideosSearchText)
+                TextField("Search...", text: $searchText)
+                Button("Search") {
+                    fb.search(string: searchText) { posts in
+                        if let posts = posts {
+                            searchResults = posts
+                        }
+                    }
+                }
                 Spacer()
                 ScrollView {
-                    ForEach(vm.filteredVideos) { video in
-                        if !vm.AllVideosSearchText.isEmpty {
-                            PostView(post: video)
+                    if let results = searchResults {
+                        ForEach(results) { post in
+                            PostView(post: post)
                         }
                     }
                 }
@@ -35,7 +46,7 @@ struct SearchView: View {
                 .ignoresSafeArea()
                 .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
         )
-
+        
         .onAppear {
             vm.allVideos = fb.posts
         }
