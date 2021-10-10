@@ -220,7 +220,7 @@ class FirebaseModel: ObservableObject {
                     let likes = post.get("likes") as! [String]
                     
                     //Load user for post
-                    self.loadUser(uid: uid) { user in
+                    self.loadConservativeUser(uid: uid) { user in
                         
                         //Load image
                         self.loadImage(path: "images", id: post.documentID) { image in
