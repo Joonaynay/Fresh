@@ -20,10 +20,6 @@ struct AddPostView: View {
     @Environment(\.presentationMode) var pres
     @Environment(\.colorScheme) var colorScheme
     
-    init() {
-        UITextView.appearance().backgroundColor = .clear
-    }
-    
     var body: some View {
         ZStack(alignment: .topLeading) {
             VStack(spacing: 0) {
@@ -51,6 +47,11 @@ struct AddPostView: View {
                                 .background(Color.theme.blueColor)
                             
                         })
+                        if image != nil {
+                            Image(uiImage: image!)
+                                .resizable()
+                                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width * 9/16)
+                        }
                         Button(action: { showVideos.toggle() }, label: {
                             Text("Select a video...")
                                 .font(.headline)
@@ -61,20 +62,14 @@ struct AddPostView: View {
                             
                         })
                         .padding(.top)
+                        if movie != nil {
+                            VideoPlayer(player: AVPlayer(url: movie!))
+                                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width * 9/16)
+                        }
                     }
                     
-                    if image != nil {
-                        Image(uiImage: image!)
-                            .resizable()
-                            .frame(width: UIScreen.main.bounds.width / 1.05, height: UIScreen.main.bounds.width / 1.05)
-                    }
                     
-                    if movie != nil {
-                        VideoPlayer(player: AVPlayer(url: movie!))
-                            .frame(width: UIScreen.main.bounds.width / 1.05, height: UIScreen.main.bounds.width / 1.05)
-                        
-                        
-                    }
+
                     TextField("Add a title.", text: $title)
                         .padding()
                         .frame(maxWidth: .infinity)
@@ -159,6 +154,7 @@ struct SelectSubjectView: View {
             }
             .padding()
         }
+        .navigationBarHidden(true)
         .background(
             Image(colorScheme == .dark ? "darkmode" : "lightmode")
                 .resizable()

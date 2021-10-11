@@ -7,6 +7,7 @@
 
 import SwiftUI
 import MobileCoreServices
+import AVKit
 
 struct ImagePickerView: UIViewControllerRepresentable {
     
@@ -21,6 +22,11 @@ struct ImagePickerView: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> UIImagePickerController {
         let picker = UIImagePickerController()
         picker.delegate = context.coordinator
+        if mediaTypes == ["public.image"] {
+            picker.allowsEditing = true
+        }
+        picker.videoQuality = .typeLow
+        picker.videoExportPreset = AVAssetExportPreset1920x1080
         return picker
     }
     
@@ -33,8 +39,9 @@ struct ImagePickerView: UIViewControllerRepresentable {
         let parent: ImagePickerView
         
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+                        
             
-            if let uiImage = info[.originalImage] as? UIImage {
+            if let uiImage = info[.editedImage] as? UIImage {
                 
                 if let jpegData = uiImage.jpegData(compressionQuality: 0.25) {
                     let jpegImage = UIImage(data: jpegData)
@@ -42,6 +49,7 @@ struct ImagePickerView: UIViewControllerRepresentable {
                 }
                 
             } else if info[.mediaType] as! String == "public.movie" {
+                print("MOVIE")
                 if let movieURL = info[.mediaURL] as? URL {
                     parent.movie = movieURL
                 }
