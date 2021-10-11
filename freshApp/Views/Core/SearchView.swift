@@ -12,7 +12,7 @@ struct SearchView: View {
     @EnvironmentObject private var vm: SearchBar2Test
     @EnvironmentObject private var fb: FirebaseModel
     
-    @State private var searchResults: [Post]?
+    @State var searchResults: [Post]?
     
     @State private var searchText = ""
     
@@ -22,16 +22,20 @@ struct SearchView: View {
         ZStack {
             VStack {
                 TitleBarView(title: "Search")
-                TextField("Search...", text: $searchText)
-                Button("Search") {
-                    fb.search(string: searchText) { posts in
-                        if let posts = posts {
+                HStack {
+                    SearchBarView(textFieldText: $searchText)
+                    Button("Search") {
+                        fb.search(string: searchText) { posts in
                             searchResults = posts
                         }
-                    }
+                    }.padding(.trailing)
+                }
+                if fb.loading {
+                    ProgressView()
+                        .frame(width: 100, height: 100)
                 }
                 Spacer()
-                ScrollView {
+                ScrollView(showsIndicators: false) {
                     if let results = searchResults {
                         ForEach(results) { post in
                             PostView(post: post)

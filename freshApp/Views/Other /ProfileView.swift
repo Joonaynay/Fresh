@@ -46,7 +46,7 @@ struct PostProfileView: View {
                     })
                     Spacer()
                 }
-                ScrollView {
+                ScrollView(showsIndicators: false) {
                     Button(action: {
                         selection = profilePictureTag
                     }, label: {
@@ -77,18 +77,18 @@ struct PostProfileView: View {
                             .background(Color.theme.blueColor)
                         
                     })
-                        .padding()
-                        .onAppear() {
-                            let db = Firestore.firestore()
+                    .padding()
+                    .onAppear() {
+                        let db = Firestore.firestore()
+                        
+                        db.collection("users").document(user.id).addSnapshotListener { doc, error in
                             
-                            db.collection("users").document(user.id).addSnapshotListener { doc, error in
-                                
-                                self.user.followers = doc?.get("followers") as? [String]
-                                if self.user.followers!.contains(fb.currentUser.id) {
-                                    animate = true
-                                }
+                            self.user.followers = doc?.get("followers") as? [String]
+                            if self.user.followers!.contains(fb.currentUser.id) {
+                                animate = true
                             }
                         }
+                    }
                     HStack {
                         VStack {
                             Text("\(user.followers!.count)")
@@ -107,7 +107,7 @@ struct PostProfileView: View {
                         if post.user.id == user.id {
                             Image(uiImage: post.image)
                                 .resizable()
-                                .frame(width: UIScreen.main.bounds.width / 1.10, height: UIScreen.main.bounds.width / 1.10)
+                                .frame(width: UIScreen.main.bounds.width / 1.5, height: (UIScreen.main.bounds.width / 1.5) * 9/16)
                             
                         }
                     }
@@ -148,7 +148,7 @@ struct CurrentProfileView: View {
                     })
                     Spacer()
                 }
-                ScrollView {
+                ScrollView(showsIndicators: false) {
                     Button(action: {
                         selection = profilePictureTag
                     }, label: {
@@ -176,7 +176,7 @@ struct CurrentProfileView: View {
                             .background(Color.theme.blueColor)
                         
                     })
-                        .padding()
+                    .padding()
                     HStack {
                         VStack {
                             Text("\(fb.currentUser.followers!.count)")
@@ -201,12 +201,11 @@ struct CurrentProfileView: View {
                         }
                         .padding()
                     }
-                    
                     ForEach(fb.posts) { post in
                         if post.user.id == fb.currentUser.id {
                             Image(uiImage: post.image)
                                 .resizable()
-                                .frame(width: UIScreen.main.bounds.width / 1.10, height: UIScreen.main.bounds.width / 1.10)
+                                .frame(width: UIScreen.main.bounds.width / 1.5, height: (UIScreen.main.bounds.width / 1.5) * 9/16)
                         }
                     }
                 }

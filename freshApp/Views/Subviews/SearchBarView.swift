@@ -14,18 +14,10 @@ struct SearchBarView: View {
     @EnvironmentObject private var vm: SearchBar2Test
     @EnvironmentObject private var fb: FirebaseModel
     
-    @Binding var posts: [Post]?
-    
     var body: some View {
         HStack {
             Image(systemName: "magnifyingglass")
             TextField("Search...", text: $textFieldText)
-            Button(action: {
-
-            }, label: {
-                Text("Search")
-                    .background(Color.blue)
-            })
         }
         .padding(.horizontal)
         .frame(maxWidth: .infinity)
@@ -46,12 +38,13 @@ struct SearchBarView: View {
             
             , alignment: .trailing
         )
+        
     }
 }
 
 struct SearchBarView_Previews: PreviewProvider {
     static var previews: some View {
-        SearchBarView(textFieldText: .constant("Sup Jilda"), posts: .constant(nil))
+        SearchBarView(textFieldText: .constant("Sup Jilda"))
             .environmentObject(SearchBar2Test())
     }
 }

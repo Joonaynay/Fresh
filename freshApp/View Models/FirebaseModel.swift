@@ -21,7 +21,7 @@ class FirebaseModel: ObservableObject {
     
     @Published var signedIn = false
     @Published var posts: [Post] = []
-    @Published var loading = false
+    @Published var loading: Bool = false
     @Published var currentUser = User(id: "", username: "", name: "", profileImage: nil, following: [], followers: [], posts: nil)
     
     init() {
@@ -35,33 +35,47 @@ class FirebaseModel: ObservableObject {
     }
     
     
-    func search(string: String, completion:@escaping ([Post]?) -> Void) {
+    func search(string: String, completion:@escaping ([Post]) -> Void) {
         
-        // Lowcase the string
-        let lowString = string.lowercased()
-        
-        // Start loading
-        self.loading = true
-        
-
-        //Load all documents
-        self.getDocs(collection: "posts") { query in
+        DispatchQueue.main.async {
+            // Start loading
+            self.loading = true
             
-            var postsArray = [Post]()
+            
             let group = DispatchGroup()
-            for f in query!.documents {
-                group.enter()
-                self.loadPost(postId: f.documentID, completion: { post in
-                    if let p = post {
-                        postsArray.append(p)
+            //Load all documents
+            self.getDocs(collection: "posts") { query in
+                
+                var postsArray = [Post]()
+                
+                for doc in query!.documents {
+                    
+
+                    group.enter()
+                    var postId = ""
+                    let title = doc.get("title") as! String
+                    if title.lowercased().contains(string.lowercased()) {
+                        postId = doc.documentID
                     }
-                    group.leave()
+                    
+                    self.loadPost(postId: postId, completion: { post in
+                        if let p = post {
+                            postsArray.append(p)
+                        }
+                        
+                        
+                        group.leave()
+                    })
+                }
+                
+                group.notify(queue: .main, execute: {
+                    self.loading = false
+                    completion(postsArray)
                 })
             }
-            group.notify(queue: .main, execute: {
-                completion(postsArray)
-            })
         }
-    }
+    }    
+    
+    
 }
 

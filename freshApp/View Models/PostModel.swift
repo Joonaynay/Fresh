@@ -51,10 +51,14 @@ extension FirebaseModel {
                             if let image = image, let url = url {
                                 let post = (Post(id: postId, image: image, title: title, subjects: subjects, date: date, user: user!, likes: likes, movie: url))
                                 completion(post)
+                            } else {
+                                completion(nil)
                             }
                         }
                     }
                 }
+            } else {
+                completion(nil)
             }
         }
     }
@@ -62,16 +66,19 @@ extension FirebaseModel {
     
     func loadPosts() {
         
+        self.loading = true
+        
         //Load all Post Firestore Documents
         getDocs(collection: "posts") { query in
             
             //Check if local loaded posts is equal to firebase docs
             if self.posts.count != query?.count {
                 
-//                var loadedPosts: [Post] = []
-                
+                let group = DispatchGroup()
                 //Loop through each document and get data
+                var posts = [Post]()
                 for post in query!.documents {
+                    group.enter()
                     let title = post.get("title") as! String
                     let postId = post.documentID
                     let subjects = post.get("subjects") as! [String]
@@ -90,15 +97,19 @@ extension FirebaseModel {
                                 //Add to view model
                                 
                                 if let image = image, let url = url {
-                                    self.posts.append(Post(id: postId, image: image, title: title, subjects: subjects, date: date, user: user!, likes: likes, movie: url))
+                                    posts.append(Post(id: postId, image: image, title: title, subjects: subjects, date: date, user: user!, likes: likes, movie: url))
                                 }
+                                group.leave()
                             }
                         }
                     }
-//                    if post == query?.documents.last {
-//                        self.posts = loadedPosts
-//                    }
                 }
+                group.notify(queue: .main) {
+                    self.posts = posts
+                    self.loading = false
+                }
+            } else {
+                self.loading = false
             }
         }
     }

@@ -13,14 +13,13 @@ struct FollowingView: View {
     
     @Environment(\.colorScheme) var colorScheme
     
+    @State private var offSetY: CGFloat = 0
+    
     var body: some View {
         ZStack(alignment: .topLeading) {
             VStack(spacing: 0) {
                 TitleBarView(title: "Following")
                 ScrollView(showsIndicators: false) {
-                    Button(action: { fb.loadPosts() }, label: {
-                        Text("Load")
-                    })
                     VStack {
                         ForEach(fb.posts) { post in
                             if fb.currentUser.following!.contains(post.user.id) {
@@ -29,6 +28,24 @@ struct FollowingView: View {
                         }
                     }
                 }
+                .offset(y: offSetY)
+                .gesture(
+                    DragGesture()
+                        .onChanged({ value in
+                            if value.translation.height > 0 {
+                                offSetY = value.translation.height
+                            }
+
+                            if offSetY >= 15 && fb.loading == false {
+                                fb.loadPosts()
+                                offSetY = 0
+                            }
+                            offSetY = 0
+                        })
+                        .onEnded({ value in
+                            offSetY = 0
+                        })
+                )
             }
         }
         .background(
