@@ -53,7 +53,7 @@ class FirebaseModel: ObservableObject {
                     group.enter()
                     var postId = ""
                     let title = doc.get("title") as! String
-                    if title.lowercased() == string.lowercased() {
+                    if title.lowercased().contains(string.lowercased()) {
                         postId = doc.documentID
                     }
                     
