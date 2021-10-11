@@ -109,8 +109,9 @@ struct SignUpView: View {
     @State private var emailVerifyWaiting: Bool = false
     
     @EnvironmentObject private var fb: FirebaseModel
-    
+    @State var dissmissView: Bool?
     @Environment(\.colorScheme) var colorScheme
+    @Environment(\.presentationMode) var pres
     
     var body: some View {
         ZStack {
@@ -152,7 +153,7 @@ struct SignUpView: View {
                 })
             }
             .fullScreenCover(isPresented: $emailVerifyWaiting, content: {
-                WaitingForEmailVerification(selection: $selection)
+                WaitingForEmailVerification(selection: $selection, dissmissView: $dissmissView)
             })
             .navigationTitle("Create Account")
             .navigationBarTitleDisplayMode(.inline)
@@ -162,6 +163,9 @@ struct SignUpView: View {
                 LoadingView(text: nil)
             }
         }
+        .onChange(of: dissmissView, perform: { _ in
+            pres.wrappedValue.dismiss()
+        })
         .background(
             Image(colorScheme == .dark ? "darkmode" : "lightmode")
                 .resizable()
@@ -176,14 +180,26 @@ struct WaitingForEmailVerification: View {
     @Binding var selection: String?
     private let profilePictureTag = "profilePicture"
     
+    @EnvironmentObject private var fb: FirebaseModel
+    
+    @State private var newEmail: String? = ""
+    @State private var changeEmailAlert: Bool = false
     @State private var showAlert: Bool = false
+    @State private var alertText: String = ""
     @Environment(\.presentationMode) private var pres
+    
+    @Binding var dissmissView: Bool?
     
     var body: some View {
         VStack(spacing: 0) {
             Text("Waiting for email to be verified...")
                 .multilineTextAlignment(.center)
                 .font(.title)
+            Button("Cancel") {
+                fb.signOut()
+                pres.wrappedValue.dismiss()
+                dissmissView = true
+            }
             Spacer()
                 .font(.caption2)
             ProgressView()
@@ -199,6 +215,7 @@ struct WaitingForEmailVerification: View {
                                 selection = profilePictureTag
                             } else {
                                 showAlert = true
+                                alertText = "Please verify your email."
                             }
                         }
                     })
@@ -214,8 +231,11 @@ struct WaitingForEmailVerification: View {
         }
         .padding()
         .alert(isPresented: $showAlert) {
-            Alert(title: Text("Please verify your email."))
+            Alert(title: Text(alertText))
         }
+        .onChange(of: alertText, perform: { _ in
+            showAlert = true
+        })
     }
 }
 

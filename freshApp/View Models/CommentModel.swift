@@ -28,6 +28,9 @@ extension FirebaseModel {
             if let documents = documents {
                 var list: [Comment] = []
                 
+                if documents.documents.isEmpty {
+                    completion(nil)
+                }
                 for doc in documents.documents {
                     let comments = doc.get("comments") as! [String]
                     self.loadConservativeUser(uid: doc.documentID) { user in
@@ -38,9 +41,13 @@ extension FirebaseModel {
                                     completion(list)
                                 }
                             }
+                        } else {
+                            completion(nil)
                         }
                     }
                 }
+            } else {
+                completion(nil)
             }
         }
     }

@@ -83,21 +83,21 @@ struct PostProfileView: View {
                         
                         db.collection("users").document(user.id).addSnapshotListener { doc, error in
                             
-                            self.user.followers = doc?.get("followers") as? [String]
-                            if self.user.followers!.contains(fb.currentUser.id) {
+                            self.user.followers = doc?.get("followers") as! [String]
+                            if self.user.followers.contains(fb.currentUser.id) {
                                 animate = true
                             }
                         }
                     }
                     HStack {
                         VStack {
-                            Text("\(user.followers!.count)")
+                            Text("\(user.followers.count)")
                             Text("Followers")
                                 .foregroundColor(Color.theme.secondaryText)
                         }
                         .padding()
                         VStack {
-                            Text("\(user.following!.count)")
+                            Text("\(user.following.count)")
                             Text("Following")
                                 .foregroundColor(Color.theme.secondaryText)
                         }
@@ -179,7 +179,7 @@ struct CurrentProfileView: View {
                     .padding()
                     HStack {
                         VStack {
-                            Text("\(fb.currentUser.followers!.count)")
+                            Text("\(fb.currentUser.followers.count)")
                             Text("Followers")
                                 .foregroundColor(Color.theme.secondaryText)
                         }
@@ -188,14 +188,14 @@ struct CurrentProfileView: View {
                             if !fb.currentUser.id.isEmpty {
                                 db.collection("users").document(fb.currentUser.id).addSnapshotListener { doc, error in
                                     if error == nil {
-                                        fb.currentUser.followers = doc?.get("followers") as? [String]
+                                        fb.currentUser.followers = doc?.get("followers") as! [String]
                                     }
                                 }
                             }
                         }
                         .padding()
                         VStack {
-                            Text("\(fb.currentUser.following!.count)")
+                            Text("\(fb.currentUser.following.count)")
                             Text("Following")
                                 .foregroundColor(Color.theme.secondaryText)
                         }

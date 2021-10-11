@@ -51,6 +51,7 @@
 		E0E4DB202703D3A900131C6E /* StorageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E4DB1F2703D3A900131C6E /* StorageModel.swift */; };
 		E0E4DB6627055E6400131C6E /* FreshModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E0E4DB6427055E6400131C6E /* FreshModel.xcdatamodeld */; };
 		E0E4DB6C27055F9200131C6E /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E4DB6B27055F9200131C6E /* Persistence.swift */; };
+		E0EF3A122713EA8900D5FDF8 /* TextFieldAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0EF3A112713EA8900D5FDF8 /* TextFieldAlert.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -101,6 +102,7 @@
 		E0E4DB1F2703D3A900131C6E /* StorageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageModel.swift; sourceTree = "<group>"; };
 		E0E4DB6527055E6400131C6E /* FreshModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FreshModel.xcdatamodel; sourceTree = "<group>"; };
 		E0E4DB6B27055F9200131C6E /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		E0EF3A112713EA8900D5FDF8 /* TextFieldAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldAlert.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,6 +198,7 @@
 				E0E4385426FD1484000C5738 /* subjects.json */,
 				E0E4389426FD5B2E000C5738 /* Keyboard.swift */,
 				5202F53B270D361A007DC81D /* CustomVideoPlayer.swift */,
+				E0EF3A112713EA8900D5FDF8 /* TextFieldAlert.swift */,
 			);
 			path = Extras;
 			sourceTree = "<group>";
@@ -405,6 +408,7 @@
 				E00139F126FEC34D0036CD94 /* PostView.swift in Sources */,
 				52E7EBA9270404A000B7F3B6 /* FileManager.swift in Sources */,
 				529349EB2702B9EF00C9C634 /* SearchBarView.swift in Sources */,
+				E0EF3A122713EA8900D5FDF8 /* TextFieldAlert.swift in Sources */,
 				52AB404926FC066100E343C9 /* LoginView.swift in Sources */,
 				52AB405126FC06E200E343C9 /* Color.swift in Sources */,
 				52AB404F26FC06DB00E343C9 /* ImagePicker.swift in Sources */,

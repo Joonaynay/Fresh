@@ -13,6 +13,17 @@ import CoreData
 
 extension FirebaseModel {
     
+    func changeEmail(email: String, completion:@escaping (String?) -> Void) {
+        auth.currentUser?.updateEmail(to: email, completion: { error in
+            if let error = error  {
+                completion(error.localizedDescription)
+            } else {
+                completion(nil)
+            }
+            
+        })
+    }
+    
     
     func signIn(email: String, password: String) {
         

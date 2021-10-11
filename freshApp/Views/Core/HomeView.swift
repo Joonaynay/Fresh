@@ -89,14 +89,7 @@ struct HomePostView: View {
     var body: some View {
         ZStack(alignment: .topLeading) {
             VStack(alignment: .leading, spacing: 0) {
-                HStack {
-                    Button(action: { subject.name = "" }, label: {
-                        Image(systemName: "chevron.left")
-                            .font(Font.headline.weight(.bold))
-                    })
-                    .padding(.leading)
-                    TitleBarView(title: subject.name)
-                }
+                TitleBarView(title: "   \(subject.name)")
                 
                 ScrollView(showsIndicators: false) {
                     VStack {
@@ -126,6 +119,12 @@ struct HomePostView: View {
                         })
                 )
             }
+            Button(action: { subject.name = "" }, label: {
+                Image(systemName: "chevron.left")
+                    .font(Font.headline.weight(.bold))
+            })
+            .padding(.top, 30)
+            .padding(.leading)
         }
         .background(
             Image(colorScheme == .dark ? "darkmode" : "lightmode")

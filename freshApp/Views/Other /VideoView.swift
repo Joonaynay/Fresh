@@ -50,6 +50,7 @@ struct VideoView: View {
         
         .sheet(isPresented: $showComments, content: {
             CommentsView(post: post)
+                .environmentObject(fb)
         })
     }
 }

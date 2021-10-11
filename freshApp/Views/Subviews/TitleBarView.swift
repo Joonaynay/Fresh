@@ -28,7 +28,7 @@ struct TitleBarView: View {
                     .padding()
                 Spacer()
                 Menu {
-                    Button("View Profile") { selection = profileViewTag }
+                    Button("Profile") { selection = profileViewTag }
                     Button("New Post") {  selection = addPostViewTag }
                     Button(action: { showAlert = true }, label: { Text("Sign Out") })
                 } label: {
@@ -49,9 +49,7 @@ struct TitleBarView: View {
                     }
                 }
             }
-            Rectangle()
-                .frame(maxWidth: .infinity, maxHeight: 1)
-                .foregroundColor(Color.theme.lineColor)
+            Color.theme.lineColor.frame(maxWidth: .infinity, maxHeight: 1)
             NavigationLink(destination: ProfileView(user: fb.currentUser), tag: profileViewTag, selection: $selection, label: {})
             
             NavigationLink(destination: AddPostView(), tag: addPostViewTag, selection: $selection, label: {})

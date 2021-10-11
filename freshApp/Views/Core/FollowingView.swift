@@ -19,11 +19,21 @@ struct FollowingView: View {
         ZStack(alignment: .topLeading) {
             VStack(spacing: 0) {
                 TitleBarView(title: "Following")
+                if fb.loading {
+                    ProgressView()
+                        .padding()
+                }
                 ScrollView(showsIndicators: false) {
-                    VStack {
-                        ForEach(fb.posts) { post in
-                            if fb.currentUser.following!.contains(post.user.id) {
-                                PostView(post: post)
+                    
+                    ZStack {
+                        Rectangle()
+                            .frame(maxWidth: .infinity)
+                            .foregroundColor(.clear)
+                        VStack {
+                            ForEach(fb.posts) { post in
+                                if fb.currentUser.following.contains(post.user.id) {
+                                    PostView(post: post)
+                                }
                             }
                         }
                     }
@@ -37,7 +47,7 @@ struct FollowingView: View {
                             }
 
                             if offSetY >= 15 && fb.loading == false {
-                                fb.loadPosts()
+                                fb.loadFollowingPosts()
                                 offSetY = 0
                             }
                             offSetY = 0

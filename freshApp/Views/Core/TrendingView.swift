@@ -21,6 +21,7 @@ struct TrendingView: View {
                 TitleBarView(title: "Trending")
                 if fb.loading {
                     ProgressView()
+                        .padding()
                 }
                 ScrollView(showsIndicators: false) {
                     ZStack {

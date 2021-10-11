@@ -23,7 +23,62 @@ struct Post: Identifiable {
 
 extension FirebaseModel {
     
+    func loadFollowingPosts() {
+        self.loading = true
+        
+        //Load all Post Firestore Documents
+        getDocs(collection: "posts") { query in
+            
+            //Check if local loaded posts is equal to firebase docs
+            if self.posts.count != query?.count {
+                
+                let group = DispatchGroup()
+                //Loop through each document and get data
+                var loadedPosts = [Post]()
+                for post in query!.documents {
+                    group.enter()
+                    let title = post.get("title") as! String
+                    let postId = post.documentID
+                    let subjects = post.get("subjects") as! [String]
+                    let date = post.get("date") as! String
+                    let uid = post.get("uid") as! String
+                    let likes = post.get("likes") as! [String]
+                    
+                    if self.currentUser.following.contains(uid) {
+                        //Load user for post
+                        self.loadConservativeUser(uid: uid) { user in
+                            
+                            //Load image
+                            self.loadImage(path: "images", id: post.documentID) { image in
+                                
+                                //Load Movie
+                                self.loadMovie(path: "videos", file: "\(post.documentID).m4v") { url in
+                                    //Add to view model
+                                    
+                                    if let image = image, let url = url {
+                                        loadedPosts.append(Post(id: postId, image: image, title: title, subjects: subjects, date: date, user: user!, likes: likes, movie: url))
+                                    }
+                                    group.leave()
+                                }
+                            }
+                        }
+                    } else {
+                        group.leave()
+                    }
+                }
+                group.notify(queue: .main) {
+                    self.posts.append(contentsOf: loadedPosts)
+                    self.loading = false
+                }
+            } else {
+                self.loading = false
+            }
+        }
+        
+    }
+    
     func loadPost(postId: String, completion:@escaping (Post?) -> Void) {
+        
         //Load Post Firestore Document
         getDoc(collection: "posts", id: postId) { document in
             

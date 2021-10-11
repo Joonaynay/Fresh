@@ -13,14 +13,16 @@ struct User: Identifiable {
     let username: String
     let name: String?
     var profileImage: UIImage?
-    var following: [String]?
-    var followers: [String]?
+    var following: [String]
+    var followers: [String]
     let posts: [String]?
 }
 
 extension FirebaseModel {
+    
+    
     func followUser(followUser: User) {
-        if !followUser.followers!.contains(currentUser.id) {
+        if !followUser.followers.contains(currentUser.id) {
             //Save who the user followed
             self.save(collection: "users", document: currentUser.id, field: "following", data: [followUser.id])
             
@@ -29,7 +31,7 @@ extension FirebaseModel {
             
             //Add to UserModel
             
-            self.currentUser.following!.append(followUser.id)
+            self.currentUser.following.append(followUser.id)
             
             //Save to core data
             let coreUser = cd.fetchUser(uid: currentUser.id)
@@ -41,8 +43,8 @@ extension FirebaseModel {
             db.collection("users").document(currentUser.id).updateData(["following": FieldValue.arrayRemove([followUser.id])])
             
             // Delete from UserModel
-            let index = currentUser.following?.firstIndex(of: followUser.id)
-            currentUser.following?.remove(at: index!)
+            let index = currentUser.following.firstIndex(of: followUser.id)
+            currentUser.following.remove(at: index!)
             
             //Save to core data
             let deleteCoreUser = cd.fetchUser(uid: currentUser.id)
@@ -81,7 +83,7 @@ extension FirebaseModel {
                     
                     
                     //Create User
-                    let user = User(id: uid, username: username, name: nil, profileImage: profileImage, following: nil, followers: nil, posts: nil)
+                    let user = User(id: uid, username: username, name: nil, profileImage: profileImage, following: [], followers: [], posts: nil)
                     
                     //Return User
                     completion(user)

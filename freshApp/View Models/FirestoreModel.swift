@@ -87,6 +87,8 @@ extension FirebaseModel {
                 
                 //Return documents
                 completion(docs)
+            } else {
+                completion(nil)
             }
         }
     }
