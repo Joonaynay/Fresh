@@ -21,7 +21,7 @@ struct SearchBarView: View {
         }
         .padding(.horizontal)
         .frame(maxWidth: .infinity)
-        .frame(height: 45)
+        .frame(height: 50)
         .background(Color.theme.secondaryText)
         .foregroundColor(Color(.systemGray))
         .padding()

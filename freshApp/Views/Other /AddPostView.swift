@@ -45,7 +45,7 @@ struct AddPostView: View {
                     VStack() {
                         TextField("Title...", text: $title)
                             .frame(maxWidth: .infinity)
-                            .frame(height: 45)
+                            .frame(height: 50)
                             .padding(.horizontal)
                             .background(Color.theme.secondaryText)
                             .padding(.horizontal)

@@ -55,7 +55,7 @@ struct LoginView: View {
                     }, label: {
                         Text("Login")
                             .frame(maxWidth: .infinity)
-                            .frame(height: 45)
+                            .frame(height: 50)
                             .foregroundColor(Color.theme.blueTextColor)
                             .background(Color.theme.blueColor)
                     })
@@ -63,7 +63,8 @@ struct LoginView: View {
                     Button(action: { selection = tag}, label: {
                         Text("Create Account")
                             .frame(width: UIScreen.main.bounds.width / 2.5, height: 45)
-                            .background(Color.theme.secondaryText)
+                            .background(Color.theme.blueColor)
+                            .foregroundColor(Color.theme.blueTextColor)
                     })
                     .padding(5)
                     .padding(.bottom)
@@ -142,7 +143,7 @@ struct SignUpView: View {
                 }, label: {
                     Text("Create Account")
                         .frame(maxWidth: .infinity)
-                        .frame(height: 45)
+                        .frame(height: 50)
                         .foregroundColor(Color.theme.blueTextColor)
                         .background(Color.theme.blueColor)
                 })
@@ -156,7 +157,7 @@ struct SignUpView: View {
             .navigationTitle("Create Account")
             .navigationBarTitleDisplayMode(.inline)
             .padding()
-            NavigationLink(destination: ProfilePictureView(), tag: profilePictureTag, selection: $selection, label: {})
+            NavigationLink(destination: ProfilePictureView(showSkipButton: true), tag: profilePictureTag, selection: $selection, label: {})
             if fb.loading {
                 LoadingView(text: nil)
             }
@@ -205,7 +206,7 @@ struct WaitingForEmailVerification: View {
             }, label: {
                 Text("Done")
                     .frame(maxWidth: .infinity)
-                    .frame(height: 45)
+                    .frame(height: 50)
                     .foregroundColor(Color.theme.blueTextColor)
                     .background(Color.theme.blueColor)
             })

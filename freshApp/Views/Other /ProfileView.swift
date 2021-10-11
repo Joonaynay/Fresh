@@ -211,7 +211,7 @@ struct CurrentProfileView: View {
                 }
                 
                 NavigationLink(
-                    destination: InAppProfilePictureView(),
+                    destination: ProfilePictureView(showSkipButton: false),
                     tag: profilePictureTag,
                     selection: $selection,
                     label: {})

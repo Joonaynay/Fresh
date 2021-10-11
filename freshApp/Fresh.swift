@@ -16,8 +16,6 @@ struct freshAppApp: App {
     @StateObject var vm = SearchBar()
     @StateObject var searchTest = SearchBar2Test()
     
-    
-    
     init() {
         FirebaseApp.configure()
     }
