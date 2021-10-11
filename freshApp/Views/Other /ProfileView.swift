@@ -46,7 +46,7 @@ struct PostProfileView: View {
                     })
                     Spacer()
                 }
-                ScrollView {
+                ScrollView(showsIndicators: false) {
                     Button(action: {
                         selection = profilePictureTag
                     }, label: {
@@ -148,7 +148,7 @@ struct CurrentProfileView: View {
                     })
                     Spacer()
                 }
-                ScrollView {
+                ScrollView(showsIndicators: false) {
                     Button(action: {
                         selection = profilePictureTag
                     }, label: {

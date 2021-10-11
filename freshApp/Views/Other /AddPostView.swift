@@ -16,6 +16,11 @@ struct AddPostView: View {
     @State var image: UIImage?
     @State var movie: URL?
     
+    @State private var nextDisabled: Bool = true
+    
+    @State private var selection: String? = ""
+    let subjectsTag = "subjects"
+    
     @State var dissmissView: Bool = false
     @Environment(\.presentationMode) var pres
     @Environment(\.colorScheme) var colorScheme
@@ -37,7 +42,15 @@ struct AddPostView: View {
                     .foregroundColor(Color.theme.lineColor)
                 
                 ScrollView(showsIndicators: false) {
-                    VStack {
+                    VStack() {
+                        TextField("Title...", text: $title)
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 45)
+                            .padding(.horizontal)
+                            .background(Color.theme.secondaryText)
+                            .padding(.horizontal)
+                            .padding(.top)
+                        
                         Button(action: { showImages.toggle() }, label: {
                             Text("Select a thumbnail...")
                                 .font(.headline)
@@ -45,12 +58,19 @@ struct AddPostView: View {
                                 .frame(maxWidth: .infinity)
                                 .frame(height: 50)
                                 .background(Color.theme.blueColor)
+                                .padding(.horizontal)
+                                .padding(.top)
                             
                         })
                         if image != nil {
                             Image(uiImage: image!)
                                 .resizable()
-                                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width * 9/16)
+                                .frame(width: UIScreen.main.bounds.width / 1.09, height: (UIScreen.main.bounds.width / 1.09) * 9/16)
+                                .padding(.top)
+                        } else {
+                            Color.theme.background
+                                .frame(width: UIScreen.main.bounds.width / 1.09, height: (UIScreen.main.bounds.width / 1.09) * 9/16)
+                                .padding(.top)
                         }
                         Button(action: { showVideos.toggle() }, label: {
                             Text("Select a video...")
@@ -59,34 +79,35 @@ struct AddPostView: View {
                                 .frame(maxWidth: .infinity)
                                 .frame(height: 50)
                                 .background(Color.theme.blueColor)
+                                .padding(.horizontal)
                             
                         })
                         .padding(.top)
                         if movie != nil {
                             VideoPlayer(player: AVPlayer(url: movie!))
-                                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width * 9/16)
+                                .frame(width: UIScreen.main.bounds.width / 1.09, height: (UIScreen.main.bounds.width / 1.09) * 9/16)
+                        } else {
+                            Color.theme.background
+                                .frame(width: UIScreen.main.bounds.width / 1.09, height: (UIScreen.main.bounds.width / 1.09) * 9/16)
+                                .padding(.top)
                         }
                     }
                     
-                    
-
-                    TextField("Add a title.", text: $title)
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 45)
-                        .padding(.horizontal)
-                        .background(Color.theme.secondaryText)
-                    
-                    if let image = image, let movie = movie, !title.isEmpty {
-                        NavigationLink(destination: SelectSubjectView(image: image, movie: movie, title: title, dissmissView: $dissmissView), label: {
-                            Text("Next")
-                                .font(.headline)
-                                .foregroundColor(Color.theme.blueTextColor)
-                                .frame(maxWidth: .infinity)
-                                .frame(height: 50)
-                                .background(Color.theme.blueColor)
-                        })
-                    }
+                    Button(action: { selection = subjectsTag }, label: {
+                        Text("Next")
+                            .font(.headline)
+                            .foregroundColor(nextDisabled ? Color(.systemGray2) : Color.theme.blueTextColor)
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 50)
+                            .background(nextDisabled ? Color(.systemGray3) : Color.theme.blueColor)
+                            .padding(.horizontal)
+                            .padding(.vertical)
+                    }).disabled(nextDisabled)
+                    .onChange(of: (image == nil || movie == nil || title.isEmpty), perform: { _ in
+                        if image != nil && movie != nil && !title.isEmpty {
+                            nextDisabled = false
+                        }
+                    })
                 }
                 .sheet(isPresented: $showImages, content: {
                     ImagePickerView(image: $image, movie: .constant(nil), mediaTypes: ["public.image"])
@@ -95,6 +116,12 @@ struct AddPostView: View {
                     ImagePickerView(image: .constant(nil), movie: $movie, mediaTypes: ["public.movie"])
                 })
             }
+            NavigationLink(
+                destination: SelectSubjectView(image: image, movie: movie, title: title, dissmissView: $dissmissView),
+                tag: subjectsTag,
+                selection: $selection,
+                label: {})
+            
         }
         .background(
             Image(colorScheme == .dark ? "darkmode" : "lightmode")
@@ -113,8 +140,8 @@ struct AddPostView: View {
 
 struct SelectSubjectView: View {
     
-    let image: UIImage
-    let movie: URL
+    let image: UIImage?
+    let movie: URL?
     private let subjects = Bundle.main.decode([SubjectsModel].self, from: "subjects.json")
     @State var list: [String] = []
     private let trendingViewTag = "profileView"
@@ -140,7 +167,9 @@ struct SelectSubjectView: View {
                     }
                 }
                 Button(action: {
-                    fb.addPost(image: image, title: title, subjects: list, movie: movie)
+                    if let image = image, let movie = movie {
+                        fb.addPost(image: image, title: title, subjects: list, movie: movie)
+                    }
                     dissmissView = true
                     pres.wrappedValue.dismiss()
                 }, label: {

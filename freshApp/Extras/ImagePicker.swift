@@ -26,7 +26,7 @@ struct ImagePickerView: UIViewControllerRepresentable {
             picker.allowsEditing = true
         }
         picker.videoQuality = .typeLow
-        picker.videoExportPreset = AVAssetExportPreset1920x1080
+        picker.videoExportPreset = AVAssetExportPreset640x480
         return picker
     }
     

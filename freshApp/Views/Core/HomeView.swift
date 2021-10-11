@@ -40,7 +40,7 @@ struct SubjectSelectView: View {
             VStack(alignment: .leading, spacing: 0) {
                 TitleBarView(title: "Subjects")
                 SearchBarView(textFieldText: $vm.AllDataSearchText)              
-                ScrollView() {
+                ScrollView(showsIndicators: false) {
                     LazyVGrid(columns: [GridItem(spacing: 10), GridItem(spacing: 10)], spacing: 10, content: {
                         ForEach(vm.filteredData) { subject in
                             Button(action: {
@@ -98,7 +98,7 @@ struct HomePostView: View {
                     TitleBarView(title: subject.name)
                 }
                 
-                ScrollView {
+                ScrollView(showsIndicators: false) {
                     VStack {
                         ForEach(fb.posts) { post in
                             if post.subjects.contains(subject.name) {

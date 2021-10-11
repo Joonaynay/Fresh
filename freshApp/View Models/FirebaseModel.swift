@@ -50,6 +50,7 @@ class FirebaseModel: ObservableObject {
                 
                 for doc in query!.documents {
                     
+
                     group.enter()
                     var postId = ""
                     let title = doc.get("title") as! String
@@ -62,14 +63,15 @@ class FirebaseModel: ObservableObject {
                             postsArray.append(p)
                         }
                         
+                        
                         group.leave()
                     })
                 }
+                
                 group.notify(queue: .main, execute: {
                     self.loading = false
                     completion(postsArray)
                 })
-                
             }
         }
     }    

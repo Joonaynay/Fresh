@@ -28,9 +28,9 @@ extension FirebaseModel {
             } else {
                 completion(nil)
             }
-            
         }
     }
+    
     
     func saveImage(path: String, file: String, image: UIImage) {
         if path == "Profile Images" {

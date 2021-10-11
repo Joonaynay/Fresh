@@ -35,7 +35,7 @@ struct SearchView: View {
                         .frame(width: 100, height: 100)
                 }
                 Spacer()
-                ScrollView {
+                ScrollView(showsIndicators: false) {
                     if let results = searchResults {
                         ForEach(results) { post in
                             PostView(post: post)
