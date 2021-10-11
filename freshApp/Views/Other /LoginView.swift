@@ -14,7 +14,10 @@ struct LoginView: View {
     @State private var password: String = ""
     @State private var selection: String? = ""
     @State private var showAlert: Bool = false
-    private let tag = "SignUp"
+    
+    @State private var emailVerifyWaiting: Bool = false
+    private let signUpTag = "SignUp"
+    private let profilePictureTag = "profilePicture"
     @EnvironmentObject var fb: FirebaseModel
     
     @Environment(\.colorScheme) var colorScheme
@@ -32,11 +35,13 @@ struct LoginView: View {
                         .frame(maxWidth: .infinity)
                         .frame(height: 50)
                         .background(Color.theme.secondaryText)
+                        .cornerRadius(2)
                     SecureField("Password", text: $password)
                         .padding()
                         .frame(maxWidth: .infinity)
                         .frame(height: 50)
                         .background(Color.theme.secondaryText)
+                        .cornerRadius(2)
                 }
                 .alert(isPresented: $showAlert, content: {
                     Alert(title: Text("Incorrect email or password. Try Again."))
@@ -45,42 +50,45 @@ struct LoginView: View {
                 VStack {
                     Button(action: {
                         self.hideKeyboard()
-                        fb.signIn(email: email, password: password)
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                            if fb.loading {
-                                fb.loading = false
-                                showAlert = true
+                        fb.signIn(email: email, password: password) { isEmailVerified in
+                            if isEmailVerified {
+                                fb.signedIn = true
+                            } else {
+                                emailVerifyWaiting = true
                             }
-                        }                        
+                        }                     
                     }, label: {
                         Text("Login")
                             .frame(maxWidth: .infinity)
                             .frame(height: 50)
                             .foregroundColor(Color.theme.blueTextColor)
                             .background(Color.theme.blueColor)
+                            .cornerRadius(2)
                     })
                     .padding(.horizontal)
-                    Button(action: { selection = tag}, label: {
+                    Button(action: { selection = signUpTag}, label: {
                         Text("Create Account")
                             .frame(width: UIScreen.main.bounds.width / 2.5, height: 45)
-                            .background(Color.theme.blueColor)
                             .foregroundColor(Color.theme.blueTextColor)
+                            .cornerRadius(2)
                     })
-                    .padding(5)
-                    .padding(.bottom)
+                    .padding(2)
+                    .padding(.bottom, 10)
                 }
                 
             }
+            NavigationLink(destination: ProfilePictureView(showSkipButton: true), tag: profilePictureTag, selection: $selection, label: {})
+
             
             NavigationLink(
                 destination: SignUpView(),
-                tag: tag,
+                tag: signUpTag,
                 selection: $selection,
                 label: {})
-            if fb.loading {
-                LoadingView(text: nil)
-            }
         }
+        .fullScreenCover(isPresented: $emailVerifyWaiting, content: {
+            WaitingForEmailVerification(selection: $selection, dissmissView: .constant(nil))
+        })
         .background(
             Image(colorScheme == .dark ? "darkmode" : "lightmode")
                 .resizable()
@@ -106,6 +114,8 @@ struct SignUpView: View {
     @State private var selection: String? = ""
     private let profilePictureTag = "profilePicture"
     
+    
+    @State private var nextButtonDisabled: Bool = true
     @State private var emailVerifyWaiting: Bool = false
     
     @EnvironmentObject private var fb: FirebaseModel
@@ -114,26 +124,54 @@ struct SignUpView: View {
     @Environment(\.presentationMode) var pres
     
     var body: some View {
-        ZStack {
-            VStack(alignment: .leading) {
-                Form {
-                    Section(header: Text("Name")) {
-                        TextField("First Name", text: $firstName)
-                        TextField("Last Name", text: $lastName)
-                    }
-                    Section(header: Text("Username (Users will see this name.)")) {
-                        TextField("Username", text: $username)
-                    }
-                    Section(header: Text("Email")) {
-                        TextField("Email", text: $email)
-                    }
-                    Section(header: Text("Password")) {
-                        SecureField("Password", text: $password)
-                        SecureField("Confirm Password", text: $confirmPassword)
-                    }
+        ZStack(alignment: .topLeading) {
+            VStack(alignment: .leading, spacing: 0) {
+                ScrollView(showsIndicators: false) {
+                    TextField("First Name", text: $firstName)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 50)
+                        .padding(.horizontal)
+                        .background(Color.theme.secondaryText)
+                        .cornerRadius(2)
+                        .padding(.top)
+                    TextField("Last Name", text: $lastName)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 50)
+                        .padding(.horizontal)
+                        .background(Color.theme.secondaryText)
+                        .cornerRadius(2)
+                        .padding(.top)
+                    TextField("Username", text: $username)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 50)
+                        .padding(.horizontal)
+                        .background(Color.theme.secondaryText)
+                        .cornerRadius(2)
+                        .padding(.top)
+                    TextField("Email", text: $email)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 50)
+                        .padding(.horizontal)
+                        .background(Color.theme.secondaryText)
+                        .cornerRadius(2)
+                        .padding(.top)
+                    SecureField("Password", text: $password)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 50)
+                        .padding(.horizontal)
+                        .background(Color.theme.secondaryText)
+                        .cornerRadius(2)
+                        .padding(.top)
+                    SecureField("Confirm Password", text: $confirmPassword)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 50)
+                        .padding(.horizontal)
+                        .background(Color.theme.secondaryText)
+                        .cornerRadius(2)
+                        .padding(.top)
                 }
                 Button(action: {
-                    fb.signUp(email: email, password: password, name: "\(firstName) \(lastName)", username: username) { errorMessage in
+                    fb.signUp(email: email, password: password, confirm: confirmPassword, name: "\(firstName) \(lastName)", username: username) { errorMessage in
                         if errorMessage != nil {
                             alertText = errorMessage!
                             showAlert.toggle()
@@ -145,26 +183,35 @@ struct SignUpView: View {
                     Text("Create Account")
                         .frame(maxWidth: .infinity)
                         .frame(height: 50)
-                        .foregroundColor(Color.theme.blueTextColor)
-                        .background(Color.theme.blueColor)
+                        .foregroundColor(nextButtonDisabled ? Color(.systemGray2) : Color.theme.blueTextColor)
+                        .background(nextButtonDisabled ? Color(.systemGray3) : Color.theme.blueColor)
+                        .cornerRadius(2)
                 })
-                .alert(isPresented: $showAlert, content: {
-                    Alert(title: Text(alertText))
-                })
+                .disabled(nextButtonDisabled)
             }
-            .fullScreenCover(isPresented: $emailVerifyWaiting, content: {
-                WaitingForEmailVerification(selection: $selection, dissmissView: $dissmissView)
+            .onChange(of: firstName.isEmpty || lastName.isEmpty || username.isEmpty || email.isEmpty || password.isEmpty || confirmPassword.isEmpty, perform: { _ in
+                if !firstName.isEmpty && !lastName.isEmpty && !username.isEmpty && !email.isEmpty && !password.isEmpty && !confirmPassword.isEmpty {
+                    nextButtonDisabled = false
+                }
             })
+            .alert(isPresented: $showAlert, content: {
+                Alert(title: Text(alertText))
+            })
+
             .navigationTitle("Create Account")
             .navigationBarTitleDisplayMode(.inline)
             .padding()
             NavigationLink(destination: ProfilePictureView(showSkipButton: true), tag: profilePictureTag, selection: $selection, label: {})
-            if fb.loading {
-                LoadingView(text: nil)
-            }
+
         }
-        .onChange(of: dissmissView, perform: { _ in
-            pres.wrappedValue.dismiss()
+        .onChange(of: dissmissView, perform: { value in
+            if dissmissView == true {
+                pres.wrappedValue.dismiss()
+            }
+            
+        })
+        .fullScreenCover(isPresented: $emailVerifyWaiting, content: {
+            WaitingForEmailVerification(selection: $selection, dissmissView: $dissmissView)
         })
         .background(
             Image(colorScheme == .dark ? "darkmode" : "lightmode")

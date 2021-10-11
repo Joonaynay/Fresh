@@ -66,14 +66,17 @@ extension FirebaseModel {
     }
     
     func getDocs(collection: String, completion:@escaping (QuerySnapshot?) -> Void) {
+        
+        
         //Load Documents
         db.collection(collection).getDocuments { docs, error in
             
             //Check for error
             if error == nil {
-                
                 //Return documents
                 completion(docs)
+            } else {
+                completion(nil)
             }
         }
     }

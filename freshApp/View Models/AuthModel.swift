@@ -25,53 +25,66 @@ extension FirebaseModel {
     }
     
     
-    func signIn(email: String, password: String) {
+    func signIn(email: String, password: String, completion:@escaping (Bool) -> Void) {
         
         self.loading = true
         self.auth.signIn(withEmail: email, password: password) { result, error in
             if result != nil && error == nil {
-                
-                //Save uid to userdefaults
-                UserDefaults.standard.setValue(self.auth.currentUser?.uid, forKeyPath: "uid")
-                self.signedIn = true
-                self.loading = false
-                self.loadUser(uid: self.auth.currentUser!.uid) { user in
-                    if let user = user {
-                        self.currentUser = user
-                        
-                        //Save to Core Data
-                        let currentUser = CurrentUser(context: self.cd.context)
-                        currentUser.username = user.username
-                        currentUser.id = self.auth.currentUser?.uid
-                        currentUser.name = user.name
-                        currentUser.followers = user.followers
-                        currentUser.following = user.following
-                        self.cd.save()
-                        
-                        //Save ProfileImage to FileManager
-                        if let profileImage = user.profileImage {
-                            self.file.saveImage(image: profileImage, name: user.id)
+                if self.auth.currentUser!.isEmailVerified {
+                    completion(true)
+                    
+                    //Save uid to userdefaults
+                    UserDefaults.standard.setValue(self.auth.currentUser?.uid, forKeyPath: "uid")
+                    
+                    self.loading = false
+                    self.loadUser(uid: self.auth.currentUser!.uid) { user in
+                        if let user = user {
+                            self.currentUser = user
+                            
+                            //Save to Core Data
+                            let currentUser = CurrentUser(context: self.cd.context)
+                            currentUser.username = user.username
+                            currentUser.id = self.auth.currentUser?.uid
+                            currentUser.name = user.name
+                            currentUser.followers = user.followers
+                            currentUser.following = user.following
+                            self.cd.save()
+                            
+                            //Save ProfileImage to FileManager
+                            if let profileImage = user.profileImage {
+                                self.file.saveImage(image: profileImage, name: user.id)
+                            }
                         }
                     }
+                } else {
+                    completion(false)
                 }
             }
         }
         
     }
     
-    func signUp(email: String, password: String, name: String, username: String, completion:@escaping (String?) -> Void) {
-        //Set loading to true
-        self.loading = true
+    func signUp(email: String, password: String, confirm: String, name: String, username: String, completion:@escaping (String?) -> Void) {
         
-        self.getDocs(collection: "users") { query in
-            for doc in query!.documents {
-                let otherUsername = doc.get("username") as! String
-                if otherUsername == username {
-                    self.loading = false
-                    completion("That username is already taken.")
-                    break
+        
+        
+        if confirm == password {            
+            
+            self.getDocs(collection: "users") { query in
+                let group = DispatchGroup()
+                for doc in query!.documents {
+                    group.enter()
+                    let otherUsername = doc.get("username") as! String
+                    if otherUsername == username {
+                        group.leave()
+                        completion("That username is already taken.")
+                        break
+                    } else {
+                        group.leave()
+                    }
                 }
-                if doc == query!.documents.last && otherUsername != username {
+                
+                group.notify(queue: .main) {
                     //Create User
                     self.auth.createUser(withEmail: email, password: password) { [self] result, error in
                         
@@ -98,25 +111,24 @@ extension FirebaseModel {
                             //Send Email Verification
                             self.auth.currentUser!.sendEmailVerification(completion: { error in
                                 if error != nil {
-                                    self.loading = false
                                     completion(error?.localizedDescription)
                                 } else {
                                     self.loadUser(uid: self.auth.currentUser!.uid) { user in
                                         self.currentUser = user!
                                     }
-                                    self.loading = false
                                     completion(nil)
                                 }
                             })
                             
                         } else {
                             // Return Error
-                            self.loading = false
                             completion(error?.localizedDescription)
                         }
                     }
                 }
             }
+        } else {
+            completion("Password and confirm password do not match.")
         }
     }
     
