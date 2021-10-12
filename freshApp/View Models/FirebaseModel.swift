@@ -22,6 +22,7 @@ class FirebaseModel: ObservableObject {
     @Published var signedIn = false
     @Published var posts: [Post] = []
     @Published var loading: Bool = false
+    @Published var users: [User] = []
     @Published var currentUser = User(id: "", username: "", name: "", profileImage: nil, following: [], followers: [], posts: nil)
     
     init() {

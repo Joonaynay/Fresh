@@ -62,73 +62,80 @@ extension FirebaseModel {
             }
         }
         
+        
     }
     
     func signUp(email: String, password: String, confirm: String, name: String, username: String, completion:@escaping (String?) -> Void) {
         
-        
-        
-        if confirm == password {            
-            
-            self.getDocs(collection: "users") { query in
-                let group = DispatchGroup()
-                for doc in query!.documents {
-                    group.enter()
-                    let otherUsername = doc.get("username") as! String
-                    if otherUsername == username {
-                        group.leave()
-                        completion("That username is already taken.")
-                        break
-                    } else {
-                        group.leave()
-                    }
-                }
-                
-                group.notify(queue: .main) {
-                    //Create User
-                    self.auth.createUser(withEmail: email, password: password) { [self] result, error in
+        if name.count < 45 {
+            if username.count < 20 {
+                if confirm == password {
+                    
+                    self.getDocs(collection: "users") { query in
+                        let group = DispatchGroup()
+                        for doc in query!.documents {
+                            group.enter()
+                            let otherUsername = doc.get("username") as! String
+                            if otherUsername == username {
+                                group.leave()
+                                completion("That username is already taken.")
+                                break
+                            } else {
+                                group.leave()
+                            }
+                        }
                         
-                        //Check for success
-                        if result != nil && error == nil {
-                            
-                            //Save to Core Data
-                            let currentUser = CurrentUser(context: self.cd.context)
-                            currentUser.username = username
-                            currentUser.id = self.auth.currentUser?.uid
-                            currentUser.name = name
-                            currentUser.followers = []
-                            currentUser.following = []
-                            self.cd.save()
-                            
-                            //Save uid to userdefaults
-                            UserDefaults.standard.setValue(self.auth.currentUser?.uid, forKeyPath: "uid")
-                            
-                            
-                            // Save data in Firestore
-                            let dict = ["name": name, "username": username, "posts": [], "followers": [], "following": []] as [String : Any]
-                            self.newDoc(collection: "users", document: self.auth.currentUser?.uid, data: dict) { uid in }
-                            
-                            //Send Email Verification
-                            self.auth.currentUser!.sendEmailVerification(completion: { error in
-                                if error != nil {
-                                    completion(error?.localizedDescription)
+                        group.notify(queue: .main) {
+                            //Create User
+                            self.auth.createUser(withEmail: email, password: password) { [self] result, error in
+                                
+                                //Check for success
+                                if result != nil && error == nil {
+                                    
+                                    //Save to Core Data
+                                    let currentUser = CurrentUser(context: self.cd.context)
+                                    currentUser.username = username
+                                    currentUser.id = self.auth.currentUser?.uid
+                                    currentUser.name = name
+                                    currentUser.followers = []
+                                    currentUser.following = []
+                                    self.cd.save()
+                                    
+                                    //Save uid to userdefaults
+                                    UserDefaults.standard.setValue(self.auth.currentUser?.uid, forKeyPath: "uid")
+                                    
+                                    
+                                    // Save data in Firestore
+                                    let dict = ["name": name, "username": username, "posts": [], "followers": [], "following": []] as [String : Any]
+                                    self.newDoc(collection: "users", document: self.auth.currentUser?.uid, data: dict) { uid in }
+                                    
+                                    //Send Email Verification
+                                    self.auth.currentUser!.sendEmailVerification(completion: { error in
+                                        if error != nil {
+                                            completion(error?.localizedDescription)
+                                        } else {
+                                            self.loadUser(uid: self.auth.currentUser!.uid) { user in
+                                                self.currentUser = user!
+                                            }
+                                            completion(nil)
+                                        }
+                                    })
+                                    
                                 } else {
-                                    self.loadUser(uid: self.auth.currentUser!.uid) { user in
-                                        self.currentUser = user!
-                                    }
-                                    completion(nil)
+                                    // Return Error
+                                    completion(error?.localizedDescription)
                                 }
-                            })
-                            
-                        } else {
-                            // Return Error
-                            completion(error?.localizedDescription)
+                            }
                         }
                     }
+                } else {
+                    completion("Password and confirm password do not match.")
                 }
+            } else {
+                completion("Username must be less than 20 characters.")
             }
         } else {
-            completion("Password and confirm password do not match.")
+            completion("First and last name must be less than 45 characters.")
         }
     }
     
@@ -150,5 +157,6 @@ extension FirebaseModel {
         }        
         self.signedIn = false
     }
+    
     
 }

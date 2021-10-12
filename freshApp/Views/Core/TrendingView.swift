@@ -54,7 +54,12 @@ struct TrendingView: View {
                         })
                 )
             }
-            
+            .onAppear() {
+                if fb.posts.isEmpty {
+                    fb.loadPosts()
+                    fb.loadFollowingPosts()
+                }
+            }
         }
         .background(
             Image(colorScheme == .dark ? "darkmode" : "lightmode")

@@ -35,8 +35,6 @@ struct PostProfileView: View {
     
     var body: some View {
         ZStack {
-            Color.theme.background
-                .ignoresSafeArea()
             VStack {
                 HStack {
                     Button(action: { pres.wrappedValue.dismiss() }, label: {
@@ -65,19 +63,25 @@ struct PostProfileView: View {
                     })
                     
                     Text(user.username)
-                    Button(action: {
-                        withAnimation(.spring()) {
+                        .padding()
+                    HStack {
+                        Button(action: {
                             animate.toggle()
+                            fb.followUser(followUser: user)
+                        }, label: {
+                            Text(animate ? "Unfollow" : "Follow")
+                                .frame(width: animate ? (UIScreen.main.bounds.width / 2.5) : (UIScreen.main.bounds.width / 3.5), height: 45)
+                                .foregroundColor(Color.theme.blueTextColor)
+                                .background(Color.theme.blueColor)
+                            
+                        })
+                        VStack {
+                            Text("\(user.followers.count)")
+                            Text("Followers")
+                                .foregroundColor(Color.theme.secondaryText)
                         }
-                        fb.followUser(followUser: user)
-                    }, label: {
-                        Text(animate ? "Unfollow" : "Follow")
-                            .frame(width: animate ? (UIScreen.main.bounds.width / 2.5) : (UIScreen.main.bounds.width / 3.5), height: 45)
-                            .foregroundColor(Color.theme.blueTextColor)
-                            .background(Color.theme.blueColor)
-                        
-                    })
-                    .padding()
+                    }
+                    .padding(.bottom, 20)
                     .onAppear() {
                         let db = Firestore.firestore()
                         
@@ -88,27 +92,20 @@ struct PostProfileView: View {
                                 animate = true
                             }
                         }
+                        fb.loadProfilePosts(user: user)
                     }
-                    HStack {
-                        VStack {
-                            Text("\(user.followers.count)")
-                            Text("Followers")
-                                .foregroundColor(Color.theme.secondaryText)
-                        }
-                        .padding()
-                        VStack {
-                            Text("\(user.following.count)")
-                            Text("Following")
-                                .foregroundColor(Color.theme.secondaryText)
-                        }
-                        .padding()
-                    }
-                    ForEach(fb.posts) { post in
-                        if post.user.id == user.id {
-                            Image(uiImage: post.image)
-                                .resizable()
-                                .frame(width: UIScreen.main.bounds.width / 1.5, height: (UIScreen.main.bounds.width / 1.5) * 9/16)
-                            
+                    LazyVGrid(columns: [GridItem(spacing: 3), GridItem(spacing: 3)]) {
+                        if let posts = user.posts {
+                            ForEach(posts) { post in
+                                VStack {
+                                    Image(uiImage: post.image)
+                                        .resizable()
+                                        .frame(width: UIScreen.main.bounds.width / 2.1, height: (UIScreen.main.bounds.width / 2.1) * 9/16)
+                                    Text("\(post.title)")
+                                        .multilineTextAlignment(.leading)
+                                    Spacer()
+                                }
+                            }
                         }
                     }
                 }
@@ -138,7 +135,6 @@ struct CurrentProfileView: View {
     
     var body: some View {
         ZStack {
-            
             VStack {
                 HStack {
                     Button(action: { pres.wrappedValue.dismiss() }, label: {
@@ -167,17 +163,17 @@ struct CurrentProfileView: View {
                     })
                     
                     Text(fb.currentUser.username)
-                    Button(action: {
-                        showSheet = true
-                    }, label: {
-                        Text("Edit Profile")
-                            .frame(width: UIScreen.main.bounds.width / 2.5, height: 45)
-                            .foregroundColor(Color.theme.blueTextColor)
-                            .background(Color.theme.blueColor)
-                        
-                    })
-                    .padding()
+                        .padding()
                     HStack {
+                        Button(action: {
+                            showSheet = true
+                        }, label: {
+                            Text("Edit Profile")
+                                .frame(width: UIScreen.main.bounds.width / 2.5, height: 45)
+                                .foregroundColor(Color.theme.blueTextColor)
+                                .background(Color.theme.blueColor)
+                            
+                        })
                         VStack {
                             Text("\(fb.currentUser.followers.count)")
                             Text("Followers")
@@ -193,19 +189,21 @@ struct CurrentProfileView: View {
                                 }
                             }
                         }
-                        .padding()
-                        VStack {
-                            Text("\(fb.currentUser.following.count)")
-                            Text("Following")
-                                .foregroundColor(Color.theme.secondaryText)
-                        }
-                        .padding()
                     }
-                    ForEach(fb.posts) { post in
-                        if post.user.id == fb.currentUser.id {
-                            Image(uiImage: post.image)
-                                .resizable()
-                                .frame(width: UIScreen.main.bounds.width / 1.5, height: (UIScreen.main.bounds.width / 1.5) * 9/16)
+                    .padding(.bottom, 20)
+                    
+                    LazyVGrid(columns: [GridItem(spacing: 3), GridItem(spacing: 3)]) {
+                        ForEach(fb.posts) { post in
+                            if post.user.id == fb.currentUser.id {
+                                VStack {
+                                    Image(uiImage: post.image)
+                                        .resizable()
+                                        .frame(width: UIScreen.main.bounds.width / 2.1, height: (UIScreen.main.bounds.width / 2.1) * 9/16)
+                                    Text("\(post.title)")
+                                        .multilineTextAlignment(.leading)
+                                    Spacer()
+                                }
+                            }
                         }
                     }
                 }

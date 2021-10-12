@@ -23,6 +23,38 @@ struct Post: Identifiable {
 
 extension FirebaseModel {
     
+    func loadProfilePosts(user: User) {
+        getDocs(collection: "posts") { query in
+            let group = DispatchGroup()
+            var loadedPosts = [Post]()
+            for doc in query!.documents {
+                group.enter()
+                let title = doc.get("title") as! String
+                let postId = doc.documentID
+                let date = doc.get("date") as! String
+                let likes = doc.get("likes") as! [String]
+                self.loadImage(path: "images", id: postId) { image in
+                    self.loadMovie(path: "videos", file: "\(postId).m4v") { movie in
+                        if let movie = movie {
+                            loadedPosts.append(Post(id: postId, image: image!, title: title, subjects: [], date: date, user: user, likes: likes, comments: nil, movie: movie))
+                        }
+                        group.leave()
+                    }
+                }
+            }
+            group.notify(queue: .main) {
+                let index = self.users.firstIndex { userIndex in
+                    userIndex.id == user.id
+                }
+                if let index = index {
+                    var user = self.users[index]
+                    user.posts = loadedPosts
+                }
+                self.posts.append(contentsOf: loadedPosts)
+            }
+        }
+    }
+    
     func loadFollowingPosts() {
         self.loading = true
         

@@ -15,14 +15,15 @@ struct User: Identifiable {
     var profileImage: UIImage?
     var following: [String]
     var followers: [String]
-    let posts: [String]?
+    var posts: [Post]?
 }
 
 extension FirebaseModel {
     
-    
     func followUser(followUser: User) {
-        if !followUser.followers.contains(currentUser.id) {
+        if !currentUser.following.contains(followUser.id) {
+            //Follow the user
+            
             //Save who the user followed
             self.save(collection: "users", document: currentUser.id, field: "following", data: [followUser.id])
             
@@ -39,6 +40,7 @@ extension FirebaseModel {
             cd.save()
             
         } else {
+            // Unfollow user
             db.collection("users").document(followUser.id).updateData(["followers": FieldValue.arrayRemove([currentUser.id])])
             db.collection("users").document(currentUser.id).updateData(["following": FieldValue.arrayRemove([followUser.id])])
             
@@ -84,6 +86,7 @@ extension FirebaseModel {
                     
                     //Create User
                     let user = User(id: uid, username: username, name: nil, profileImage: profileImage, following: [], followers: [], posts: nil)
+                    self.users.append(user)
                     
                     //Return User
                     completion(user)
@@ -93,7 +96,6 @@ extension FirebaseModel {
     }
     
     func loadUser(uid: String, completion:@escaping (User?) -> Void) {
-        
         
         //Check if can load from Core Data
         if let user = cd.fetchUser(uid: uid) {
@@ -117,7 +119,6 @@ extension FirebaseModel {
                 let name = doc?.get("name") as! String
                 let following = doc?.get("following") as! [String]
                 let followers = doc?.get("followers") as! [String]
-                let posts = doc?.get("posts") as! [String]
                 
                 //Load Profile Image
                 self.loadImage(path: "Profile Images", id: uid) { profileImage in
@@ -126,7 +127,8 @@ extension FirebaseModel {
                     
                     
                     //Create User
-                    let user = User(id: uid, username: username, name: name, profileImage: profileImage, following: following, followers: followers, posts: posts)
+                    let user = User(id: uid, username: username, name: name, profileImage: profileImage, following: following, followers: followers, posts: nil)
+                    self.users.append(user)
                     
                     //Return User
                     completion(user)

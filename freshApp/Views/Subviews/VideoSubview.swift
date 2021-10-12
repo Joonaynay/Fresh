@@ -18,6 +18,7 @@ struct VideoSubview: View {
     private let ProfileViewTag = "ProfileView"
     @State private var selection: String? = ""
     @State private var overlayImage: Bool = true
+    @State private var follow: Bool = false
     
     @State var player: AVPlayer?
     
@@ -27,7 +28,6 @@ struct VideoSubview: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             VStack(alignment: .leading, spacing: 0) {
-                
                 
                 if overlayImage {
                     
@@ -66,65 +66,82 @@ struct VideoSubview: View {
                 selection: $selection,
                 label: {})
             HStack {
-                Spacer()
-                
-                Button(action: {
-                    fb.likePost(currentPost: post)
-                }, label: {
-                    if liked {
-                        Image(systemName: "hand.thumbsup.fill")
-                            .resizable()
-                            .frame(width: 25, height: 25)
-                            .foregroundColor(Color.theme.blueColor)
-                    } else {
-                        
-                        Image(systemName: "hand.thumbsup")
-                            .resizable()
-                            .frame(width: 25, height: 25)
-                    }
-
-                })
-                .onAppear() {
-                    let db = Firestore.firestore()
-                    db.collection("posts").document(post.id).addSnapshotListener { doc, error in
-                        if error == nil {
-                            self.post.likes = doc?.get("likes") as! [String]
-                            if self.post.likes.contains(fb.currentUser.id) {
-                                self.liked = true
-                            } else {
-                                self.liked = false
-                            }
+                Button(action: { selection = ProfileViewTag}, label: {
+                    HStack {
+                        if post.user.profileImage != nil {
+                            Image(uiImage: post.user.profileImage!)
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 35, height: 35)
+                                .clipped()
+                                .clipShape(Circle())
+                                .scaledToFill()
+                        } else {
+                            Image(systemName: "person.circle.fill")
+                                .resizable()
+                                .frame(width: 35, height: 35)
                         }
+                        Text(post.user.username)
+                            .multilineTextAlignment(.leading)
+                            .font(.callout)
+                    }.padding(10)
+                })
+                .buttonStyle(PlainButtonStyle())
+                Spacer()
+                VStack {
+                    HStack {
+                        Button(action: {
+                            fb.likePost(currentPost: post)
+                        }, label: {
+                            if liked {
+                                Image(systemName: "hand.thumbsup.fill")
+                                    .resizable()
+                                    .frame(width: 25, height: 25)
+                                    .foregroundColor(Color.theme.blueColor)
+                            } else {
+                                
+                                Image(systemName: "hand.thumbsup")
+                                    .resizable()
+                                    .frame(width: 25, height: 25)
+                            }
+                            
+                        })
+                        .onAppear() {
+                            let db = Firestore.firestore()
+                            db.collection("posts").document(post.id).addSnapshotListener { doc, error in
+                                if error == nil {
+                                    self.post.likes = doc?.get("likes") as! [String]
+                                    if self.post.likes.contains(fb.currentUser.id) {
+                                        self.liked = true
+                                    } else {
+                                        self.liked = false
+                                    }
+                                }
+                            }
+                            if fb.currentUser.following.contains(post.user.id) {
+                                follow = true
+                            }
+                            
+                        }
+                        
+                        Text("\(post.likes.count)")
+                            .font(Font.headline.weight(.bold))
                     }
-                    
+                    if post.user.id != fb.currentUser.id {
+                        Button(action: {
+                            fb.followUser(followUser: post.user)
+                            follow.toggle()
+                        }, label: {
+                            Text(follow ? "Unfollow" : "Follow")
+                                .frame(width: follow ? (UIScreen.main.bounds.width / 3) : (UIScreen.main.bounds.width / 4), height: 40)
+                                .foregroundColor(Color.theme.blueTextColor)
+                                .background(Color.theme.blueColor)
+                        })
+                    }
                 }
-                
-                Text("\(post.likes.count)")
-                    .font(Font.headline.weight(.bold))
             }
-            .padding(.horizontal)
             
-            Button(action: { selection = ProfileViewTag}, label: {
-                HStack {
-                    if post.user.profileImage != nil {
-                        Image(uiImage: post.user.profileImage!)
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 35, height: 35)
-                            .clipped()
-                            .clipShape(Circle())
-                            .scaledToFill()
-                    } else {
-                        Image(systemName: "person.circle.fill")
-                            .resizable()
-                            .frame(width: 35, height: 35)
-                    }
-                    Text(post.user.username)
-                        .multilineTextAlignment(.leading)
-                        .font(.callout)
-                }.padding(10)
-            })
-            .buttonStyle(PlainButtonStyle())
+            .padding(.horizontal)
             
             Text(post.date)
                 .font(.caption2)
