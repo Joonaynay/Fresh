@@ -32,7 +32,7 @@ struct FollowingView: View {
                         VStack {
                             ForEach(fb.posts) { post in
                                 if fb.currentUser.following.contains(post.user.id) {
-                                    PostView(post: post)
+                                    PostView(post: post, user: post.user)
                                 }
                             }
                         }

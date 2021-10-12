@@ -30,7 +30,7 @@ struct TrendingView: View {
                             .foregroundColor(.clear)
                         VStack {
                             ForEach(fb.posts) { post in
-                                PostView(post: post)
+                                PostView(post: post, user: post.user)
                             }
                         }
                     }

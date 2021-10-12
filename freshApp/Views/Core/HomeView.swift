@@ -95,7 +95,7 @@ struct HomePostView: View {
                     VStack {
                         ForEach(fb.posts) { post in
                             if post.subjects.contains(subject.name) {
-                                PostView(post: post)
+                                PostView(post: post, user: post.user)
                             }
                         }
                     }

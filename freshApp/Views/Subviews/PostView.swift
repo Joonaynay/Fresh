@@ -17,15 +17,15 @@ struct PostView: View {
     private let VideoViewTag = "VideoViewTag"
     private let ProfileViewTag = "ProfileView"
     
-    init(post: Post) {
-        self.post = post
-        let index = fb.users.firstIndex { userIndex in
-            userIndex.id == post.user.id
-        }
-        if let index = index {
-            self.user = fb.users[index]
-        }
-    }
+//    init(post: Post) {
+//        self.post = post
+//        let index = fb.users.firstIndex { userIndex in
+//            userIndex.id == post.user.id
+//        }
+//        if let index = index {
+//            self.user = fb.users[index]
+//        }
+//    }
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {

@@ -38,7 +38,7 @@ struct SearchView: View {
                 ScrollView(showsIndicators: false) {
                     if let results = searchResults {
                         ForEach(results) { post in
-                            PostView(post: post)
+                            PostView(post: post, user: post.user)
                         }
                     }
                 }

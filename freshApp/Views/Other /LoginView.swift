@@ -239,14 +239,32 @@ struct WaitingForEmailVerification: View {
     
     var body: some View {
         VStack(spacing: 0) {
+            HStack {
+                Button {
+                    fb.signOut()
+                    pres.wrappedValue.dismiss()
+                    dissmissView = true
+                } label: {
+                    Text("Cancel")
+                        .foregroundColor(Color.theme.blueTextColor)
+                }
+                .padding(.bottom)
+                Spacer()
+            }
             Text("Waiting for email to be verified...")
                 .multilineTextAlignment(.center)
                 .font(.title)
-            Button("Cancel") {
-                fb.signOut()
-                pres.wrappedValue.dismiss()
-                dissmissView = true
+            Button {
+                Auth.auth().currentUser?.sendEmailVerification(completion: { error in
+                    if let error = error {
+                        fatalError(error.localizedDescription)
+                    }
+                })
+            } label: {
+                Text("Resend email verification code.")
             }
+            .padding()
+
             Spacer()
                 .font(.caption2)
             ProgressView()
