@@ -78,7 +78,7 @@ struct LoginView: View {
                 
             }
             NavigationLink(destination: ProfilePictureView(showSkipButton: true), tag: profilePictureTag, selection: $selection, label: {})
-
+            
             
             NavigationLink(
                 destination: SignUpView(),
@@ -197,12 +197,12 @@ struct SignUpView: View {
             .alert(isPresented: $showAlert, content: {
                 Alert(title: Text(alertText))
             })
-
+            
             .navigationTitle("Create Account")
             .navigationBarTitleDisplayMode(.inline)
             .padding()
             NavigationLink(destination: ProfilePictureView(showSkipButton: true), tag: profilePictureTag, selection: $selection, label: {})
-
+            
         }
         .onChange(of: dissmissView, perform: { value in
             if dissmissView == true {
@@ -235,7 +235,12 @@ struct WaitingForEmailVerification: View {
     @State private var alertText: String = ""
     @Environment(\.presentationMode) private var pres
     
+    @State private var resendDisabeld = true
+    
     @Binding var dissmissView: Bool?
+    
+    private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    @State private var count = 60
     
     var body: some View {
         VStack(spacing: 0) {
@@ -255,36 +260,54 @@ struct WaitingForEmailVerification: View {
                 .multilineTextAlignment(.center)
                 .font(.title)
             Button {
+                count = 60
+                resendDisabeld = true
                 Auth.auth().currentUser?.sendEmailVerification(completion: { error in
                     if let error = error {
                         fatalError(error.localizedDescription)
                     }
                 })
             } label: {
-                Text("Resend email verification code.")
+                VStack {
+                    Text("Resend email verification code.")
+                    if count != 0 {
+                        Text("\(count)")
+                    }
+                }
             }
+            .disabled(resendDisabeld)
+            .onReceive(timer, perform: { _ in
+                if count == 0 {
+                    resendDisabeld = false
+                } else {
+                    count -= 1
+                }
+                
+            })
             .padding()
-
+            
             Spacer()
                 .font(.caption2)
             ProgressView()
             Spacer()
             Button(action: {
-                DispatchQueue.main.async {
-                    Auth.auth().currentUser?.reload(completion: { error in
-                        if let error = error {
-                            fatalError(error.localizedDescription)
-                        } else {
-                            if Auth.auth().currentUser!.isEmailVerified {
+                Auth.auth().currentUser?.reload(completion: { error in
+                    if let error = error {
+                        fatalError(error.localizedDescription)
+                    } else {
+                        if Auth.auth().currentUser!.isEmailVerified {
+                            DispatchQueue.main.async {
                                 pres.wrappedValue.dismiss()
                                 selection = profilePictureTag
-                            } else {
+                            }
+                        } else {
+                            DispatchQueue.main.async {
                                 showAlert = true
                                 alertText = "Please verify your email."
                             }
                         }
-                    })
-                }
+                    }
+                })
             }, label: {
                 Text("Done")
                     .frame(maxWidth: .infinity)
