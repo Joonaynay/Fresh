@@ -12,13 +12,14 @@ struct MainView: View {
     
     @EnvironmentObject var fb: FirebaseModel
     @State var tab: Int = 1
+    @State private var dissmissView: Bool? = false
     
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.scenePhase) var scenePhase
- 
+    
     var body: some View {
         
-        if fb.signedIn {
+        if fb.signedIn && Auth.auth().currentUser?.isEmailVerified == true {
             TabView(selection: $tab) {
                 TrendingView().tabItem { Image(systemName: "network") }.tag(1)
                 HomeView().tabItem { Image(systemName: "list.dash") }.tag(2)

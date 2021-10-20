@@ -15,9 +15,7 @@ struct LoginView: View {
     @State private var selection: String? = ""
     @State private var showAlert: Bool = false
     
-    @State private var emailVerifyWaiting: Bool = false
     private let signUpTag = "SignUp"
-    private let profilePictureTag = "profilePicture"
     @EnvironmentObject var fb: FirebaseModel
     
     @Environment(\.colorScheme) var colorScheme
@@ -53,8 +51,6 @@ struct LoginView: View {
                         fb.signIn(email: email, password: password) { isEmailVerified in
                             if isEmailVerified {
                                 fb.signedIn = true
-                            } else {
-                                emailVerifyWaiting = true
                             }
                         }                     
                     }, label: {
@@ -76,9 +72,7 @@ struct LoginView: View {
                     .padding(.bottom, 10)
                 }
                 
-            }
-            NavigationLink(destination: ProfilePictureView(showSkipButton: true), tag: profilePictureTag, selection: $selection, label: {})
-            
+            }            
             
             NavigationLink(
                 destination: SignUpView(),
@@ -86,9 +80,6 @@ struct LoginView: View {
                 selection: $selection,
                 label: {})
         }
-        .fullScreenCover(isPresented: $emailVerifyWaiting, content: {
-            WaitingForEmailVerification(selection: $selection, dissmissView: .constant(nil))
-        })
         .background(
             Image(colorScheme == .dark ? "darkmode" : "lightmode")
                 .resizable()
@@ -112,11 +103,10 @@ struct SignUpView: View {
     @State private var alertText: String = ""
     
     @State private var selection: String? = ""
-    private let profilePictureTag = "profilePicture"
+    private let emailVerificationTag = "emailVerificationTag"
     
     
     @State private var nextButtonDisabled: Bool = true
-    @State private var emailVerifyWaiting: Bool = false
     
     @EnvironmentObject private var fb: FirebaseModel
     @State var dissmissView: Bool?
@@ -176,7 +166,7 @@ struct SignUpView: View {
                             alertText = errorMessage!
                             showAlert.toggle()
                         } else {
-                            emailVerifyWaiting = true
+                            selection = emailVerificationTag
                         }
                     }
                 }, label: {
@@ -201,17 +191,13 @@ struct SignUpView: View {
             .navigationTitle("Create Account")
             .navigationBarTitleDisplayMode(.inline)
             .padding()
-            NavigationLink(destination: ProfilePictureView(showSkipButton: true), tag: profilePictureTag, selection: $selection, label: {})
-            
+            NavigationLink(destination: WaitingForEmailVerification(dissmissView: $dissmissView), tag: emailVerificationTag, selection: $selection, label: {})
         }
         .onChange(of: dissmissView, perform: { value in
             if dissmissView == true {
                 pres.wrappedValue.dismiss()
             }
             
-        })
-        .fullScreenCover(isPresented: $emailVerifyWaiting, content: {
-            WaitingForEmailVerification(selection: $selection, dissmissView: $dissmissView)
         })
         .background(
             Image(colorScheme == .dark ? "darkmode" : "lightmode")
@@ -224,7 +210,7 @@ struct SignUpView: View {
 
 struct WaitingForEmailVerification: View {
     
-    @Binding var selection: String?
+    @State var selection: String? = ""
     private let profilePictureTag = "profilePicture"
     
     @EnvironmentObject private var fb: FirebaseModel
@@ -297,7 +283,6 @@ struct WaitingForEmailVerification: View {
                     } else {
                         if Auth.auth().currentUser!.isEmailVerified {
                             DispatchQueue.main.async {
-                                pres.wrappedValue.dismiss()
                                 selection = profilePictureTag
                             }
                         } else {
@@ -316,8 +301,10 @@ struct WaitingForEmailVerification: View {
                     .background(Color.theme.blueColor)
             })
             Text("You should have recieved an email with a link to verify your account.").multilineTextAlignment(.center)
+            NavigationLink(destination: ProfilePictureView(showSkipButton: true), tag: profilePictureTag, selection: $selection, label: {})
         }
         .padding()
+        .navigationBarHidden(true)
         .alert(isPresented: $showAlert) {
             Alert(title: Text(alertText))
         }
