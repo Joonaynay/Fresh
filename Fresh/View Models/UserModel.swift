@@ -57,6 +57,7 @@ extension FirebaseModel {
         }
         
     }
+    
     func loadConservativeUser(uid: String, completion:@escaping (User?) -> Void) {
         
         //Check if can load from Core Data

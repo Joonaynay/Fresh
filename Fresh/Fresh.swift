@@ -16,7 +16,6 @@ struct freshAppApp: App {
     @StateObject var vm = SearchBar()
     @StateObject var searchTest = SearchBar2Test()
     
-    @State private var notEmailVerified: Bool = false
     
     init() {
         FirebaseApp.configure()
@@ -26,17 +25,12 @@ struct freshAppApp: App {
         WindowGroup {
             NavigationView {
                 MainView()
-                    .fullScreenCover(isPresented: $notEmailVerified, content: {
-                        WaitingForEmailVerification(selection: .constant(nil), dissmissView: .constant(nil))
-                    })
                     .navigationBarHidden(true)
                     .onAppear() {
                         if let user = Auth.auth().currentUser {
                             if user.isEmailVerified {
                                 print("Signed In")
                                 fb.signedIn = true
-                            } else {
-                                notEmailVerified = true
                             }
                         }
                         
@@ -46,7 +40,7 @@ struct freshAppApp: App {
                         tab.backgroundImage = UIImage()
                         tab.backgroundColor = UIColor(Color.theme.tabBarColor)
                         tab.shadowImage = UIImage()
-                                                    
+                        
                     }
             }
             .navigationViewStyle(StackNavigationViewStyle())
