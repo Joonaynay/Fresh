@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct FileManagerModel{
+struct FileManagerModel {
     
     func saveImage(image: UIImage, name: String) {
         
